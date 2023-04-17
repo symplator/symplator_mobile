@@ -1,9 +1,17 @@
 /**
  * @format
  */
-
+import React from 'react';
 import {AppRegistry} from 'react-native';
-import App from './App';
+import {AppProvider} from '@realm/react';
+import {App} from './App';
 import {name as appName} from './app.json';
+import {REALM_CONFIG} from './app/configs/realm.config';
 
-AppRegistry.registerComponent(appName, () => App);
+const AppWrapper = () => (
+  <AppProvider id={REALM_CONFIG.appId}>
+    <App />
+  </AppProvider>
+);
+
+AppRegistry.registerComponent(appName, () => AppWrapper);
