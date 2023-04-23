@@ -4,6 +4,7 @@ import {useApp} from '@realm/react';
 import {AppSync} from './app/AppSync';
 import {SymplatorRealmContext} from './app/models';
 import {DefaultFunctionsFactory, DefaultUserProfileData, User} from 'realm';
+import {REALM_PASS} from '@env';
 
 export const App: React.FC = () => {
   const app = useApp();
@@ -15,7 +16,8 @@ export const App: React.FC = () => {
 
   useEffect(() => {
     async function loginAnonymously() {
-      const currentUser = await app.logIn(Realm.Credentials.anonymous());
+      const credentials = Realm.Credentials.apiKey(REALM_PASS);
+      const currentUser = await app.logIn(credentials);
       setUser(currentUser);
     }
     loginAnonymously();
@@ -28,9 +30,9 @@ export const App: React.FC = () => {
       {user && (
         <RealmProvider
           sync={{
-            user: user || undefined,
-            partitionValue: 'PUBLIC',
-            onError: error => console.error(error),
+            flexible: true,
+            onError: console.error,
+            user: user
           }}>
           <AppSync />
         </RealmProvider>

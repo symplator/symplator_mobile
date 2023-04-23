@@ -1,3 +1,5 @@
+import {APP_ID} from '@env';
+
 export const REALM_CONFIG = {
-  appId: 'symptra-qqfjo',
+  appId: APP_ID,
 };
