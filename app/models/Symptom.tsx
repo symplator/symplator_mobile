@@ -21,7 +21,6 @@ export class Symptom extends Realm.Object<Symptom> {
       _id: 'string',
       body_parts: 'int[]',
       translations: 'SymptomTranslation[]',
-      partitionKey: 'string?',
     },
   };
 }

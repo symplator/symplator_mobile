@@ -6,10 +6,10 @@ import {AppRegistry} from 'react-native';
 import {AppProvider} from '@realm/react';
 import {App} from './App';
 import {name as appName} from './app.json';
-import {REALM_CONFIG} from './app/configs/realm.config';
+import {APP_ID} from '@env';
 
 const AppWrapper = () => (
-  <AppProvider id={REALM_CONFIG.appId}>
+  <AppProvider id={APP_ID}>
     <App />
   </AppProvider>
 );
