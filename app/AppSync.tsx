@@ -30,18 +30,3 @@ export const AppSync: React.FC = () => {
     </>
   );
 };
-
-// const styles = StyleSheet.create({
-//   idText: {
-//     color: '#999',
-//     paddingHorizontal: 20,
-//   },
-//   authButton: {
-//     ...buttonStyles.button,
-//     ...shadows,
-//     backgroundColor: colors.purpleDark,
-//   },
-//   authButtonText: {
-//     ...buttonStyles.text,
-//   },
-// });

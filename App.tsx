@@ -15,12 +15,12 @@ export const App: React.FC = () => {
   > | null>(null);
 
   useEffect(() => {
-    async function loginAnonymously() {
+    async function loginWithApiKey() {
       const credentials = Realm.Credentials.apiKey(API_KEY);
       const currentUser = await app.logIn(credentials);
       setUser(currentUser);
     }
-    loginAnonymously();
+    loginWithApiKey();
   }, [app]);
 
   const {RealmProvider} = SymplatorRealmContext;
