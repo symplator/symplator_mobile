@@ -1,42 +1,32 @@
-import React, {useMemo} from 'react';
-import {useApp} from '@realm/react';
-import {Button, Text} from 'react-native';
+import React, {useEffect, useMemo, useState} from 'react';
+import {Button, FlatList, Text} from 'react-native';
 import {Symptom} from './models/Symptom';
 import {SymplatorRealmContext} from './models';
 
-const {useQuery, useRealm} = SymplatorRealmContext;
+const {useQuery} = SymplatorRealmContext;
 
 export const AppSync: React.FC = () => {
-  const realm = useRealm();
-  const app = useApp();
   const result = useQuery(Symptom);
+  const [filteredSymptom, setFilteredSymptom] = useState('');
 
   const symptoms = useMemo(() => result.sorted('_id'), [result]);
 
-  // todo remove - adds to local realm
-  const addSymptom = () => {
-    // const translation = new SymptomTranslation(
-    //   realm,
-    //   'tr',
-    //   'Ince hastalik',
-    //   '',
-    //   '',
-    // );
-    // console.log('** ', translation);
-
-    const res = realm.write(() => {
-      console.log('heree');
-      return new Symptom(realm, 'test2', [3], []);
-    });
-
-    console.log(res);
+  //todo turn into searchbox
+  const filterSymptom = () => {
+    const res = symptoms.filtered('translations.name == "Bas agrisi"');
+    setFilteredSymptom(res?.[0]._id as string);
   };
 
   return (
     <>
-      <Text>Syncing with app id: {app.id}</Text>
-      <Text>Symptoms: {JSON.stringify(symptoms)}</Text>
-      <Button onPress={() => addSymptom()} title="Add Symptom" />
+      <Text>Symptom Ids:</Text>
+      <FlatList
+        data={symptoms}
+        keyExtractor={symptom => symptom._id.toString()}
+        renderItem={({item}) => <Text>{item._id}</Text>}
+      />
+      <Button onPress={() => filterSymptom()} title="Filter" />
+      <Text>{filteredSymptom}</Text>
     </>
   );
 };
