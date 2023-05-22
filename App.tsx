@@ -15,11 +15,15 @@ export const App: React.FC = () => {
   > | null>(null);
 
   useEffect(() => {
-    async function loginWithApiKey() {
-      const credentials = Realm.Credentials.apiKey(API_KEY);
-      const currentUser = await app.logIn(credentials);
-      setUser(currentUser);
-    }
+    const loginWithApiKey = async () => {
+      try {
+        const credentials = Realm.Credentials.apiKey(API_KEY);
+        const currentUser = await app.logIn(credentials);
+        setUser(currentUser);
+      } catch (error) {
+        console.error('Error logging into Realm: ', error);
+      }
+    };
     loginWithApiKey();
   }, [app]);
 
