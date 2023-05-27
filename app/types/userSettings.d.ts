@@ -1,4 +1,5 @@
 interface UserSettings {
+  userId?: string;
   currentLanguage: string;
   targetLanguage: string;
   birthYear: number;
@@ -11,6 +12,7 @@ type Action = {
 };
 
 interface UserSettingsContext {
-  data: UserSettings | null;
+  data: UserSettings;
   updateData: (newData: UserSettings) => void;
+  saveData: (newData: UserSettings) => void;
 }

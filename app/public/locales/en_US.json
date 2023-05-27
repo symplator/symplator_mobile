@@ -5,7 +5,8 @@
       "welcome1": "Breaking Language Barriers in Healthcare",
       "welcome2": "Welcome to our Medical Translation App!",
       "copyright": "© 2023 Team Symp-lator. All rights reserved.",
-      "next": "Next"
+      "next": "Next",
+      "back": "Back"
     },
     "languages": {
       "tr": "Turkish",
