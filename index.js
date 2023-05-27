@@ -7,6 +7,7 @@ import {AppProvider} from '@realm/react';
 import {App} from './App';
 import {name as appName} from './app.json';
 import {APP_ID} from '@env';
+import './i18n';
 
 const AppWrapper = () => (
   <AppProvider id={APP_ID}>

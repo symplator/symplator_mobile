@@ -1,0 +1,16 @@
+{
+  "translation": {
+    "initialSettings": {
+      "appName": "Symp-lator",
+      "welcome1": "Sprachbarrieren im Gesundheitswesen überwinden",
+      "welcome2": "Willkommen in unserer medizinischen Übersetzungs-App!",
+      "copyright": "© 2023 Team Symp-lator. Alle Rechte vorbehalten.",
+      "next": "Next"
+    },
+    "languages": {
+      "tr": "Türkisch",
+      "en_US": "Englisch",
+      "de": "Deutsch"
+    }
+  }
+}
