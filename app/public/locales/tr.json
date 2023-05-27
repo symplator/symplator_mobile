@@ -1,0 +1,17 @@
+{
+  "translation": {
+    "initialSettings": {
+      "appName": "Symp-lator",
+      "welcome1": "Sağlık Çeviri Asistanınız: Daha İyi İletişim, Daha İyi Sağlık",
+      "welcome2": "Tıbbi Çeviri Uygulamamıza Hoş Geldiniz!",
+      "copyright": "© 2023 Team Symp-lator. Tüm hakları saklıdır.",
+      "next": "İleri",
+      "back": "Geri"
+    },
+    "languages": {
+      "tr": "Türkçe",
+      "en_US": "İngilizce",
+      "de": "Almanca"
+    }
+  }
+}
