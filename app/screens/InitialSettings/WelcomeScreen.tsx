@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {Button} from 'react-native-paper';
+import {IconButton} from 'react-native-paper';
 import {UserSettingsContext} from '../../context/UserSettings/UserSettingsContext';
 import {useTranslation} from 'react-i18next';
 import {StackNavigationProp} from '@react-navigation/stack';
@@ -39,7 +39,7 @@ export const WelcomeScreen: React.FC<Props> = ({navigation}) => {
     };
   }, [i18n]);
 
-  const GoNextPage = () => {
+  const redirect = () => {
     updateData({
       ...data,
       currentLanguage,
@@ -52,16 +52,17 @@ export const WelcomeScreen: React.FC<Props> = ({navigation}) => {
       <View>
         <Text style={styles.appName}>{t('initialSettings.appName')}</Text>
         <Text style={styles.welcomeText}>{t('initialSettings.welcome1')}</Text>
-        {/* <Text style={styles.welcomeText}>{t('initialSettings.welcome2')}</Text> */}
         <LanguageSelectButtons
           languages={LANGUAGES}
           handleClick={setUserLanguage}
         />
       </View>
       <View>
-        <Button style={styles.forwardBtn} onPress={() => GoNextPage()}>
-          {t('initialSettings.next')}
-        </Button>
+        <IconButton
+          icon="arrow-right"
+          style={styles.forwardBtn}
+          onPress={() => redirect()}
+        />
         <Text style={styles.copyright}>{t('initialSettings.copyright')}</Text>
       </View>
     </View>
@@ -97,11 +98,7 @@ const styles = StyleSheet.create({
     color: '#666666',
   },
   forwardBtn: {
-    // width: 20,s
-    // backgroundColor: '#eef4d4',
-    // textAlign: 'center',
-    // marginTop: '75%',
-    marginLeft: '80%',
+    marginLeft: '85%',
     marginBottom: '5%',
   },
   copyright: {
