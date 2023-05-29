@@ -17,4 +17,7 @@ module.exports = {
       tsconfig: 'tsconfig.json',
     },
   },
+  transformIgnorePatterns: [
+    '/node_modules/(?!(@react-native|@realm/react|react-native)/)',
+  ],
 };

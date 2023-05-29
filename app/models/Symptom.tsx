@@ -1,4 +1,5 @@
 import {SymptomTranslation} from './SymptomTranslation';
+import Realm from 'realm';
 
 export class Symptom extends Realm.Object<Symptom> {
   _id!: string;
