@@ -1,5 +1,5 @@
-import React, {useContext, useMemo, useState} from 'react';
-import {Button, FlatList, Text} from 'react-native';
+import React, {useContext, useEffect, useMemo, useState} from 'react';
+import {Button, FlatList, StyleSheet, Text, View} from 'react-native';
 import {Symptom} from './models/Symptom';
 import {SymplatorRealmContext} from './models';
 import {UserSettingsContext} from './context/UserSettings/UserSettingsContext';
@@ -7,6 +7,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {InitialSettingsStack} from './navigation/InitialSettingsStack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {STORAGE_KEY} from './constants/general';
+import {ActivityIndicator} from 'react-native-paper';
 
 const {useQuery} = SymplatorRealmContext;
 
@@ -15,21 +16,27 @@ export const AppSync: React.FC = () => {
   const [filteredSymptom, setFilteredSymptom] = useState('');
 
   const userSettingsContext = useContext(UserSettingsContext);
-  const {data} = userSettingsContext as UserSettingsContext;
+  const {data, isLoading} = userSettingsContext as UserSettingsContext;
+  const [userId, setUserId] = useState<string | undefined>();
 
-  const userId = data.userId;
+  useEffect(() => {
+    if (data.userId) {
+      setUserId(data.userId);
+    }
+  }, [userId, data]);
 
   // TODO remove user from async for testing
   async function removeItemFromAsyncStorage(key: string) {
     try {
+      console.log('removed async storage ', key);
+
       await AsyncStorage.removeItem(key);
     } catch (exception) {
       console.error('error removing from async storage: ', exception);
     }
   }
-  removeItemFromAsyncStorage(STORAGE_KEY);
   // TODO remove user from async for testing
-
+  // removeItemFromAsyncStorage(STORAGE_KEY);
   const symptoms = useMemo(() => result.sorted('_id'), [result]);
 
   //todo turn into searchbox
@@ -40,7 +47,11 @@ export const AppSync: React.FC = () => {
 
   return (
     <NavigationContainer>
-      {!userId ? (
+      {isLoading ? (
+        <View style={styles.loader}>
+          <ActivityIndicator />
+        </View>
+      ) : !userId ? (
         <InitialSettingsStack />
       ) : (
         <>
@@ -57,3 +68,12 @@ export const AppSync: React.FC = () => {
     </NavigationContainer>
   );
 };
+
+const styles = StyleSheet.create({
+  loader: {
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
