@@ -1,8 +1,10 @@
-import React, {useEffect, useReducer} from 'react';
+import React, {useEffect, useReducer, useState} from 'react';
+import UUIDGenerator from 'react-native-uuid';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {UserSettingsContext} from './UserSettingsContext';
 import {reducer} from './UserSettingsReducer';
-const STORAGE_KEY: string = '@userId';
+import {isSetupComplete} from '../../utils/isSetupComplete';
+import {STORAGE_KEY} from '../../constants/general';
 
 interface UserSettingsProviderProps {
   children: React.ReactNode;
@@ -10,41 +12,48 @@ interface UserSettingsProviderProps {
 
 const initialState: UserSettings = {
   currentLanguage: 'en-US',
-  targetLanguage: '',
-  birthYear: 1996,
-  gender: 'female',
+  targetLanguage: undefined,
+  birthYear: undefined,
+  gender: undefined,
 };
 
 export const UserSettingsProvider: React.FC<UserSettingsProviderProps> = ({
   children,
 }) => {
   const [data, dispatch] = useReducer(reducer, initialState);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    const loadData = async () => {
+      try {
+        const storedData = await AsyncStorage.getItem(STORAGE_KEY);
+
+        if (storedData !== null) {
+          dispatch({
+            type: 'UPDATE_DATA',
+            payload: JSON.parse(storedData),
+          });
+        }
+      } catch (error) {
+        console.error('Error loading data from AsyncStorage:', error);
+      }
+      setIsLoading(false);
+    };
     loadData();
   }, []);
 
-  const loadData = async () => {
-    try {
-      const storedData = await AsyncStorage.getItem(STORAGE_KEY);
-      if (storedData !== null) {
-        dispatch({
-          type: 'UPDATE_DATA',
-          payload: JSON.parse(storedData),
-        });
-      }
-    } catch (error) {
-      console.error('Error loading data from AsyncStorage:', error);
-    }
-  };
-
   const updateData = async (newData: UserSettings) => {
     try {
-      const payload = {
+      let payload: UserSettings = {
         ...data,
         ...newData,
       };
-      await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(newData));
+
+      if (isSetupComplete(payload)) {
+        const userId = UUIDGenerator.v4() as string;
+        payload = {...payload, userId};
+        await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+      }
       dispatch({
         type: 'UPDATE_DATA',
         payload,
@@ -56,6 +65,7 @@ export const UserSettingsProvider: React.FC<UserSettingsProviderProps> = ({
 
   const contextValue: UserSettingsContext = {
     data,
+    isLoading,
     updateData,
   };
 

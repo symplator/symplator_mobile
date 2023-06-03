@@ -1,10 +1,12 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {IconButton} from 'react-native-paper';
-import {UserSettingsContext} from '../../context/UserSettings/UserSettingsContext';
 import {useTranslation} from 'react-i18next';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RouteProp} from '@react-navigation/native';
+import {InitialSettingsNavigation} from '../../components/InitialSettingsNavigation';
+import {Gender} from '../../constants/general';
+import {UserSettingsContext} from '../../context/UserSettings/UserSettingsContext';
 
 type Props = {
   navigation: StackNavigationProp<
@@ -17,48 +19,46 @@ type Props = {
 export const GenderScreen: React.FC<Props> = ({navigation}) => {
   const {t} = useTranslation();
   const userSettingsContext = useContext(UserSettingsContext);
-  const {data, updateData} = userSettingsContext as UserSettingsContext;
+  const {data} = userSettingsContext as UserSettingsContext;
+  const [gender, setGender] = useState<Gender | undefined>(
+    data.gender as Gender,
+  );
 
-  const redirect = (
-    screen: keyof InitialSettingsStackParamList,
-    gender: 'female' | 'male' | undefined = undefined,
-  ) => {
-    if (gender) {
-      updateData({
-        ...data,
-        gender,
-      });
-    }
+  const redirect = (screen: keyof InitialSettingsStackParamList) => {
     navigation.navigate(screen);
   };
 
   return (
     <View style={styles.main}>
       <View>
-        <Text style={styles.headerTxt}>
-          {t('initialSettings.selectGender')}
-        </Text>
+        <Text style={styles.header}>{t('initialSettings.selectGender')}</Text>
         <View style={styles.genderBtnView}>
           <IconButton
-            style={[styles.genderBtn]}
+            style={[
+              styles.genderBtn,
+              gender === Gender.Female && styles.selectedGenderBtn,
+            ]}
             icon="human-female"
             size={100}
-            onPress={() => redirect('AgeScreen', 'female')}
+            onPress={() => setGender(Gender.Female)}
           />
           <IconButton
-            style={[styles.genderBtn]}
+            style={[
+              styles.genderBtn,
+              gender === Gender.Male && styles.selectedGenderBtn,
+            ]}
             icon="human-male"
             size={100}
-            onPress={() => redirect('AgeScreen', 'male')}
+            onPress={() => setGender(Gender.Male)}
           />
         </View>
       </View>
-      <View style={styles.navButtonsView}>
-        <IconButton
-          icon="arrow-left"
-          onPress={() => redirect('WelcomeScreen')}
-        />
-      </View>
+      <InitialSettingsNavigation
+        previousScreen="WelcomeScreen"
+        nextScreen="AgeScreen"
+        setting={{gender}}
+        redirect={redirect}
+      />
     </View>
   );
 };
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     width: '100%',
     fontFamily: 'Roboto, Open Sans',
   },
-  headerTxt: {
+  header: {
     textAlign: 'center',
     fontSize: 20,
     marginTop: 90,
@@ -91,14 +91,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   selectedGenderBtn: {
-    borderWidth: 2,
-  },
-  navButtonsView: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingLeft: 20,
-    paddingRight: 20,
-    marginBottom: '10%',
+    backgroundColor: '#E0E0E0',
   },
 });

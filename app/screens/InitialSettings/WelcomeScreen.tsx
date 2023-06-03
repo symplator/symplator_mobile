@@ -1,12 +1,11 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {IconButton} from 'react-native-paper';
-import {UserSettingsContext} from '../../context/UserSettings/UserSettingsContext';
 import {useTranslation} from 'react-i18next';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RouteProp} from '@react-navigation/native';
 import {DEFAULT_LANGUAGE, LANGUAGES} from '../../constants/general';
-import {LanguageSelectButtons} from '../../components/LanguageSelectButtons';
+import {LanguageButtons} from '../../components/LanguageButtons';
+import {InitialSettingsNavigation} from '../../components/InitialSettingsNavigation';
 
 type Props = {
   navigation: StackNavigationProp<
@@ -18,8 +17,6 @@ type Props = {
 
 export const WelcomeScreen: React.FC<Props> = ({navigation}) => {
   const {t, i18n} = useTranslation();
-  const userSettingsContext = useContext(UserSettingsContext);
-  const {data, updateData} = userSettingsContext as UserSettingsContext;
 
   const [currentLanguage, setCurrentLanguage] = useState(DEFAULT_LANGUAGE);
 
@@ -40,10 +37,6 @@ export const WelcomeScreen: React.FC<Props> = ({navigation}) => {
   }, [i18n]);
 
   const redirect = () => {
-    updateData({
-      ...data,
-      currentLanguage,
-    });
     navigation.navigate('GenderScreen');
   };
 
@@ -52,19 +45,14 @@ export const WelcomeScreen: React.FC<Props> = ({navigation}) => {
       <View>
         <Text style={styles.appName}>{t('initialSettings.appName')}</Text>
         <Text style={styles.welcomeText}>{t('initialSettings.welcome1')}</Text>
-        <LanguageSelectButtons
-          languages={LANGUAGES}
-          handleClick={setUserLanguage}
-        />
+        <LanguageButtons languages={LANGUAGES} handleClick={setUserLanguage} />
       </View>
-      <View>
-        <IconButton
-          icon="arrow-right"
-          style={styles.forwardBtn}
-          onPress={() => redirect()}
-        />
-        <Text style={styles.copyright}>{t('initialSettings.copyright')}</Text>
-      </View>
+      <InitialSettingsNavigation
+        nextScreen="GenderScreen"
+        setting={{currentLanguage}}
+        redirect={redirect}
+      />
+      <Text style={styles.copyright}>{t('initialSettings.copyright')}</Text>
     </View>
   );
 };
@@ -78,9 +66,9 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    flex: 1,
     width: '100%',
     fontFamily: 'Roboto, Open Sans',
+    position: 'relative',
   },
   appName: {
     fontSize: 40,
@@ -96,10 +84,6 @@ const styles = StyleSheet.create({
     width: '100%',
     marginBottom: '3%',
     color: '#666666',
-  },
-  forwardBtn: {
-    marginLeft: '85%',
-    marginBottom: '5%',
   },
   copyright: {
     textAlign: 'center',

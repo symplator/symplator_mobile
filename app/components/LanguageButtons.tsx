@@ -3,7 +3,7 @@ import {useTranslation} from 'react-i18next';
 import {Button} from 'react-native-paper';
 import {StyleSheet, View} from 'react-native';
 
-export const LanguageSelectButtons: React.FC<LanguageSelectButtonsProps> = ({
+export const LanguageButtons: React.FC<LanguageButtonsProps> = ({
   languages,
   handleClick,
 }) => {
