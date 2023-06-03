@@ -1,9 +1,11 @@
+type Gender = 'female' | 'male';
+
 interface UserSettings {
   userId?: string;
-  currentLanguage: string;
-  targetLanguage: string;
-  birthYear: number;
-  gender: 'male' | 'female';
+  currentLanguage?: string;
+  targetLanguage?: string;
+  birthYear?: number;
+  gender?: Gender;
 }
 
 type Action = {
@@ -13,6 +15,6 @@ type Action = {
 
 interface UserSettingsContext {
   data: UserSettings;
+  isLoading?: boolean;
   updateData: (newData: UserSettings) => void;
-  saveData: (newData: UserSettings) => void;
 }
