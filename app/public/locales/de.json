@@ -5,12 +5,17 @@
       "welcome1": "Sprachbarrieren im Gesundheitswesen überwinden",
       "welcome2": "Willkommen in unserer medizinischen Übersetzungs-App!",
       "copyright": "© 2023 Team Symp-lator. Alle Rechte vorbehalten.",
-      "selectGender": "Wählen Sie Ihr Geschlecht"
+      "selectGender": "Wählen Sie Ihr Geschlecht",
+      "selectBirthYear": "Wähle dein Geburtsjahr",
+      "setupLanguages": "Sprachen einrichten",
+      "currentLanguage": "Aktuelle Sprache",
+      "targetLanguage": "Übersetzungssprache"
     },
     "languages": {
       "tr": "Türkisch",
       "en_US": "Englisch",
       "de": "Deutsch"
-    }
+    },
+    "select": "Auswählen"
   }
 }

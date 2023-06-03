@@ -5,12 +5,17 @@
       "welcome1": "Sağlık Çeviri Asistanınız: Daha İyi İletişim, Daha İyi Sağlık",
       "welcome2": "Tıbbi Çeviri Uygulamamıza Hoş Geldiniz!",
       "copyright": "© 2023 Team Symp-lator. Tüm hakları saklıdır.",
-      "selectGender": "Cinsiyetinizi seçin"
+      "selectGender": "Cinsiyetinizi seçin",
+      "selectBirthYear": "Doğum yılınızı seçin",
+      "setupLanguages": "Dil tercihlerini ayarlayın",
+      "currentLanguage": "Kullanıcı Dili",
+      "targetLanguage": "Çeviri Dili"
     },
     "languages": {
       "tr": "Türkçe",
       "en_US": "İngilizce",
       "de": "Almanca"
-    }
+    },
+    "select": "Seçiniz"
   }
 }
