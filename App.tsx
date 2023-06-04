@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {SafeAreaView} from 'react-native';
 import {useApp} from '@realm/react';
 import {AppSync} from './app/AppSync';
 import {SymplatorRealmContext} from './app/models';
 import {DefaultFunctionsFactory, DefaultUserProfileData, User} from 'realm';
 import {API_KEY} from '@env';
+import {UserSettingsProvider} from './app/context/UserSettings/UserSettingsProvider';
 
 export const App: React.FC = () => {
   const app = useApp();
@@ -15,18 +15,22 @@ export const App: React.FC = () => {
   > | null>(null);
 
   useEffect(() => {
-    async function loginWithApiKey() {
-      const credentials = Realm.Credentials.apiKey(API_KEY);
-      const currentUser = await app.logIn(credentials);
-      setUser(currentUser);
-    }
+    const loginWithApiKey = async () => {
+      try {
+        const credentials = Realm.Credentials.apiKey(API_KEY);
+        const currentUser = await app.logIn(credentials);
+        setUser(currentUser);
+      } catch (error) {
+        console.error('Error logging into Realm: ', error);
+      }
+    };
     loginWithApiKey();
   }, [app]);
 
   const {RealmProvider} = SymplatorRealmContext;
 
   return (
-    <SafeAreaView>
+    <>
       {user && (
         <RealmProvider
           sync={{
@@ -39,10 +43,12 @@ export const App: React.FC = () => {
               },
             },
           }}>
-          <AppSync />
+          <UserSettingsProvider>
+            <AppSync />
+          </UserSettingsProvider>
         </RealmProvider>
       )}
-    </SafeAreaView>
+    </>
   );
 };
 
