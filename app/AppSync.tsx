@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import {Button, FlatList, Text} from 'react-native';
 import {Symptom} from './models/Symptom';
 import {SymplatorRealmContext} from './models';
