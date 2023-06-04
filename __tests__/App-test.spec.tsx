@@ -5,6 +5,6 @@ import {render} from '@testing-library/react-native';
 
 describe('App', () => {
   it('renders correctly', (): void => {
-    render(<App />);
+    render(<App/>);
   });
 });
