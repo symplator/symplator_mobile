@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {useApp} from '@realm/react';
 import {AppSync} from './app/AppSync';
-import {SymplatorRealmContext} from './app/models';
+import {SymplatorRealmContext} from './app/context/SymplatorRealm/SymplatorRealmContext';
 import {DefaultFunctionsFactory, DefaultUserProfileData, User} from 'realm';
 import {API_KEY} from '@env';
-import {UserSettingsProvider} from './app/context/UserSettings/UserSettingsProvider';
+import {UserSettingsProvider} from './app/components/UserSettingsProvider';
 
 export const App: React.FC = () => {
   const app = useApp();

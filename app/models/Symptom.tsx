@@ -20,7 +20,7 @@ export class Symptom extends Realm.Object<Symptom> {
     primaryKey: '_id',
     properties: {
       _id: 'string',
-      body_parts: 'int[]',
+      body_parts: 'int[]', // todo clarify
       translations: 'SymptomTranslation[]',
     },
   };

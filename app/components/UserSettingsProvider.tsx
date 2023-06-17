@@ -1,10 +1,10 @@
 import React, {useEffect, useReducer, useState} from 'react';
 import UUIDGenerator from 'react-native-uuid';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {UserSettingsContext} from './UserSettingsContext';
-import {reducer} from './UserSettingsReducer';
-import {isSetupComplete} from '../../utils/isSetupComplete';
-import {STORAGE_KEY} from '../../constants/general';
+import {UserSettingsContext} from '../context/UserSettings/UserSettingsContext';
+import {reducer} from '../context/UserSettings/UserSettingsReducer';
+import {isSetupComplete} from '../utils/isSetupComplete';
+import {STORAGE_KEY} from '../constants/general';
 
 interface UserSettingsProviderProps {
   children: React.ReactNode;

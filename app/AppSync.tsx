@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useMemo, useState} from 'react';
 import {Button, FlatList, StyleSheet, Text, View} from 'react-native';
 import {Symptom} from './models/Symptom';
-import {SymplatorRealmContext} from './models';
+import {SymplatorRealmContext} from './context/SymplatorRealm/SymplatorRealmContext';
 import {UserSettingsContext} from './context/UserSettings/UserSettingsContext';
 import {NavigationContainer} from '@react-navigation/native';
 import {InitialSettingsStack} from './navigation/InitialSettingsStack';
