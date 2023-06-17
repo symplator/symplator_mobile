@@ -9,11 +9,14 @@ import {InitialSettingsNavigation} from '../../components/InitialSettingsNavigat
 import {UserSettingsContext} from '../../context/UserSettings/UserSettingsContext';
 
 type Props = {
-  navigation: StackNavigationProp<InitialSettingsStackParamList, 'AgeScreen'>;
-  route: RouteProp<InitialSettingsStackParamList, 'AgeScreen'>;
+  navigation: StackNavigationProp<
+    InitialSettingsStackParamList,
+    'BirthYearScreen'
+  >;
+  route: RouteProp<InitialSettingsStackParamList, 'BirthYearScreen'>;
 };
 
-export const AgeScreen: React.FC<Props> = ({navigation}) => {
+export const BirthYearScreen: React.FC<Props> = ({navigation}) => {
   const {t} = useTranslation();
   const userSettingsContext = useContext(UserSettingsContext);
   const {data} = userSettingsContext as UserSettingsContext;

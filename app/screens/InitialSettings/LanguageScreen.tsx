@@ -59,8 +59,8 @@ export const LanguageScreen: React.FC<Props> = ({navigation}) => {
         />
       </View>
       <InitialSettingsNavigation
-        previousScreen="AgeScreen"
-        nextScreen="WelcomeScreen"
+        previousScreen="BirthYearScreen"
+        nextScreen="HomeScreen"
         setting={{currentLanguage, targetLanguage}}
         redirect={redirect}
       />

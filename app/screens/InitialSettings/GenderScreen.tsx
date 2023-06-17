@@ -55,7 +55,7 @@ export const GenderScreen: React.FC<Props> = ({navigation}) => {
       </View>
       <InitialSettingsNavigation
         previousScreen="WelcomeScreen"
-        nextScreen="AgeScreen"
+        nextScreen="BirthYearScreen"
         setting={{gender}}
         redirect={redirect}
       />
