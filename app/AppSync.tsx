@@ -56,11 +56,11 @@ export const AppSync: React.FC = () => {
       ) : (
         <>
           <Text>Symptom Ids:</Text>
-          <FlatList
+          {/* <FlatList
             data={symptoms}
             keyExtractor={symptom => symptom._id.toString()}
             renderItem={({item}) => <Text>{item._id}</Text>}
-          />
+          /> */}
           {/* <Button onPress={() => filterSymptom()} title="Filter" /> */}
           <Text>{filteredSymptom}</Text>
         </>
