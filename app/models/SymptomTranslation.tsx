@@ -1,6 +1,6 @@
 import {Realm} from '@realm/react';
 
-export class SymptomTranslation extends Realm.Object<SymptomTranslation> {
+export class SymptomTranslationSchema extends Realm.Object<SymptomTranslationSchema> {
   language!: string;
   name!: string;
   detail: string | undefined;
