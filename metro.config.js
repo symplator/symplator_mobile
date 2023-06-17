@@ -14,7 +14,4 @@ module.exports = {
       },
     }),
   },
-  resolver: {
-    sourceExts: ['jsx', 'js', 'ts', 'tsx'], // Add 'ts' and 'tsx' if not present
-  },
 };
