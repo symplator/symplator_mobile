@@ -1,4 +1,7 @@
-export const reducer = (state: UserSettings, action: Action): UserSettings => {
+export const userSettingsReducer = (
+  state: UserSettings,
+  action: UserSettingsAction,
+): UserSettings => {
   switch (action.type) {
     case 'UPDATE_DATA':
       return {
