@@ -56,6 +56,7 @@ export const LanguageScreen: React.FC<Props> = ({navigation}) => {
           languageType="targetLanguage"
           selectedLanguage={targetLanguage}
           setLanguage={setTargetLanguage}
+          excludedLanguage={currentLanguage}
         />
       </View>
       <InitialSettingsNavigation
