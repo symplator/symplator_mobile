@@ -40,10 +40,10 @@ export const AppSync: React.FC = () => {
   const symptoms = useMemo(() => result.sorted('_id'), [result]);
 
   //todo turn into searchbox
-  const filterSymptom = () => {
-    const res = symptoms.filtered('translations.name == "Bas agrisi"');
-    setFilteredSymptom(res?.[0]._id as string);
-  };
+  // const filterSymptom = () => {
+  //   const res = symptoms.filtered('translations.name == "Bas agrisi"');
+  //   setFilteredSymptom(res?.[0]._id as string);
+  // };
 
   return (
     <NavigationContainer>
@@ -61,7 +61,7 @@ export const AppSync: React.FC = () => {
             keyExtractor={symptom => symptom._id.toString()}
             renderItem={({item}) => <Text>{item._id}</Text>}
           />
-          <Button onPress={() => filterSymptom()} title="Filter" />
+          {/* <Button onPress={() => filterSymptom()} title="Filter" /> */}
           <Text>{filteredSymptom}</Text>
         </>
       )}
