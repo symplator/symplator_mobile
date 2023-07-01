@@ -8,6 +8,7 @@ import {InitialSettingsStack} from './navigation/InitialSettingsStack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {STORAGE_KEY} from './constants/general';
 import {ActivityIndicator} from 'react-native-paper';
+import SymptomSearch from './components/SymptomSearch';
 
 const {useQuery} = SymplatorRealmContext;
 
@@ -35,15 +36,6 @@ export const AppSync: React.FC = () => {
       console.error('error removing from async storage: ', exception);
     }
   }
-  // TODO remove user from async for testing
-  // removeItemFromAsyncStorage(STORAGE_KEY);
-  const symptoms = useMemo(() => result.sorted('_id'), [result]);
-
-  //todo turn into searchbox
-  // const filterSymptom = () => {
-  //   const res = symptoms.filtered('translations.name == "Bas agrisi"');
-  //   setFilteredSymptom(res?.[0]._id as string);
-  // };
 
   return (
     <NavigationContainer>
@@ -55,14 +47,14 @@ export const AppSync: React.FC = () => {
         <InitialSettingsStack />
       ) : (
         <>
-          <Text>Symptom Ids:</Text>
+          <SymptomSearch />
+          {/* <Text>Symptom Ids:</Text>
           <FlatList
             data={symptoms}
             keyExtractor={symptom => symptom._id.toString()}
             renderItem={({item}) => <Text>{item._id}</Text>}
-          />
+          /> */}
           {/* <Button onPress={() => filterSymptom()} title="Filter" /> */}
-          <Text>{filteredSymptom}</Text>
         </>
       )}
     </NavigationContainer>
