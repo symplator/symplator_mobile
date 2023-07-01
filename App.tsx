@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {useApp} from '@realm/react';
 import {AppSync} from './app/AppSync';
-import {SymplatorRealmContext} from './app/models';
 import {DefaultFunctionsFactory, DefaultUserProfileData, User} from 'realm';
 import {API_KEY} from '@env';
-import {UserSettingsProvider} from './app/context/UserSettings/UserSettingsProvider';
+import {SyncedRealmContext} from './app/context/SymplatorRealm/SyncedRealmContext';
+import {UserSettingsProvider} from './app/components/Providers/UserSettingsProvider';
 
 export const App: React.FC = () => {
   const app = useApp();
@@ -27,12 +27,12 @@ export const App: React.FC = () => {
     loginWithApiKey();
   }, [app]);
 
-  const {RealmProvider} = SymplatorRealmContext;
+  const {RealmProvider: SyncedRealmProvider} = SyncedRealmContext;
 
   return (
     <>
       {user && (
-        <RealmProvider
+        <SyncedRealmProvider
           sync={{
             flexible: true,
             onError: console.error,
@@ -46,7 +46,7 @@ export const App: React.FC = () => {
           <UserSettingsProvider>
             <AppSync />
           </UserSettingsProvider>
-        </RealmProvider>
+        </SyncedRealmProvider>
       )}
     </>
   );

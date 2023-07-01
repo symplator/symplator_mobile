@@ -7,6 +7,7 @@ import {LANGUAGES} from '../constants/general';
 export const LanguageSelect: React.FC<LanguageSelectProps> = ({
   languageType,
   selectedLanguage,
+  excludedLanguage,
   setLanguage,
 }) => {
   const {t} = useTranslation();
@@ -21,13 +22,15 @@ export const LanguageSelect: React.FC<LanguageSelectProps> = ({
           selectedValue={selectedLanguage}
           onValueChange={value => setLanguage(value)}>
           <Picker.Item label={t('select') as string} />
-          {LANGUAGES.map((lang: string) => (
-            <Picker.Item
-              key={lang}
-              label={t(`languages.${lang}`) as string}
-              value={`${lang}`}
-            />
-          ))}
+          {LANGUAGES.filter(lang => lang !== excludedLanguage).map(
+            (lang: string) => (
+              <Picker.Item
+                key={lang}
+                label={t(`languages.${lang}`) as string}
+                value={`${lang}`}
+              />
+            ),
+          )}
         </Picker>
       </View>
     </View>

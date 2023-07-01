@@ -1,21 +1,17 @@
-import React, {useContext, useEffect, useMemo, useState} from 'react';
-import {Button, FlatList, StyleSheet, Text, View} from 'react-native';
-import {Symptom} from './models/Symptom';
-import {SymplatorRealmContext} from './models';
+import React, {useContext, useEffect, useState} from 'react';
+import {StyleSheet, View} from 'react-native';
+import {LocalRealmContext} from './context/SymplatorRealm/SyncedRealmContext';
 import {UserSettingsContext} from './context/UserSettings/UserSettingsContext';
 import {NavigationContainer} from '@react-navigation/native';
 import {InitialSettingsStack} from './navigation/InitialSettingsStack';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {STORAGE_KEY} from './constants/general';
 import {ActivityIndicator} from 'react-native-paper';
 import SymptomSearch from './components/SymptomSearch';
-
-const {useQuery} = SymplatorRealmContext;
+import {SelectedSymptomListProvider} from './components/Providers/SelectedSymptomListProvider';
+import {HomeScreen} from './screens/HomeScreen';
+// import {removeItemFromAsyncStorage} from './utils/removeItemFromAsyncStorage';
+// import {USER_SETTINGS_KEY} from './constants/general';
 
 export const AppSync: React.FC = () => {
-  const result = useQuery(Symptom);
-  const [filteredSymptom, setFilteredSymptom] = useState('');
-
   const userSettingsContext = useContext(UserSettingsContext);
   const {data, isLoading} = userSettingsContext as UserSettingsContext;
   const [userId, setUserId] = useState<string | undefined>();
@@ -26,16 +22,10 @@ export const AppSync: React.FC = () => {
     }
   }, [userId, data]);
 
-  // TODO remove user from async for testing
-  async function removeItemFromAsyncStorage(key: string) {
-    try {
-      console.log('removed async storage ', key);
+  // todo remove user from async for testing
+  // removeItemFromAsyncStorage(USER_SETTINGS_KEY);
 
-      await AsyncStorage.removeItem(key);
-    } catch (exception) {
-      console.error('error removing from async storage: ', exception);
-    }
-  }
+  const {RealmProvider: LocalRealmProvider} = LocalRealmContext;
 
   return (
     <NavigationContainer>
@@ -46,16 +36,11 @@ export const AppSync: React.FC = () => {
       ) : !userId ? (
         <InitialSettingsStack />
       ) : (
-        <>
-          <SymptomSearch />
-          {/* <Text>Symptom Ids:</Text>
-          <FlatList
-            data={symptoms}
-            keyExtractor={symptom => symptom._id.toString()}
-            renderItem={({item}) => <Text>{item._id}</Text>}
-          /> */}
-          {/* <Button onPress={() => filterSymptom()} title="Filter" /> */}
-        </>
+        <LocalRealmProvider>
+          <SelectedSymptomListProvider>
+            <HomeScreen />
+          </SelectedSymptomListProvider>
+        </LocalRealmProvider>
       )}
     </NavigationContainer>
   );

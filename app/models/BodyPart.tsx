@@ -12,7 +12,7 @@ export class BodyPart extends Realm.Object<BodyPart> {
 
   static schema = {
     name: 'BodyPart',
-    embedded: true,
+    embedded: true, // todo clarify
     properties: {
       _id: 'string',
       translations: 'BodyPartTranslation[]',

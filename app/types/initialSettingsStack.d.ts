@@ -5,6 +5,6 @@ type RootStackParamList = {
 type InitialSettingsStackParamList = {
   WelcomeScreen: undefined;
   GenderScreen: undefined;
-  AgeScreen: undefined;
+  BirthYearScreen: undefined;
   LanguageScreen: undefined;
 };
