@@ -13,7 +13,7 @@ export class BodyPartTranslation extends Realm.Object<BodyPartTranslation> {
     name: 'BodyPartTranslation',
     embedded: true,
     properties: {
-      _id: 'string',
+      _id: 'string', // todo clarify
       language: 'string',
       name: 'string',
     },

@@ -8,7 +8,7 @@ interface UserSettings {
   gender?: Gender;
 }
 
-type Action = {
+type UserSettingsAction = {
   type: 'UPDATE_DATA';
   payload: Partial<UserSettings>;
 };

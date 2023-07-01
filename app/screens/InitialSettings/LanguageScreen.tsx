@@ -56,11 +56,12 @@ export const LanguageScreen: React.FC<Props> = ({navigation}) => {
           languageType="targetLanguage"
           selectedLanguage={targetLanguage}
           setLanguage={setTargetLanguage}
+          excludedLanguage={currentLanguage}
         />
       </View>
       <InitialSettingsNavigation
-        previousScreen="AgeScreen"
-        nextScreen="WelcomeScreen"
+        previousScreen="BirthYearScreen"
+        nextScreen="HomeScreen"
         setting={{currentLanguage, targetLanguage}}
         redirect={redirect}
       />

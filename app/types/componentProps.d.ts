@@ -13,6 +13,7 @@ interface LanguageButtonsProps {
 interface LanguageSelectProps {
   languageType: 'currentLanguage' | 'targetLanguage';
   selectedLanguage?: string;
+  excludedLanguage?: string;
   setLanguage: (language: string) => void;
 }
 

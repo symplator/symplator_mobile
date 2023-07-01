@@ -1,7 +1,7 @@
-export const userSettingsReducer = (
-  state: UserSettings,
-  action: UserSettingsAction,
-): UserSettings => {
+export const selectedSymptomsReducer = (
+  state: SelectedSymptomList | undefined,
+  action: SelectedSymptomListAction,
+): SelectedSymptomList => {
   switch (action.type) {
     case 'UPDATE_DATA':
       return {
