@@ -11,6 +11,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {useTranslation} from 'react-i18next';
 // import {removeItemFromAsyncStorage} from './utils/removeItemFromAsyncStorage';
 // import {USER_SETTINGS_KEY} from './constants/general';
+import SymptomSearch from './components/SymptomSearch';
 
 const Stack = createStackNavigator<RootStackParams>();
 
@@ -55,6 +56,9 @@ export const AppSync: React.FC = () => {
             </Stack.Navigator>
           </SelectedSymptomListProvider>
         </LocalRealmProvider>
+        <>
+          <SymptomSearch />
+        </>
       )}
     </NavigationContainer>
   );
