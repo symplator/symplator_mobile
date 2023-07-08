@@ -7,12 +7,13 @@ import {SelectedSymptomListContext} from '../../context/SelectedSymptomList/Sele
 import {getUserIdFromAsyncStorage} from '../../utils/getUserIdFromAsyncStorage';
 import {removeItemFromAsyncStorage} from '../../utils/removeItemFromAsyncStorage';
 import {BSON} from 'realm';
+import {SymptomSchema} from '../../models/Symptom';
 
 interface SelectedSymptomListProviderProps {
   children: React.ReactNode;
 }
 
-const {useRealm} = LocalRealmContext;
+const {useRealm, useQuery} = LocalRealmContext;
 
 // todo refactor a bit
 
@@ -23,6 +24,7 @@ export const SelectedSymptomListProvider: React.FC<
   const [isLoading, setIsLoading] = useState(true);
 
   const realm = useRealm();
+  const localSymptoms = useQuery(SymptomSchema);
 
   useEffect(() => {
     const loadData = async () => {
@@ -71,26 +73,34 @@ export const SelectedSymptomListProvider: React.FC<
 
   const saveData = async () => {
     try {
-      let selectedSymptomList = await AsyncStorage.getItem(
+      const selectedSymptomListRaw: string = await AsyncStorage.getItem(
         SELECTED_SYMPTOM_LIST_KEY,
       );
 
-      if (selectedSymptomList !== null) {
+      if (selectedSymptomListRaw !== null) {
         const userId = await getUserIdFromAsyncStorage();
-        selectedSymptomList = {
+        let selectedSymptomList: SelectedSymptomList = {
           _id: new BSON.ObjectId(),
           userId,
           title: '',
           createdAt: new Date(),
           updatedAt: new Date(),
-          ...JSON.parse(selectedSymptomList),
+          ...JSON.parse(selectedSymptomListRaw),
         };
 
         realm.write(() => {
+          const primaryKeys = selectedSymptomList?.symptoms?.map(s => s._id);
+          if (primaryKeys) {
+            const symptoms: any = localSymptoms.filter(ls =>
+              primaryKeys.includes(ls._id),
+            );
+            selectedSymptomList = {...selectedSymptomList, symptoms};
+          }
           realm.create('SelectedSymptomList', selectedSymptomList);
         });
 
         await removeItemFromAsyncStorage(SELECTED_SYMPTOM_LIST_KEY);
+        dispatch({type: 'RESET_DATA'});
         realm.close();
       }
     } catch (error) {

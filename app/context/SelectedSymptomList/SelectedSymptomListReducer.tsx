@@ -8,6 +8,8 @@ export const selectedSymptomsReducer = (
         ...state,
         ...action.payload,
       };
+    case 'RESET_DATA':
+      return undefined;
     default:
       return state;
   }
