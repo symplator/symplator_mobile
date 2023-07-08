@@ -1,8 +1,8 @@
-type RootStackParamList = {
-  InitialSettingsScreen: NavigatorScreenParams<MainStackParamList>;
+type RootStackParams = {
+  HomeScreen: undefined;
 };
 
-type InitialSettingsStackParamList = {
+type InitialSettingsStackParams = {
   WelcomeScreen: undefined;
   GenderScreen: undefined;
   BirthYearScreen: undefined;

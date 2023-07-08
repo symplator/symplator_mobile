@@ -10,16 +10,16 @@ import {UserSettingsContext} from '../../context/UserSettings/UserSettingsContex
 
 type Props = {
   navigation: StackNavigationProp<
-    InitialSettingsStackParamList,
+    InitialSettingsStackParams,
     'BirthYearScreen'
   >;
-  route: RouteProp<InitialSettingsStackParamList, 'BirthYearScreen'>;
+  route: RouteProp<InitialSettingsStackParams, 'BirthYearScreen'>;
 };
 
 export const BirthYearScreen: React.FC<Props> = ({navigation}) => {
   const {t} = useTranslation();
   const userSettingsContext = useContext(UserSettingsContext);
-  const {data} = userSettingsContext as UserSettingsContext;
+  const {userSettings: data} = userSettingsContext as UserSettingsContext;
 
   const [birthYear, setBirthYear] = useState(data.birthYear);
   const [years, setYears] = useState<string[]>([]);
@@ -31,7 +31,7 @@ export const BirthYearScreen: React.FC<Props> = ({navigation}) => {
     setDefaultItemIndex(defaultIndex);
   }, []);
 
-  const redirect = (screen: keyof InitialSettingsStackParamList) => {
+  const redirect = (screen: keyof InitialSettingsStackParams) => {
     navigation.navigate(screen);
   };
 

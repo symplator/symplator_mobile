@@ -9,10 +9,10 @@ import {InitialSettingsNavigation} from '../../components/InitialSettingsNavigat
 
 type Props = {
   navigation: StackNavigationProp<
-    InitialSettingsStackParamList,
+    InitialSettingsStackParams,
     'WelcomeScreen'
   >;
-  route: RouteProp<InitialSettingsStackParamList, 'WelcomeScreen'>;
+  route: RouteProp<InitialSettingsStackParams, 'WelcomeScreen'>;
 };
 
 export const WelcomeScreen: React.FC<Props> = ({navigation}) => {
@@ -43,7 +43,7 @@ export const WelcomeScreen: React.FC<Props> = ({navigation}) => {
   return (
     <View style={styles.main}>
       <View>
-        <Text style={styles.appName}>{t('initialSettings.appName')}</Text>
+        <Text style={styles.appName}>{t('appName')}</Text>
         <Text style={styles.welcomeText}>{t('initialSettings.welcome1')}</Text>
         <LanguageButtons languages={LANGUAGES} handleClick={setUserLanguage} />
       </View>

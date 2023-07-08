@@ -5,7 +5,7 @@ import {GenderScreen} from '../screens/InitialSettings/GenderScreen';
 import {BirthYearScreen} from '../screens/InitialSettings/BirthYearScreen';
 import {LanguageScreen} from '../screens/InitialSettings/LanguageScreen';
 
-const Stack = createStackNavigator<InitialSettingsStackParamList>();
+const Stack = createStackNavigator<InitialSettingsStackParams>();
 
 export const InitialSettingsStack: React.FC = () => {
   return (
