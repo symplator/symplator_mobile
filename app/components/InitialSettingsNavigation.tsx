@@ -14,9 +14,13 @@ export const InitialSettingsNavigation: React.FC<
     setDisabled(!Object.values(setting)?.every(s => s));
   }, [setting]);
 
-  const saveAndRedirect = (screen: keyof InitialSettingsStackParamList) => {
+  const saveAndRedirect = (
+    screen: keyof InitialSettingsStackParams | 'HomeScreen',
+  ) => {
     updateData(setting);
-    redirect(screen);
+    if (screen !== 'HomeScreen') {
+      redirect(screen);
+    }
   };
 
   return (
