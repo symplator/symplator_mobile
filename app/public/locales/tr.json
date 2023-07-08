@@ -16,6 +16,8 @@
       "en_US": "İngilizce",
       "de": "Almanca"
     },
-    "select": "Seçiniz"
+    "select": "Seçiniz",
+    "search": "Semptom ara",
+    "save": "Kaydet"
   }
 }

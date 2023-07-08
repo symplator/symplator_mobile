@@ -1,38 +1,63 @@
 import React, {useContext, useMemo} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {Button} from 'react-native-paper';
+import {Button, List, MD3Colors} from 'react-native-paper';
 import {SelectedSymptomListContext} from './../context/SelectedSymptomList/SelectedSymptomListContext';
 import {SyncedRealmContext} from '../context/SymplatorRealm/SyncedRealmContext';
 import {SymptomSchema} from './../models/Symptom';
+import {SelectedSymptomList} from '../components/SelectedSymptomList';
+import {useTranslation} from 'react-i18next';
+import {StackNavigationProp} from '@react-navigation/stack';
 
 const {useQuery} = SyncedRealmContext;
 
+type Props = {
+  navigation: StackNavigationProp<RootStackParams, 'HomeScreen'>;
+};
+
 // todo test component to be adjusted
-export const HomeScreen = () => {
+export const HomeScreen: React.FC<Props> = ({navigation}) => {
+  const {t} = useTranslation();
+
   const selectedSymptomListContext = useContext(SelectedSymptomListContext);
   const {updateData, saveData} =
     selectedSymptomListContext as SelectedSymptomListContext;
   const result = useQuery(SymptomSchema);
   const symptoms = useMemo(() => result.sorted('_id'), [result]);
 
-  const handleSave = async () => {
+  const handleSearch = () => {
     updateData({symptoms});
+  };
+
+  const saveAndRedirect = () => {
     saveData();
+    // navigation.navigate('');
   };
 
   return (
     <View style={styles.main}>
       <View>
-        <Text style={styles.header}>Save Selected Symptoms</Text>
+        <Text style={styles.header}>{t('appName')}</Text>
         <View style={styles.genderBtnView} />
         <Button
+          style={styles.searchBtn}
           dark={true}
           compact={false}
           mode="contained"
-          onPress={() => handleSave()}>
-          Save
+          onPress={handleSearch}>
+          {t('search')}
         </Button>
+        <SelectedSymptomList
+          icon={<List.Icon color={MD3Colors.primary60} icon="plus-circle" />}
+        />
       </View>
+      <Button
+        style={styles.saveBtn}
+        dark={true}
+        compact={false}
+        mode="contained"
+        onPress={saveAndRedirect}>
+        {t('save')}
+      </Button>
     </View>
   );
 };
@@ -43,12 +68,17 @@ const styles = StyleSheet.create({
     display: 'flex',
     backgroundColor: '#F5F5F5',
     color: '#333333',
-    borderColor: 'white',
+    // borderColor: 'white',
     flexDirection: 'column',
     justifyContent: 'space-between',
     flex: 1,
     width: '100%',
     fontFamily: 'Roboto, Open Sans',
+    position: 'relative',
+    padding: 10,
+    // borderWidth: 3,
+    // borderColor: 'red',
+    // borderStyle: 'solid',
   },
   header: {
     textAlign: 'center',
@@ -61,10 +91,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-evenly',
   },
-  genderBtn: {
-    borderRadius: 10,
+  searchBtn: {
+    borderRadius: 4,
   },
-  selectedGenderBtn: {
-    backgroundColor: '#E0E0E0',
+  saveBtn: {
+    borderRadius: 4,
+    position: 'absolute',
+    bottom: 20,
+    left: 10,
+    width: '100%',
   },
 });

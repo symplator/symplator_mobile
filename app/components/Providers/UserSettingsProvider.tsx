@@ -66,7 +66,7 @@ export const UserSettingsProvider: React.FC<UserSettingsProviderProps> = ({
   };
 
   const contextValue: UserSettingsContext = {
-    data,
+    userSettings: data,
     isLoading,
     updateData,
   };

@@ -28,6 +28,6 @@ interface SymptomTranslation {
 }
 
 type SelectedSymptomListAction = {
-  type: 'UPDATE_DATA';
-  payload: Partial<SelectedSymptomList>;
+  type: 'UPDATE_DATA' | 'RESET_DATA';
+  payload?: Partial<SelectedSymptomList>;
 };

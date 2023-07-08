@@ -19,7 +19,12 @@ interface LanguageSelectProps {
 
 interface InitialSettingsNavigationProps {
   setting: UserSettings;
-  previousScreen?: keyof InitialSettingsStackParamList;
-  nextScreen?: keyof InitialSettingsStackParamList | 'HomeScreen';
-  redirect: (screen: keyof InitialSettingsStackParamList) => void;
+  previousScreen?: keyof InitialSettingsStackParams;
+  nextScreen?: keyof InitialSettingsStackParams | 'HomeScreen';
+  redirect: (screen: keyof InitialSettingsStackParams | 'HomeScreen') => void;
+}
+
+interface SelectedSymptomListProps {
+  isTranslated?: boolean;
+  icon?: import('react').ReactNode;
 }

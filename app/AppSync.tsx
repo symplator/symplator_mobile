@@ -7,19 +7,28 @@ import {InitialSettingsStack} from './navigation/InitialSettingsStack';
 import {ActivityIndicator} from 'react-native-paper';
 import {SelectedSymptomListProvider} from './components/Providers/SelectedSymptomListProvider';
 import {HomeScreen} from './screens/HomeScreen';
+import {createStackNavigator} from '@react-navigation/stack';
+import {useTranslation} from 'react-i18next';
 // import {removeItemFromAsyncStorage} from './utils/removeItemFromAsyncStorage';
 // import {USER_SETTINGS_KEY} from './constants/general';
 
+const Stack = createStackNavigator<RootStackParams>();
+
 export const AppSync: React.FC = () => {
+  const {i18n} = useTranslation();
   const userSettingsContext = useContext(UserSettingsContext);
-  const {data, isLoading} = userSettingsContext as UserSettingsContext;
+  const {userSettings, isLoading} = userSettingsContext as UserSettingsContext;
   const [userId, setUserId] = useState<string | undefined>();
 
   useEffect(() => {
-    if (data.userId) {
-      setUserId(data.userId);
+    if (userSettings.userId) {
+      setUserId(userSettings.userId);
     }
-  }, [userId, data]);
+
+    if (userSettings.currentLanguage) {
+      i18n.changeLanguage(userSettings.currentLanguage);
+    }
+  }, [userId, userSettings, i18n]);
 
   // todo remove user from async for testing
   // removeItemFromAsyncStorage(USER_SETTINGS_KEY);
@@ -37,7 +46,13 @@ export const AppSync: React.FC = () => {
       ) : (
         <LocalRealmProvider>
           <SelectedSymptomListProvider>
-            <HomeScreen />
+            <Stack.Navigator>
+              <Stack.Screen
+                name="HomeScreen"
+                component={HomeScreen}
+                options={{headerShown: false}}
+              />
+            </Stack.Navigator>
           </SelectedSymptomListProvider>
         </LocalRealmProvider>
       )}

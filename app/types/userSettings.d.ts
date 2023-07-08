@@ -14,7 +14,7 @@ type UserSettingsAction = {
 };
 
 interface UserSettingsContext {
-  data: UserSettings;
+  userSettings: UserSettings;
   isLoading?: boolean;
   updateData: (newData: UserSettings) => void;
 }

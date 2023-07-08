@@ -3,22 +3,20 @@ import {StyleSheet, Text, View} from 'react-native';
 import {UserSettingsContext} from '../../context/UserSettings/UserSettingsContext';
 import {useTranslation} from 'react-i18next';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {RouteProp} from '@react-navigation/native';
 import {InitialSettingsNavigation} from '../../components/InitialSettingsNavigation';
 import {LanguageSelect} from '../../components/LanguageSelect';
 
 type Props = {
   navigation: StackNavigationProp<
-    InitialSettingsStackParamList,
+    RootStackParams & InitialSettingsStackParams,
     'LanguageScreen'
   >;
-  route: RouteProp<InitialSettingsStackParamList, 'LanguageScreen'>;
 };
 
 export const LanguageScreen: React.FC<Props> = ({navigation}) => {
   const {t, i18n} = useTranslation();
   const userSettingsContext = useContext(UserSettingsContext);
-  const {data} = userSettingsContext as UserSettingsContext;
+  const {userSettings: data} = userSettingsContext as UserSettingsContext;
 
   const [currentLanguage, setCurrentLanguage] = useState(data.currentLanguage);
   const [targetLanguage, setTargetLanguage] = useState(data.targetLanguage);
@@ -39,7 +37,9 @@ export const LanguageScreen: React.FC<Props> = ({navigation}) => {
     };
   }, [i18n]);
 
-  const redirect = (screen: keyof InitialSettingsStackParamList) => {
+  const redirect = (
+    screen: keyof InitialSettingsStackParams | 'HomeScreen',
+  ) => {
     navigation.navigate(screen);
   };
 

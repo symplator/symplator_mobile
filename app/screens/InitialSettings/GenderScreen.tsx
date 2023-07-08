@@ -9,22 +9,19 @@ import {Gender} from '../../constants/general';
 import {UserSettingsContext} from '../../context/UserSettings/UserSettingsContext';
 
 type Props = {
-  navigation: StackNavigationProp<
-    InitialSettingsStackParamList,
-    'GenderScreen'
-  >;
-  route: RouteProp<InitialSettingsStackParamList, 'GenderScreen'>;
+  navigation: StackNavigationProp<InitialSettingsStackParams, 'GenderScreen'>;
+  route: RouteProp<InitialSettingsStackParams, 'GenderScreen'>;
 };
 
 export const GenderScreen: React.FC<Props> = ({navigation}) => {
   const {t} = useTranslation();
   const userSettingsContext = useContext(UserSettingsContext);
-  const {data} = userSettingsContext as UserSettingsContext;
+  const {userSettings: data} = userSettingsContext as UserSettingsContext;
   const [gender, setGender] = useState<Gender | undefined>(
     data.gender as Gender,
   );
 
-  const redirect = (screen: keyof InitialSettingsStackParamList) => {
+  const redirect = (screen: keyof InitialSettingsStackParams) => {
     navigation.navigate(screen);
   };
 
