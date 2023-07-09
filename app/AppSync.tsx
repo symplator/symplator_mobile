@@ -5,15 +5,12 @@ import {UserSettingsContext} from './context/UserSettings/UserSettingsContext';
 import {NavigationContainer} from '@react-navigation/native';
 import {InitialSettingsStack} from './navigation/InitialSettingsStack';
 import {ActivityIndicator} from 'react-native-paper';
-import SymptomSearch from './components/SymptomSearch';
 import {SelectedSymptomListProvider} from './components/Providers/SelectedSymptomListProvider';
 import {HomeScreen} from './screens/HomeScreen';
 import {createStackNavigator} from '@react-navigation/stack';
 import {useTranslation} from 'react-i18next';
 // import {removeItemFromAsyncStorage} from './utils/removeItemFromAsyncStorage';
 // import {USER_SETTINGS_KEY} from './constants/general';
-import SymptomSearch from './components/SymptomSearch';
-
 const Stack = createStackNavigator<RootStackParams>();
 
 export const AppSync: React.FC = () => {
@@ -57,9 +54,6 @@ export const AppSync: React.FC = () => {
             </Stack.Navigator>
           </SelectedSymptomListProvider>
         </LocalRealmProvider>
-        <>
-          <SymptomSearch />
-        </>
       )}
     </NavigationContainer>
   );
