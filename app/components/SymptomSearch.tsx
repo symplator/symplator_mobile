@@ -1,8 +1,8 @@
 import {SyncedRealmContext} from '../context/SymplatorRealm/SyncedRealmContext';
 import {SymptomSchema} from '../models/Symptom';
 import React, {useState} from 'react';
-import {View, FlatList, Text} from 'react-native';
-import {List, TextInput} from 'react-native-paper';
+import {View} from 'react-native';
+import {List, Searchbar} from 'react-native-paper';
 
 const {useQuery} = SyncedRealmContext;
 
@@ -12,11 +12,10 @@ const SymptomSearch = () => {
   const objects = useQuery(SymptomSchema);
 
   const handleSearch = async (searchText: string) => {
-    setSearchQuery(searchText);
 
     try {
       // Split the search query into separate words
-      const searchWords = searchQuery.split(' ');
+      const searchWords = searchText.split(' ');
 
       // Filter the objects based on each word in the search query for each column
       const filteredResults = Array.from(
@@ -50,27 +49,25 @@ const SymptomSearch = () => {
 
   return (
     <View>
-      <TextInput
+      <Searchbar
         placeholder="Search symptom"
         onChangeText={text => {
+          setSearchQuery(text);
           if (text.length >= 3) {
             handleSearch(text);
           }
         }}
+        value={searchQuery}
       />
       <>
         {results?.map(symptom => (
           <List.Item
             key={symptom._id}
             title={symptom?.translations?.find(t => t.language === 'tr')?.name}
+            onPress={() => console.log('symptom added')}
           />
         ))}
       </>
-      <FlatList
-        data={results}
-        keyExtractor={(item, _) => item._id}
-        renderItem={({item}) => <Text>{item.translations[0].name}</Text>}
-      />
     </View>
   );
 };
