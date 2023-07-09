@@ -5,6 +5,7 @@ import {UserSettingsContext} from './context/UserSettings/UserSettingsContext';
 import {NavigationContainer} from '@react-navigation/native';
 import {InitialSettingsStack} from './navigation/InitialSettingsStack';
 import {ActivityIndicator} from 'react-native-paper';
+import SymptomSearch from './components/SymptomSearch';
 import {SelectedSymptomListProvider} from './components/Providers/SelectedSymptomListProvider';
 import {HomeScreen} from './screens/HomeScreen';
 import {createStackNavigator} from '@react-navigation/stack';
