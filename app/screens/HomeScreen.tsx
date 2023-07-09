@@ -38,16 +38,7 @@ export const HomeScreen: React.FC<Props> = ({navigation}) => {
     <View style={styles.main}>
       <View>
         <SymptomSearch/>
-        <Text style={styles.header}>{t('appName')}</Text>
         <View style={styles.genderBtnView} />
-        <Button
-          style={styles.searchBtn}
-          dark={true}
-          compact={false}
-          mode="contained"
-          onPress={handleSearch}>
-          {t('search')}
-        </Button>
         <SelectedSymptomList
           icon={<List.Icon color={MD3Colors.primary60} icon="plus-circle" />}
         />
