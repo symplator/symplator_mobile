@@ -7,6 +7,7 @@ import {SymptomSchema} from './../models/Symptom';
 import {SelectedSymptomList} from '../components/SelectedSymptomList';
 import {useTranslation} from 'react-i18next';
 import {StackNavigationProp} from '@react-navigation/stack';
+import SymptomSearch from '../components/SymptomSearch';
 
 const {useQuery} = SyncedRealmContext;
 
@@ -36,6 +37,7 @@ export const HomeScreen: React.FC<Props> = ({navigation}) => {
   return (
     <View style={styles.main}>
       <View>
+        <SymptomSearch/>
         <Text style={styles.header}>{t('appName')}</Text>
         <View style={styles.genderBtnView} />
         <Button

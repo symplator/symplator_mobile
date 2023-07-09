@@ -1,14 +1,14 @@
 import {SyncedRealmContext} from '../context/SymplatorRealm/SyncedRealmContext';
 import {SymptomSchema} from '../models/Symptom';
-import React, {useState, useMemo, useEffect} from 'react';
+import React, {useState} from 'react';
 import {View, FlatList, Text} from 'react-native';
-import {TextInput} from 'react-native-paper';
+import {List, TextInput} from 'react-native-paper';
 
 const {useQuery} = SyncedRealmContext;
 
 const SymptomSearch = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [results, setResults] = useState([]);
+  const [results, setResults] = useState<Symptom[]>([]);
   const objects = useQuery(SymptomSchema);
 
   const handleSearch = async (searchText: string) => {
@@ -21,19 +21,17 @@ const SymptomSearch = () => {
       // Filter the objects based on each word in the search query for each column
       const filteredResults = Array.from(
         objects
-          // .filtered(
-          //   searchWords
-          //     .map(word => `(translations.name CONTAINS[c] "${word}") `)
-          //     .join(' AND '),
-          // )
-          // .slice(),
           .filtered(
-            'translations.language=$0 and ' +
-              '(translations.name CONTAINS[c] $1 or translations.detail CONTAINS[c] $1 or ' +
-              ' translations.tags CONTAINS[c] $1)',
-            'tr',
-            searchWords[0],
+            searchWords
+              .map(
+                word =>
+                  `translations.language="tr" and
+                  (translations.name CONTAINS[c] "${word}" or translations.detail CONTAINS[c] "${word}" or
+                   translations.tags CONTAINS[c] "${word}")`,
+              )
+              .join(' AND '),
           )
+          .slice(),
       );
 
       setResults(filteredResults);
@@ -60,6 +58,14 @@ const SymptomSearch = () => {
           }
         }}
       />
+      <>
+        {results?.map(symptom => (
+          <List.Item
+            key={symptom._id}
+            title={symptom?.translations?.find(t => t.language === 'tr')?.name}
+          />
+        ))}
+      </>
       <FlatList
         data={results}
         keyExtractor={(item, _) => item._id}
