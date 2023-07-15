@@ -1,6 +1,7 @@
+import {UserSettingsContext} from '../context/UserSettings/UserSettingsContext';
 import {SyncedRealmContext} from '../context/SymplatorRealm/SyncedRealmContext';
 import {SymptomSchema} from '../models/Symptom';
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {View} from 'react-native';
 import {List, Searchbar} from 'react-native-paper';
 
@@ -11,8 +12,10 @@ const SymptomSearch = () => {
   const [results, setResults] = useState<Symptom[]>([]);
   const objects = useQuery(SymptomSchema);
 
-  const handleSearch = async (searchText: string) => {
+  const userSettingsContext = useContext(UserSettingsContext);
+  const {currentLanguage} = userSettingsContext.userSettings;
 
+  const handleSearch = async (searchText: string) => {
     try {
       // Split the search query into separate words
       const searchWords = searchText.split(' ');
@@ -24,7 +27,7 @@ const SymptomSearch = () => {
             searchWords
               .map(
                 word =>
-                  `translations.language="tr" and
+                  `translations.language="${currentLanguage}" and
                   (translations.name CONTAINS[c] "${word}" or translations.detail CONTAINS[c] "${word}" or
                    translations.tags CONTAINS[c] "${word}")`,
               )
@@ -63,7 +66,10 @@ const SymptomSearch = () => {
         {results?.map(symptom => (
           <List.Item
             key={symptom._id}
-            title={symptom?.translations?.find(t => t.language === 'tr')?.name}
+            title={
+              symptom?.translations?.find(t => t.language === currentLanguage)
+                ?.name
+            }
             onPress={() => console.log('symptom added')}
           />
         ))}
