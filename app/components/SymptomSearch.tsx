@@ -60,13 +60,26 @@ export const SymptomSearch = () => {
 
   const addSymptomToSelectedList = (symptom: Symptom): void => {
     const symptoms = data?.symptoms;
-    symptoms.push(symptom);
-    updateData({symptoms: symptoms});
+
+    if (!symptomExists(symptom, symptoms)) {
+      symptoms.push(symptom);
+      updateData({symptoms: symptoms});
+    }
+
     clearSearchResults();
+    clearSearchQuery();
+  };
+
+  const symptomExists = (symptom: Symptom, symptoms: Symptom[]): boolean => {
+    return symptoms.some(element => element._id === symptom._id);
   };
 
   const clearSearchResults = () => {
     setResults([]);
+  };
+
+  const clearSearchQuery = () => {
+    setSearchQuery('');
   };
 
   return (
