@@ -8,10 +8,7 @@ import {LanguageButtons} from '../../components/LanguageButtons';
 import {InitialSettingsNavigation} from '../../components/InitialSettingsNavigation';
 
 type Props = {
-  navigation: StackNavigationProp<
-    InitialSettingsStackParams,
-    'WelcomeScreen'
-  >;
+  navigation: StackNavigationProp<InitialSettingsStackParams, 'WelcomeScreen'>;
   route: RouteProp<InitialSettingsStackParams, 'WelcomeScreen'>;
 };
 

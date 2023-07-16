@@ -1,5 +1,8 @@
 type RootStackParams = {
   HomeScreen: undefined;
+  SettingsScreen: undefined;
+  SymptomListScreen: undefined;
+  SymptomListsScreen: undefined;
 };
 
 type InitialSettingsStackParams = {

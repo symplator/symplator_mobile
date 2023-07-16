@@ -8,6 +8,7 @@ module.exports = {
     '@babel/preset-flow',
   ],
   plugins: [
+    'react-native-reanimated/plugin',
     [
       'module:react-native-dotenv',
       {

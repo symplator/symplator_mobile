@@ -19,8 +19,9 @@ export const HomeScreen: React.FC<Props> = ({navigation}) => {
   const {saveData} = selectedSymptomListContext as SelectedSymptomListContext;
 
   const saveAndRedirect = () => {
-    saveData();
-    // navigation.navigate('');
+    console.log('saveAndRedirect');
+    // saveData();
+    navigation.navigate('SymptomListScreen');
   };
 
   return (
@@ -37,8 +38,9 @@ export const HomeScreen: React.FC<Props> = ({navigation}) => {
         dark={true}
         compact={false}
         mode="contained"
+        disabled={!data?.symptoms?.length}
         onPress={saveAndRedirect}>
-        {t('save')}
+        {t('translate')}
       </Button>
     </View>
   );
