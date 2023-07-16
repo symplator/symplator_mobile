@@ -48,8 +48,8 @@ const SymptomSearch = () => {
   };
 
   const onSymptomClick = (symptom: Symptom): void => {
-    console.log(symptom)
-  }
+    console.log(symptom);
+  };
 
   return (
     <View>
@@ -59,6 +59,8 @@ const SymptomSearch = () => {
           setSearchQuery(text);
           if (text.length >= 3) {
             handleSearch(text);
+          } else {
+            setResults([]);
           }
         }}
         value={searchQuery}
