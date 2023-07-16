@@ -11,7 +11,6 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {useTranslation} from 'react-i18next';
 // import {removeItemFromAsyncStorage} from './utils/removeItemFromAsyncStorage';
 // import {USER_SETTINGS_KEY} from './constants/general';
-
 const Stack = createStackNavigator<RootStackParams>();
 
 export const AppSync: React.FC = () => {
