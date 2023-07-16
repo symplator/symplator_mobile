@@ -1,15 +1,11 @@
-import React, {useContext, useMemo} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import React, {useContext} from 'react';
+import {StyleSheet, View} from 'react-native';
 import {Button, List, MD3Colors} from 'react-native-paper';
 import {SelectedSymptomListContext} from './../context/SelectedSymptomList/SelectedSymptomListContext';
-import {SyncedRealmContext} from '../context/SymplatorRealm/SyncedRealmContext';
-import {SymptomSchema} from './../models/Symptom';
 import {SelectedSymptomList} from '../components/SelectedSymptomList';
 import {useTranslation} from 'react-i18next';
 import {StackNavigationProp} from '@react-navigation/stack';
-import SymptomSearch from '../components/SymptomSearch';
-
-const {useQuery} = SyncedRealmContext;
+import {SymptomSearch} from '../components/SymptomSearch';
 
 type Props = {
   navigation: StackNavigationProp<RootStackParams, 'HomeScreen'>;
@@ -20,21 +16,7 @@ export const HomeScreen: React.FC<Props> = ({navigation}) => {
   const {t} = useTranslation();
 
   const selectedSymptomListContext = useContext(SelectedSymptomListContext);
-  const {data, updateData, saveData} =
-    selectedSymptomListContext as SelectedSymptomListContext;
-  const result = useQuery(SymptomSchema);
-  const symptoms = useMemo(
-    () =>
-      result.filtered(
-        "_id='e010c261-dddd-41a1-a624-225aeac6d501' or _id='df660548-5768-43ee-8256-798710083647'",
-      ),
-    [result],
-  );
-
-  const handleSearch = () => {
-    console.log('handleSearch', symptoms);
-    updateData({symptoms});
-  };
+  const {saveData} = selectedSymptomListContext as SelectedSymptomListContext;
 
   const saveAndRedirect = () => {
     console.log('saveAndRedirect');
@@ -48,7 +30,7 @@ export const HomeScreen: React.FC<Props> = ({navigation}) => {
         <SymptomSearch/>
         <View style={styles.genderBtnView} />
         <SelectedSymptomList
-          icon={<List.Icon color={MD3Colors.primary60} icon="plus-circle" />}
+          icon={<List.Icon color={MD3Colors.primary60} icon="close-circle" />}
         />
       </View>
       <Button

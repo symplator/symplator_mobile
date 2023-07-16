@@ -8,7 +8,7 @@ import {t} from 'i18next';
 import {SelectedSymptomListContext} from '../context/SelectedSymptomList/SelectedSymptomListContext';
 
 const {useQuery} = SyncedRealmContext;
-const SymptomSearch = () => {
+export const SymptomSearch = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [results, setResults] = useState<Symptom[]>([]);
   const objects = useQuery(SymptomSchema);
@@ -17,6 +17,17 @@ const SymptomSearch = () => {
   const {currentLanguage} = userSettingsContext.userSettings;
   const selectedSymptomListContext = useContext(SelectedSymptomListContext);
   const {updateData} = selectedSymptomListContext as SelectedSymptomListContext;
+
+  const {data} = selectedSymptomListContext as SelectedSymptomListContext;
+
+  const onSearchTextChange = (text: string): void => {
+    setSearchQuery(text);
+    if (text.length >= 3) {
+      handleSearch(text);
+    } else {
+      clearSearchResults();
+    }
+  };
 
   const handleSearch = async (searchText: string) => {
     try {
@@ -47,22 +58,35 @@ const SymptomSearch = () => {
     }
   };
 
-  const onSymptomClick = (symptom: Symptom): void => {
-    console.log(symptom);
+  const addSymptomToSelectedList = (symptom: Symptom): void => {
+    const symptoms = data?.symptoms;
+
+    if (!symptomExists(symptom, symptoms)) {
+      symptoms.push(symptom);
+      updateData({symptoms: symptoms});
+    }
+
+    clearSearchResults();
+    clearSearchQuery();
+  };
+
+  const symptomExists = (symptom: Symptom, symptoms: Symptom[]): boolean => {
+    return symptoms.some(element => element._id === symptom._id);
+  };
+
+  const clearSearchResults = () => {
+    setResults([]);
+  };
+
+  const clearSearchQuery = () => {
+    setSearchQuery('');
   };
 
   return (
     <View>
       <Searchbar
         placeholder={t('search')}
-        onChangeText={text => {
-          setSearchQuery(text);
-          if (text.length >= 3) {
-            handleSearch(text);
-          } else {
-            setResults([]);
-          }
-        }}
+        onChangeText={text => onSearchTextChange(text)}
         value={searchQuery}
       />
       <>
@@ -73,12 +97,10 @@ const SymptomSearch = () => {
               symptom?.translations?.find(t => t.language === currentLanguage)
                 ?.name
             }
-            onPress={() => onSymptomClick(symptom)}
+            onPress={() => addSymptomToSelectedList(symptom)}
           />
         ))}
       </>
     </View>
   );
 };
-
-export default SymptomSearch;

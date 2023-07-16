@@ -20,7 +20,7 @@ const {useRealm, useQuery} = LocalRealmContext;
 export const SelectedSymptomListProvider: React.FC<
   SelectedSymptomListProviderProps
 > = ({children}) => {
-  const [data, dispatch] = useReducer(selectedSymptomsReducer, undefined);
+  const [data, dispatch] = useReducer(selectedSymptomsReducer, {symptoms: []});
   const [isLoading, setIsLoading] = useState(true);
 
   const realm = useRealm();

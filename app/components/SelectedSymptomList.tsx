@@ -12,10 +12,17 @@ export const SelectedSymptomList: React.FC<SelectedSymptomListProps> = ({
 
   const userSettingsContext = useContext(UserSettingsContext);
   const {currentLanguage, targetLanguage} = userSettingsContext.userSettings;
+  const {updateData} = selectedSymptomListContext as SelectedSymptomListContext;
+
+  const removeSymptomFromSelectedList = (symptom: Symptom): void => {
+    const symptoms = data?.symptoms;
+    const newSymptoms = symptoms.filter(item => item !== symptom);
+    updateData({symptoms: newSymptoms});
+  }
 
   return (
     <>
-      {data?.symptoms?.map(symptom => (
+      {data?.symptoms.map(symptom => (
         <List.Item
           key={symptom._id}
           title={
@@ -30,9 +37,11 @@ export const SelectedSymptomList: React.FC<SelectedSymptomListProps> = ({
             symptom?.translations?.find(t => t.language === currentLanguage)
               ?.name
           }
-          left={() => icon}
+          right={() => icon}
+          onLongPress={() => removeSymptomFromSelectedList(symptom)}
         />
       ))}
     </>
   );
 };
+
