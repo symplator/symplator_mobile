@@ -4,9 +4,10 @@ import {SymptomSchema} from '../models/Symptom';
 import React, {useContext, useState} from 'react';
 import {View} from 'react-native';
 import {List, Searchbar} from 'react-native-paper';
+import {t} from 'i18next';
+import {SelectedSymptomListContext} from '../context/SelectedSymptomList/SelectedSymptomListContext';
 
 const {useQuery} = SyncedRealmContext;
-
 const SymptomSearch = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [results, setResults] = useState<Symptom[]>([]);
@@ -14,6 +15,8 @@ const SymptomSearch = () => {
 
   const userSettingsContext = useContext(UserSettingsContext);
   const {currentLanguage} = userSettingsContext.userSettings;
+  const selectedSymptomListContext = useContext(SelectedSymptomListContext);
+  const {updateData} = selectedSymptomListContext as SelectedSymptomListContext;
 
   const handleSearch = async (searchText: string) => {
     try {
@@ -38,22 +41,20 @@ const SymptomSearch = () => {
 
       setResults(filteredResults);
       console.log('Filtered results:' + filteredResults.length);
-      // filteredResults.forEach(tr => {
-      //   console.log('item *********************** ');
-      //   console.log('name:' + tr.translations[0].name);
-      //   console.log('detail:' + tr.translations[0].detail);
-      //   console.log('tags:' + tr.translations[0].tags);
-      // });
       console.log('----------------------------------');
     } catch (error) {
       console.error('Error querying Realm:', error);
     }
   };
 
+  const onSymptomClick = (symptom: Symptom): void => {
+    console.log(symptom)
+  }
+
   return (
     <View>
       <Searchbar
-        placeholder="Search symptom"
+        placeholder={t('search')}
         onChangeText={text => {
           setSearchQuery(text);
           if (text.length >= 3) {
@@ -70,7 +71,7 @@ const SymptomSearch = () => {
               symptom?.translations?.find(t => t.language === currentLanguage)
                 ?.name
             }
-            onPress={() => console.log('symptom added')}
+            onPress={() => onSymptomClick(symptom)}
           />
         ))}
       </>
