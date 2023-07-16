@@ -15,7 +15,7 @@ export const SelectedSymptomList: React.FC<SelectedSymptomListProps> = ({
 
   return (
     <>
-      {data?.symptoms?.map(symptom => (
+      {data?.symptoms.map(symptom => (
         <List.Item
           key={symptom._id}
           title={
@@ -30,7 +30,7 @@ export const SelectedSymptomList: React.FC<SelectedSymptomListProps> = ({
             symptom?.translations?.find(t => t.language === currentLanguage)
               ?.name
           }
-          left={() => icon}
+          right={() => icon}
         />
       ))}
     </>

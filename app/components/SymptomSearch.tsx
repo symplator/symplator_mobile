@@ -6,9 +6,10 @@ import {View} from 'react-native';
 import {List, Searchbar} from 'react-native-paper';
 import {t} from 'i18next';
 import {SelectedSymptomListContext} from '../context/SelectedSymptomList/SelectedSymptomListContext';
+import {SelectedSymptomList} from './SelectedSymptomList';
 
 const {useQuery} = SyncedRealmContext;
-const SymptomSearch = () => {
+export const SymptomSearch = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [results, setResults] = useState<Symptom[]>([]);
   const objects = useQuery(SymptomSchema);
@@ -17,6 +18,17 @@ const SymptomSearch = () => {
   const {currentLanguage} = userSettingsContext.userSettings;
   const selectedSymptomListContext = useContext(SelectedSymptomListContext);
   const {updateData} = selectedSymptomListContext as SelectedSymptomListContext;
+
+  const {data} = selectedSymptomListContext as SelectedSymptomListContext;
+
+  const onSearchTextChange = (text: string): void => {
+    setSearchQuery(text);
+    if (text.length >= 3) {
+      handleSearch(text);
+    } else {
+      clearSearchResults();
+    }
+  };
 
   const handleSearch = async (searchText: string) => {
     try {
@@ -48,21 +60,21 @@ const SymptomSearch = () => {
   };
 
   const onSymptomClick = (symptom: Symptom): void => {
-    console.log(symptom);
+    const newSymptoms = data?.symptoms;
+    newSymptoms.push(symptom);
+    updateData({symptoms: newSymptoms});
+    clearSearchResults();
+  };
+
+  const clearSearchResults = () => {
+    setResults([]);
   };
 
   return (
     <View>
       <Searchbar
         placeholder={t('search')}
-        onChangeText={text => {
-          setSearchQuery(text);
-          if (text.length >= 3) {
-            handleSearch(text);
-          } else {
-            setResults([]);
-          }
-        }}
+        onChangeText={text => onSearchTextChange(text)}
         value={searchQuery}
       />
       <>
@@ -80,5 +92,3 @@ const SymptomSearch = () => {
     </View>
   );
 };
-
-export default SymptomSearch;

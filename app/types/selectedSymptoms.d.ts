@@ -9,7 +9,7 @@ interface SelectedSymptomList {
   _id?: import('realm').BSON.ObjectId;
   title?: string;
   userId?: string;
-  symptoms?: import('realm').Results<Symptom>;
+  symptoms: Symptom[];
   createdAt?: Date;
   updatedAt?: Date;
 }
