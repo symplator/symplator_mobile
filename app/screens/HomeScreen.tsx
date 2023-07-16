@@ -20,18 +20,26 @@ export const HomeScreen: React.FC<Props> = ({navigation}) => {
   const {t} = useTranslation();
 
   const selectedSymptomListContext = useContext(SelectedSymptomListContext);
-  const {updateData, saveData} =
+  const {data, updateData, saveData} =
     selectedSymptomListContext as SelectedSymptomListContext;
   const result = useQuery(SymptomSchema);
-  const symptoms = useMemo(() => result.sorted('_id'), [result]);
+  const symptoms = useMemo(
+    () =>
+      result.filtered(
+        "_id='e010c261-dddd-41a1-a624-225aeac6d501' or _id='df660548-5768-43ee-8256-798710083647'",
+      ),
+    [result],
+  );
 
   const handleSearch = () => {
+    console.log('handleSearch', symptoms);
     updateData({symptoms});
   };
 
   const saveAndRedirect = () => {
-    saveData();
-    // navigation.navigate('');
+    console.log('saveAndRedirect');
+    // saveData();
+    navigation.navigate('SymptomListScreen');
   };
 
   return (
@@ -48,8 +56,9 @@ export const HomeScreen: React.FC<Props> = ({navigation}) => {
         dark={true}
         compact={false}
         mode="contained"
+        disabled={!data?.symptoms?.length}
         onPress={saveAndRedirect}>
-        {t('save')}
+        {t('translate')}
       </Button>
     </View>
   );

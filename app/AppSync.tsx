@@ -6,12 +6,10 @@ import {NavigationContainer} from '@react-navigation/native';
 import {InitialSettingsStack} from './navigation/InitialSettingsStack';
 import {ActivityIndicator} from 'react-native-paper';
 import {SelectedSymptomListProvider} from './components/Providers/SelectedSymptomListProvider';
-import {HomeScreen} from './screens/HomeScreen';
-import {createStackNavigator} from '@react-navigation/stack';
 import {useTranslation} from 'react-i18next';
+import {RootStackNavigator} from './navigation/RootStack';
 // import {removeItemFromAsyncStorage} from './utils/removeItemFromAsyncStorage';
 // import {USER_SETTINGS_KEY} from './constants/general';
-const Stack = createStackNavigator<RootStackParams>();
 
 export const AppSync: React.FC = () => {
   const {i18n} = useTranslation();
@@ -45,13 +43,7 @@ export const AppSync: React.FC = () => {
       ) : (
         <LocalRealmProvider>
           <SelectedSymptomListProvider>
-            <Stack.Navigator>
-              <Stack.Screen
-                name="HomeScreen"
-                component={HomeScreen}
-                options={{headerShown: false}}
-              />
-            </Stack.Navigator>
+            <RootStackNavigator />
           </SelectedSymptomListProvider>
         </LocalRealmProvider>
       )}
