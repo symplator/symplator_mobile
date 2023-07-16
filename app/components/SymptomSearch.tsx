@@ -6,7 +6,6 @@ import {View} from 'react-native';
 import {List, Searchbar} from 'react-native-paper';
 import {t} from 'i18next';
 import {SelectedSymptomListContext} from '../context/SelectedSymptomList/SelectedSymptomListContext';
-import {SelectedSymptomList} from './SelectedSymptomList';
 
 const {useQuery} = SyncedRealmContext;
 export const SymptomSearch = () => {
@@ -59,10 +58,10 @@ export const SymptomSearch = () => {
     }
   };
 
-  const onSymptomClick = (symptom: Symptom): void => {
-    const newSymptoms = data?.symptoms;
-    newSymptoms.push(symptom);
-    updateData({symptoms: newSymptoms});
+  const addSymptomToSelectedList = (symptom: Symptom): void => {
+    const symptoms = data?.symptoms;
+    symptoms.push(symptom);
+    updateData({symptoms: symptoms});
     clearSearchResults();
   };
 
@@ -85,7 +84,7 @@ export const SymptomSearch = () => {
               symptom?.translations?.find(t => t.language === currentLanguage)
                 ?.name
             }
-            onPress={() => onSymptomClick(symptom)}
+            onPress={() => addSymptomToSelectedList(symptom)}
           />
         ))}
       </>

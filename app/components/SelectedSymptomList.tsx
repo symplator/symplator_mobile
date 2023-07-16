@@ -12,6 +12,13 @@ export const SelectedSymptomList: React.FC<SelectedSymptomListProps> = ({
 
   const userSettingsContext = useContext(UserSettingsContext);
   const {currentLanguage, targetLanguage} = userSettingsContext.userSettings;
+  const {updateData} = selectedSymptomListContext as SelectedSymptomListContext;
+
+  const removeSymptomFromSelectedList = (symptom: Symptom): void => {
+    const symptoms = data?.symptoms;
+    const newSymptoms = symptoms.filter(item => item !== symptom);
+    updateData({symptoms: newSymptoms});
+  }
 
   return (
     <>
@@ -31,8 +38,10 @@ export const SelectedSymptomList: React.FC<SelectedSymptomListProps> = ({
               ?.name
           }
           right={() => icon}
+          onLongPress={() => removeSymptomFromSelectedList(symptom)}
         />
       ))}
     </>
   );
 };
+
