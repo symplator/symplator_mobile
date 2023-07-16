@@ -1,70 +1,82 @@
+import {UserSettingsContext} from '../context/UserSettings/UserSettingsContext';
 import {SyncedRealmContext} from '../context/SymplatorRealm/SyncedRealmContext';
 import {SymptomSchema} from '../models/Symptom';
-import React, {useState, useMemo, useEffect} from 'react';
-import {View, FlatList, Text} from 'react-native';
-import {TextInput} from 'react-native-paper';
+import React, {useContext, useState} from 'react';
+import {View} from 'react-native';
+import {List, Searchbar} from 'react-native-paper';
+import {t} from 'i18next';
+import {SelectedSymptomListContext} from '../context/SelectedSymptomList/SelectedSymptomListContext';
 
 const {useQuery} = SyncedRealmContext;
-
 const SymptomSearch = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [results, setResults] = useState([]);
+  const [results, setResults] = useState<Symptom[]>([]);
   const objects = useQuery(SymptomSchema);
 
-  const handleSearch = async (searchText: string) => {
-    setSearchQuery(searchText);
+  const userSettingsContext = useContext(UserSettingsContext);
+  const {currentLanguage} = userSettingsContext.userSettings;
+  const selectedSymptomListContext = useContext(SelectedSymptomListContext);
+  const {updateData} = selectedSymptomListContext as SelectedSymptomListContext;
 
+  const handleSearch = async (searchText: string) => {
     try {
       // Split the search query into separate words
-      const searchWords = searchQuery.split(' ');
+      const searchWords = searchText.split(' ');
 
       // Filter the objects based on each word in the search query for each column
       const filteredResults = Array.from(
         objects
-          // .filtered(
-          //   searchWords
-          //     .map(word => `(translations.name CONTAINS[c] "${word}") `)
-          //     .join(' AND '),
-          // )
-          // .slice(),
           .filtered(
-            'translations.language=$0 and ' +
-              '(translations.name CONTAINS[c] $1 or translations.detail CONTAINS[c] $1 or ' +
-              ' translations.tags CONTAINS[c] $1)',
-            'tr',
-            searchWords[0],
+            searchWords
+              .map(
+                word =>
+                  `translations.language="${currentLanguage}" and
+                  (translations.name CONTAINS[c] "${word}" or translations.detail CONTAINS[c] "${word}" or
+                   translations.tags CONTAINS[c] "${word}")`,
+              )
+              .join(' AND '),
           )
+          .slice(),
       );
 
       setResults(filteredResults);
       console.log('Filtered results:' + filteredResults.length);
-      // filteredResults.forEach(tr => {
-      //   console.log('item *********************** ');
-      //   console.log('name:' + tr.translations[0].name);
-      //   console.log('detail:' + tr.translations[0].detail);
-      //   console.log('tags:' + tr.translations[0].tags);
-      // });
       console.log('----------------------------------');
     } catch (error) {
       console.error('Error querying Realm:', error);
     }
   };
 
+  const onSymptomClick = (symptom: Symptom): void => {
+    console.log(symptom);
+  };
+
   return (
     <View>
-      <TextInput
-        placeholder="Search symptom"
+      <Searchbar
+        placeholder={t('search')}
         onChangeText={text => {
+          setSearchQuery(text);
           if (text.length >= 3) {
             handleSearch(text);
+          } else {
+            setResults([]);
           }
         }}
+        value={searchQuery}
       />
-      <FlatList
-        data={results}
-        keyExtractor={(item, _) => item._id}
-        renderItem={({item}) => <Text>{item.translations[0].name}</Text>}
-      />
+      <>
+        {results?.map(symptom => (
+          <List.Item
+            key={symptom._id}
+            title={
+              symptom?.translations?.find(t => t.language === currentLanguage)
+                ?.name
+            }
+            onPress={() => onSymptomClick(symptom)}
+          />
+        ))}
+      </>
     </View>
   );
 };
