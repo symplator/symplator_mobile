@@ -6,6 +6,7 @@ import {View, StyleSheet, FlatList, ListRenderItem} from 'react-native';
 import {List, Searchbar} from 'react-native-paper';
 import {t} from 'i18next';
 import {SelectedSymptomListContext} from '../context/SelectedSymptomList/SelectedSymptomListContext';
+import { grey200 } from 'react-native-paper/lib/typescript/src/styles/themes/v2/colors';
 
 const {useQuery} = SyncedRealmContext;
 export const SymptomSearch = () => {
@@ -100,6 +101,7 @@ export const SymptomSearch = () => {
       />
       <>
         <FlatList
+          style={styles.symptomList}
           horizontal={false}
           data={results}
           renderItem={renderItem}
@@ -115,16 +117,10 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 20,
   },
-  container: {
-    marginTop: 10,
-    alignItems: 'center',
-  },
-  chip: {
-    backgroundColor: '#2096F3',
-    margin: 4,
-  },
-  chipText: {
-    color: '#ffffff',
-    fontSize: 17,
+  symptomList: {
+    borderWidth: 2,
+    borderRadius: 20,
+    borderColor: '#e1e8ee',
+    marginHorizontal: 10,
   },
 });

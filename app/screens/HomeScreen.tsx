@@ -76,7 +76,6 @@ const styles = StyleSheet.create({
   // },
   saveBtn: {
     borderRadius: 4,
-    position: 'absolute',
     bottom: 20,
     left: 10,
     width: '100%',
