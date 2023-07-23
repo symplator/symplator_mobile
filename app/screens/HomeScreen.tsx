@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import {StyleSheet, View} from 'react-native';
-import {Button, List, MD3Colors} from 'react-native-paper';
+import {Button} from 'react-native-paper';
 import {SelectedSymptomListContext} from './../context/SelectedSymptomList/SelectedSymptomListContext';
 import {SelectedSymptomList} from '../components/SelectedSymptomList';
 import {useTranslation} from 'react-i18next';
@@ -19,7 +19,7 @@ export const HomeScreen: React.FC<Props> = ({navigation}) => {
   const {data} = selectedSymptomListContext as SelectedSymptomListContext;
 
   const saveAndRedirect = () => {
-    navigation.navigate('SymptomListScreen');
+    navigation.navigate('TranslationScreen');
   };
 
   return (

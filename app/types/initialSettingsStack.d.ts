@@ -3,6 +3,7 @@ type RootStackParams = {
   SettingsScreen: undefined;
   SymptomListScreen: undefined;
   SavedSymptomListsScreen: undefined;
+  TranslationScreen: undefined;
 };
 
 type InitialSettingsStackParams = {

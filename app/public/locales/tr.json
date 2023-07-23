@@ -24,7 +24,8 @@
       "home": "Ana Sayfa",
       "mySymptomLists": "Semptom Listeleri",
       "settings": "Ayarlar",
-      "mySymptoms": "Semptomlarım"
+      "mySymptoms": "Semptomlarım",
+      "translate" : "Çeviri"
     },
     "noSavedSymptomList": "Kaydedilmis semptom listesi bulunamadi. Lütfen semptom listesi olusturunuz.",
     "searchSymptoms": "Semptom ara",
