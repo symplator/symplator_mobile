@@ -9,3 +9,9 @@ export enum Gender {
   Female = 'female',
   Male = 'male',
 }
+
+export enum LOCALES {
+  en_US = 'en-US',
+  de = 'de-DE',
+  tr = 'tr-TR',
+}
