@@ -16,22 +16,18 @@ export const HomeScreen: React.FC<Props> = ({navigation}) => {
   const {t} = useTranslation();
 
   const selectedSymptomListContext = useContext(SelectedSymptomListContext);
-  const {saveData} = selectedSymptomListContext as SelectedSymptomListContext;
+  const {data} = selectedSymptomListContext as SelectedSymptomListContext;
 
   const saveAndRedirect = () => {
-    console.log('saveAndRedirect');
-    // saveData();
     navigation.navigate('SymptomListScreen');
   };
 
   return (
     <View style={styles.main}>
       <View>
-        <SymptomSearch/>
-        <View style={styles.genderBtnView} />
-        <SelectedSymptomList
-          icon={<List.Icon color={MD3Colors.primary60} icon="close-circle" />}
-        />
+        <SymptomSearch />
+        {/* <View style={styles.genderBtnView} /> */}
+        <SelectedSymptomList />
       </View>
       <Button
         style={styles.saveBtn}
@@ -64,20 +60,20 @@ const styles = StyleSheet.create({
     // borderColor: 'red',
     // borderStyle: 'solid',
   },
-  header: {
-    textAlign: 'center',
-    fontSize: 20,
-    marginTop: 90,
-  },
-  genderBtnView: {
-    marginTop: 100,
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-  },
-  searchBtn: {
-    borderRadius: 4,
-  },
+  // header: {
+  //   textAlign: 'center',
+  //   fontSize: 20,
+  //   marginTop: 90,
+  // },
+  // genderBtnView: {
+  //   marginTop: 100,
+  //   flex: 1,
+  //   flexDirection: 'row',
+  //   justifyContent: 'space-evenly',
+  // },
+  // searchBtn: {
+  //   borderRadius: 4,
+  // },
   saveBtn: {
     borderRadius: 4,
     position: 'absolute',

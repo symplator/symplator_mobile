@@ -1,8 +1,8 @@
 import {UserSettingsContext} from '../context/UserSettings/UserSettingsContext';
-import {SyncedRealmContext} from '../context/SymplatorRealm/SyncedRealmContext';
+import {SyncedRealmContext} from '../context/Realm/RealmContext';
 import {SymptomSchema} from '../models/Symptom';
 import React, {useContext, useState} from 'react';
-import {View} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import {List, Searchbar} from 'react-native-paper';
 import {t} from 'i18next';
 import {SelectedSymptomListContext} from '../context/SelectedSymptomList/SelectedSymptomListContext';
@@ -39,7 +39,7 @@ export const SymptomSearch = () => {
         objects
           .filtered(
             searchWords
-              .map(
+              ?.map(
                 word =>
                   `translations.language="${currentLanguage}" and
                   (translations.name CONTAINS[c] "${word}" or translations.detail CONTAINS[c] "${word}" or
@@ -59,11 +59,10 @@ export const SymptomSearch = () => {
   };
 
   const addSymptomToSelectedList = (symptom: Symptom): void => {
-    const symptoms = data?.symptoms;
+    const symptoms = data?.symptoms || [];
 
     if (!symptomExists(symptom, symptoms)) {
-      symptoms.push(symptom);
-      updateData({symptoms: symptoms});
+      updateData({...data, symptoms: [...symptoms, symptom]});
     }
 
     clearSearchResults();
@@ -83,7 +82,7 @@ export const SymptomSearch = () => {
   };
 
   return (
-    <View>
+    <View style={styles.list}>
       <Searchbar
         placeholder={t('search')}
         onChangeText={text => onSearchTextChange(text)}
@@ -104,3 +103,10 @@ export const SymptomSearch = () => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  list: {
+    marginTop: 10,
+    marginBottom: 20,
+  },
+});
