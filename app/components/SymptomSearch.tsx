@@ -2,7 +2,7 @@ import {UserSettingsContext} from '../context/UserSettings/UserSettingsContext';
 import {SyncedRealmContext} from '../context/Realm/RealmContext';
 import {SymptomSchema} from '../models/Symptom';
 import React, {useContext, useState} from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, FlatList, ListRenderItem} from 'react-native';
 import {List, Searchbar} from 'react-native-paper';
 import {t} from 'i18next';
 import {SelectedSymptomListContext} from '../context/SelectedSymptomList/SelectedSymptomListContext';
@@ -20,6 +20,16 @@ export const SymptomSearch = () => {
 
   const {data} = selectedSymptomListContext as SelectedSymptomListContext;
 
+  const renderItem: ListRenderItem<any> = ({item}) => {
+    return (
+      <List.Item
+        title={
+          item?.translations?.find(t => t.language === currentLanguage)?.name
+        }
+        onPress={() => addSymptomToSelectedList(item)}
+      />
+    );
+  };
   const onSearchTextChange = (text: string): void => {
     setSearchQuery(text);
     if (text.length >= 3) {
@@ -89,16 +99,12 @@ export const SymptomSearch = () => {
         value={searchQuery}
       />
       <>
-        {results?.map(symptom => (
-          <List.Item
-            key={symptom._id}
-            title={
-              symptom?.translations?.find(t => t.language === currentLanguage)
-                ?.name
-            }
-            onPress={() => addSymptomToSelectedList(symptom)}
-          />
-        ))}
+        <FlatList
+          horizontal={false}
+          data={results}
+          renderItem={renderItem}
+          keyExtractor={item => item._id.toString()}
+        />
       </>
     </View>
   );
@@ -108,5 +114,17 @@ const styles = StyleSheet.create({
   list: {
     marginTop: 10,
     marginBottom: 20,
+  },
+  container: {
+    marginTop: 10,
+    alignItems: 'center',
+  },
+  chip: {
+    backgroundColor: '#2096F3',
+    margin: 4,
+  },
+  chipText: {
+    color: '#ffffff',
+    fontSize: 17,
   },
 });
