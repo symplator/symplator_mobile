@@ -7,8 +7,9 @@ interface SelectedSymptomListContext {
 
 interface SelectedSymptomList {
   _id?: import('realm').BSON.ObjectId;
-  title?: string;
+  tag?: string;
   userId?: string;
+  date?: Date;
   symptoms: Symptom[];
   createdAt?: Date;
   updatedAt?: Date;

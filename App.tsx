@@ -3,7 +3,7 @@ import {useApp} from '@realm/react';
 import {AppSync} from './app/AppSync';
 import {DefaultFunctionsFactory, DefaultUserProfileData, User} from 'realm';
 import {API_KEY} from '@env';
-import {SyncedRealmContext} from './app/context/SymplatorRealm/SyncedRealmContext';
+import {SyncedRealmContext} from './app/context/Realm/RealmContext';
 import {UserSettingsProvider} from './app/components/Providers/UserSettingsProvider';
 
 export const App: React.FC = () => {
