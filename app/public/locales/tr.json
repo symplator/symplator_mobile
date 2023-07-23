@@ -19,6 +19,18 @@
     "select": "Seçiniz",
     "search": "Semptom ara",
     "save": "Kaydet",
-    "translate": "Çevir"
+    "translate": "Çevir",
+    "screens": {
+      "home": "Ana Sayfa",
+      "mySymptomLists": "Semptom Listeleri",
+      "settings": "Ayarlar",
+      "mySymptoms": "Semptomlarım"
+    },
+    "noSavedSymptomList": "Kaydedilmis semptom listesi bulunamadi. Lütfen semptom listesi olusturunuz.",
+    "searchSymptoms": "Semptom ara",
+    "deleteSymptomListDialogTitle": "Semptom listesini sil",
+    "deleteSymptomListDialogContent": "Semptom listesini silmek istediğinizden emin misiniz?",
+    "delete": "Sil",
+    "cancel": "İptal"
   }
 }

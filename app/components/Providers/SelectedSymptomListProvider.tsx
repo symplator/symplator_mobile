@@ -2,7 +2,7 @@ import React, {useEffect, useReducer, useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {SELECTED_SYMPTOM_LIST_KEY} from '../../constants/general';
 import {selectedSymptomsReducer} from '../../context/SelectedSymptomList/SelectedSymptomListReducer';
-import {LocalRealmContext} from '../../context/SymplatorRealm/SyncedRealmContext';
+import {LocalRealmContext} from '../../context/Realm/RealmContext';
 import {SelectedSymptomListContext} from '../../context/SelectedSymptomList/SelectedSymptomListContext';
 import {getUserIdFromAsyncStorage} from '../../utils/getUserIdFromAsyncStorage';
 import {removeItemFromAsyncStorage} from '../../utils/removeItemFromAsyncStorage';
@@ -33,12 +33,18 @@ export const SelectedSymptomListProvider: React.FC<
           SELECTED_SYMPTOM_LIST_KEY,
         );
 
-        if (selectedSymptomList !== null) {
+        if (
+          selectedSymptomList !== null &&
+          !Object.keys(selectedSymptomList).length
+        ) {
           dispatch({
             type: 'UPDATE_DATA',
             payload: JSON.parse(selectedSymptomList),
           });
         }
+
+        // await removeItemFromAsyncStorage(SELECTED_SYMPTOM_LIST_KEY);
+        // dispatch({type: 'RESET_DATA'});
       } catch (error) {
         console.error(
           'Error loading selected symptoms list from database:',
@@ -82,7 +88,8 @@ export const SelectedSymptomListProvider: React.FC<
         let selectedSymptomList: SelectedSymptomList = {
           _id: new BSON.ObjectId(),
           userId,
-          title: '',
+          tag: 'My Symptoms', // todo adjust
+          date: new Date(), // todo adjust
           createdAt: new Date(),
           updatedAt: new Date(),
           ...JSON.parse(selectedSymptomListRaw),

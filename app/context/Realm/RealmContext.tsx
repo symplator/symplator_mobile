@@ -11,4 +11,5 @@ export const SyncedRealmContext = createRealmContext({
 
 export const LocalRealmContext = createRealmContext({
   schema: [SymptomSchema, SymptomTranslationSchema, SelectedSymptomListSchema],
+  deleteRealmIfMigrationNeeded: true,
 });

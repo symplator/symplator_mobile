@@ -35,7 +35,6 @@ const styles = StyleSheet.create({
     color: '#FFFFFF !important',
   },
   btn: {
-    backgroundColor: '#007BFF',
     color: '#FFFFFF',
     borderRadius: 4,
   },

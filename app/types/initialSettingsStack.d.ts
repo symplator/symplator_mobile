@@ -2,7 +2,7 @@ type RootStackParams = {
   HomeScreen: undefined;
   SettingsScreen: undefined;
   SymptomListScreen: undefined;
-  SymptomListsScreen: undefined;
+  SavedSymptomListsScreen: undefined;
 };
 
 type InitialSettingsStackParams = {

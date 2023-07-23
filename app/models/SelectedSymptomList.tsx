@@ -3,8 +3,9 @@ import Realm from 'realm';
 
 export class SelectedSymptomListSchema extends Realm.Object<SelectedSymptomListSchema> {
   _id!: Realm.BSON.ObjectId;
-  title!: string;
+  tag!: string;
   userId: string;
+  date: Date;
   symptoms: SymptomSchema[];
   createdAt!: Date;
   updatedAt!: Date;
@@ -13,20 +14,23 @@ export class SelectedSymptomListSchema extends Realm.Object<SelectedSymptomListS
     realm: Realm,
     {
       _id,
-      title,
+      tag,
       userId,
+      date,
       symptoms,
     }: {
       _id: Realm.BSON.ObjectId;
-      title?: string;
+      tag?: string;
       userId: string;
+      date: Date;
       symptoms: SymptomSchema[];
     },
   ) {
     super(realm, {
       _id,
-      title,
+      tag,
       userId,
+      date,
       symptoms,
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -38,8 +42,9 @@ export class SelectedSymptomListSchema extends Realm.Object<SelectedSymptomListS
     primaryKey: '_id',
     properties: {
       _id: 'objectId',
-      title: 'string',
+      tag: 'string',
       userId: 'string',
+      date: 'date',
       symptoms: 'Symptom[]',
       createdAt: 'date',
       updatedAt: 'date',

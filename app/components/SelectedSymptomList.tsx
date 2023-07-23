@@ -1,11 +1,10 @@
-import React, {useContext} from 'react';
-import {List} from 'react-native-paper';
+import React, {useCallback, useContext} from 'react';
+import {List, MD3Colors} from 'react-native-paper';
 import {SelectedSymptomListContext} from '../context/SelectedSymptomList/SelectedSymptomListContext';
 import {UserSettingsContext} from '../context/UserSettings/UserSettingsContext';
 
 export const SelectedSymptomList: React.FC<SelectedSymptomListProps> = ({
   isTranslated,
-  icon,
 }) => {
   const selectedSymptomListContext = useContext(SelectedSymptomListContext);
   const {data} = selectedSymptomListContext as SelectedSymptomListContext;
@@ -18,11 +17,16 @@ export const SelectedSymptomList: React.FC<SelectedSymptomListProps> = ({
     const symptoms = data?.symptoms;
     const newSymptoms = symptoms.filter(item => item !== symptom);
     updateData({symptoms: newSymptoms});
-  }
+  };
+
+  const Icon = useCallback(
+    () => <List.Icon color={MD3Colors.primary60} icon="close" />,
+    [],
+  );
 
   return (
     <>
-      {data?.symptoms.map(symptom => (
+      {data?.symptoms?.map(symptom => (
         <List.Item
           key={symptom._id}
           title={
@@ -32,16 +36,19 @@ export const SelectedSymptomList: React.FC<SelectedSymptomListProps> = ({
                 : t.language === currentLanguage,
             )?.name
           }
+          titleNumberOfLines={10}
+          titleEllipsizeMode="tail"
           description={
             isTranslated &&
             symptom?.translations?.find(t => t.language === currentLanguage)
               ?.name
           }
-          right={() => icon}
+          descriptionNumberOfLines={10}
+          descriptionEllipsizeMode="tail"
+          right={Icon}
           onLongPress={() => removeSymptomFromSelectedList(symptom)}
         />
       ))}
     </>
   );
 };
-

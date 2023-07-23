@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
-import {LocalRealmContext} from './context/SymplatorRealm/SyncedRealmContext';
+import {LocalRealmContext} from './context/Realm/RealmContext';
 import {UserSettingsContext} from './context/UserSettings/UserSettingsContext';
 import {NavigationContainer} from '@react-navigation/native';
 import {InitialSettingsStack} from './navigation/InitialSettingsStack';
@@ -25,7 +25,7 @@ export const AppSync: React.FC = () => {
     if (userSettings.currentLanguage) {
       i18n.changeLanguage(userSettings.currentLanguage);
     }
-  }, [userId, userSettings, i18n]);
+  }, [userSettings, i18n]);
 
   // todo remove user from async for testing
   // removeItemFromAsyncStorage(USER_SETTINGS_KEY);
