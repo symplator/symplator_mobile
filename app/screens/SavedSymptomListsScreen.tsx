@@ -1,13 +1,14 @@
-import React, {useMemo} from 'react';
+import React, {useMemo, useEffect, useState} from 'react';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {Button, Text} from 'react-native-paper';
+import {ActivityIndicator, Button, Text} from 'react-native-paper';
 import {View, StyleSheet} from 'react-native';
 import {useTranslation} from 'react-i18next';
 import {SavedSymptomLists} from '../components/SavedSymptomLists';
 import {LocalRealmContext} from '../context/Realm/RealmContext';
 import {SelectedSymptomListSchema} from '../models/SelectedSymptomList';
+import {getUserIdFromAsyncStorage} from '../utils/getUserIdFromAsyncStorage';
 
-const {useQuery} = LocalRealmContext;
+const {useRealm} = LocalRealmContext;
 
 type Props = {
   navigation: StackNavigationProp<RootStackParams, 'SavedSymptomListsScreen'>;
@@ -15,12 +16,44 @@ type Props = {
 
 export const SavedSymptomListsScreen: React.FC<Props> = ({navigation}) => {
   const {t} = useTranslation();
-  const result = useQuery(SelectedSymptomListSchema);
-  const symptomLists = useMemo(() => result.sorted('_id', true), [result]);
+  const realm = useRealm();
+
+  const [userId, setUserId] = useState<string | undefined>();
+  const [isLoading, setIsLoading] = useState(true);
+  const [symptomLists, setSymptoms] = useState<Realm.Results<
+    SelectedSymptomListSchema & Realm.Object<unknown, never>
+  > | null>(null);
+  let symptomListsResult;
+
+  useEffect(() => {
+    const getUserId = async () => {
+      setUserId(await getUserIdFromAsyncStorage());
+    };
+    getUserId();
+  }, []);
+
+  const result = realm.objects(SelectedSymptomListSchema); //useQuery(SelectedSymptomListSchema);
+  symptomListsResult = useMemo(
+    () => result.filtered('userId == $0', userId).sorted('_id', true),
+    [result, userId],
+  );
+
+  useEffect(() => {
+    if (!symptomLists && symptomListsResult.length) {
+      setSymptoms(symptomListsResult);
+    }
+    if (userId && symptomListsResult) {
+      setIsLoading(false);
+    }
+  }, [symptomLists, symptomListsResult, userId]);
 
   return (
     <>
-      {symptomLists?.length ? (
+      {isLoading ? (
+        <View style={styles.loader}>
+          <ActivityIndicator />
+        </View>
+      ) : symptomLists?.length ? (
         <SavedSymptomLists symptomLists={symptomLists} />
       ) : (
         <View style={styles.container}>
@@ -40,6 +73,12 @@ export const SavedSymptomListsScreen: React.FC<Props> = ({navigation}) => {
 };
 
 const styles = StyleSheet.create({
+  loader: {
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   container: {
     display: 'flex',
     height: '70%',
