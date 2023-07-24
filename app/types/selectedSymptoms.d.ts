@@ -1,8 +1,8 @@
 interface SelectedSymptomListContext {
   data: SelectedSymptomList;
   isLoading?: boolean;
-  updateData: (newData: SelectedSymptomList) => void;
-  saveData: () => void;
+  updateData: (newData: SelectedSymptomList) => Promise<void>;
+  saveData: () => Promise<void>;
 }
 
 interface SelectedSymptomList {

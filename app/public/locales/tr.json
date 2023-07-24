@@ -24,8 +24,10 @@
       "home": "Ana Sayfa",
       "mySymptomLists": "Semptom Listeleri",
       "settings": "Ayarlar",
-      "mySymptoms": "Semptomlarım"
+      "mySymptoms": "Semptomlarım",
+      "saveSymptomList": "Semptom Listesini Kaydet"
     },
+    "mySymptoms": "Semptomlarım",
     "noSavedSymptomList": "Kaydedilmis semptom listesi bulunamadi. Lütfen semptom listesi olusturunuz.",
     "searchSymptoms": "Semptom ara",
     "deleteSymptomListDialogTitle": "Semptom listesini sil",
