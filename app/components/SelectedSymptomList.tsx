@@ -2,21 +2,26 @@ import React, {useCallback, useContext} from 'react';
 import {List, MD3Colors} from 'react-native-paper';
 import {SelectedSymptomListContext} from '../context/SelectedSymptomList/SelectedSymptomListContext';
 import {UserSettingsContext} from '../context/UserSettings/UserSettingsContext';
+import {useTranslation} from 'react-i18next';
 
 export const SelectedSymptomList: React.FC<SelectedSymptomListProps> = ({
   isTranslated,
+  showTitle,
 }) => {
+  const {t} = useTranslation();
   const selectedSymptomListContext = useContext(SelectedSymptomListContext);
-  const {data} = selectedSymptomListContext as SelectedSymptomListContext;
+  const {data, updateData} =
+    selectedSymptomListContext as SelectedSymptomListContext;
 
   const userSettingsContext = useContext(UserSettingsContext);
   const {currentLanguage, targetLanguage} = userSettingsContext.userSettings;
-  const {updateData} = selectedSymptomListContext as SelectedSymptomListContext;
 
-  const removeSymptomFromSelectedList = (symptom: Symptom): void => {
+  const removeSymptomFromSelectedList = async (
+    symptom: Symptom,
+  ): Promise<void> => {
     const symptoms = data?.symptoms;
-    const newSymptoms = symptoms.filter(item => item !== symptom);
-    updateData({symptoms: newSymptoms});
+    const filteredSymptoms = symptoms.filter(item => item !== symptom);
+    await updateData({...data, symptoms: filteredSymptoms});
   };
 
   const Icon = useCallback(
@@ -26,6 +31,11 @@ export const SelectedSymptomList: React.FC<SelectedSymptomListProps> = ({
 
   return (
     <>
+      {showTitle && (
+        <List.Subheader style={{fontSize: 16, fontWeight: 'bold'}}>
+          {t('mySymptoms')}
+        </List.Subheader>
+      )}
       {data?.symptoms?.map(symptom => (
         <List.Item
           key={symptom._id}

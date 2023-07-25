@@ -1,12 +1,13 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
+import {ActivityIndicator} from 'react-native-paper';
+import {NavigationContainer} from '@react-navigation/native';
+import {useTranslation} from 'react-i18next';
+import {en, de, tr, registerTranslation} from 'react-native-paper-dates';
 import {LocalRealmContext} from './context/Realm/RealmContext';
 import {UserSettingsContext} from './context/UserSettings/UserSettingsContext';
-import {NavigationContainer} from '@react-navigation/native';
 import {InitialSettingsStack} from './navigation/InitialSettingsStack';
-import {ActivityIndicator} from 'react-native-paper';
 import {SelectedSymptomListProvider} from './components/Providers/SelectedSymptomListProvider';
-import {useTranslation} from 'react-i18next';
 import {RootStackNavigator} from './navigation/RootStack';
 // import {removeItemFromAsyncStorage} from './utils/removeItemFromAsyncStorage';
 // import {USER_SETTINGS_KEY} from './constants/general';
@@ -24,6 +25,13 @@ export const AppSync: React.FC = () => {
 
     if (userSettings.currentLanguage) {
       i18n.changeLanguage(userSettings.currentLanguage);
+      const translations = {en, de, tr};
+      const locale =
+        userSettings.currentLanguage === 'en_US'
+          ? 'en'
+          : userSettings.currentLanguage;
+
+      registerTranslation(locale, translations[locale]);
     }
   }, [userSettings, i18n]);
 

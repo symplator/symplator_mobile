@@ -49,13 +49,7 @@ export const SavedSymptomLists: React.FC<Props> = ({symptomLists}) => {
                   {item.tag}
                 </Text>
                 <Text style={styles.listItemDate} variant="bodyMedium">
-                  {item.date.toLocaleString(LOCALES[i18n.language], {
-                    year: 'numeric',
-                    month: 'numeric',
-                    day: 'numeric',
-                    hour: 'numeric',
-                    minute: '2-digit',
-                  })}
+                  {item.date.toLocaleDateString(LOCALES[i18n.language])}
                 </Text>
               </View>
               <TouchableOpacity

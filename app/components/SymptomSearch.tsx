@@ -58,11 +58,11 @@ export const SymptomSearch = () => {
     }
   };
 
-  const addSymptomToSelectedList = (symptom: Symptom): void => {
+  const addSymptomToSelectedList = async (symptom: Symptom): Promise<void> => {
     const symptoms = data?.symptoms || [];
 
     if (!symptomExists(symptom, symptoms)) {
-      updateData({...data, symptoms: [...symptoms, symptom]});
+      await updateData({...data, symptoms: [...symptoms, symptom]});
     }
 
     clearSearchResults();

@@ -1,11 +1,11 @@
 interface LanguageButtonsProps {
   mode?:
-  | 'text'
-  | 'outlined'
-  | 'contained'
-  | 'elevated'
-  | 'contained-tonal'
-  | undefined;
+    | 'text'
+    | 'outlined'
+    | 'contained'
+    | 'elevated'
+    | 'contained-tonal'
+    | undefined;
   languages: string[];
   handleClick: (text: string) => void;
 }
@@ -27,4 +27,5 @@ interface InitialSettingsNavigationProps {
 interface SelectedSymptomListProps {
   isTranslated?: boolean;
   icon?: import('react').ReactNode;
+  showTitle?: boolean;
 }
