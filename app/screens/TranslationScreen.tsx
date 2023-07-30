@@ -1,10 +1,9 @@
 import {StackNavigationProp} from '@react-navigation/stack';
 import {View, StyleSheet} from 'react-native';
 import {SelectedSymptomListContext} from '../context/SelectedSymptomList/SelectedSymptomListContext';
-import React, {useContext, useState} from 'react';
+import React, {useContext} from 'react';
 import {Button, Card, List} from 'react-native-paper';
 import {UserSettingsContext} from '../context/UserSettings/UserSettingsContext';
-import FlipCard from 'react-native-flip-card';
 import {useTranslation} from 'react-i18next';
 
 type Props = {
@@ -42,7 +41,13 @@ const SymptomList: React.FC<symptomProps> = ({isTranslated, data}) => {
                 : t.language === currentLanguage,
             )?.name
           }
-          titleNumberOfLines={2}>
+          titleNumberOfLines={2}
+          description={
+            isTranslated
+              ? symptom?.translations?.find(t => t.language === currentLanguage)
+                  ?.name
+              : ''
+          }>
           <List.Item
             title={
               symptom?.translations?.find(t =>
@@ -58,51 +63,16 @@ const SymptomList: React.FC<symptomProps> = ({isTranslated, data}) => {
   );
 };
 export const TranslationScreen: React.FC<Props> = ({navigation}) => {
-  const [translated, setTranslated] = useState<boolean>(true);
   const selectedSymptomListContext = useContext(SelectedSymptomListContext);
   const {data} = selectedSymptomListContext as SelectedSymptomListContext;
 
   const {t} = useTranslation();
 
-  const toggleTranslated = () => {
-    setTranslated(!translated);
-  };
   return (
     <View style={styles.main}>
-      <FlipCard
-        flipHorizontal={true}
-        flipVertical={false}
-        perspective={1000}
-        style={{
-          backgroundColor: '#E8E8E8',
-          marginTop: 20,
-          marginBottom: 10,
-          padding: 5,
-        }}
-        onFLipStart={toggleTranslated}>
-        <View>
-          <Card>
-            <SymptomList isTranslated={translated} data={data} />
-          </Card>
-        </View>
-        <View>
-          <Card>
-            <SymptomList isTranslated={!translated} data={data} />
-          </Card>
-        </View>
-      </FlipCard>
-      <View style={styles.container}>
-        <Button compact={true} disabled={translated} onPress={toggleTranslated}>
-          German
-        </Button>
-        <View style={styles.separator} />
-        <Button
-          compact={true}
-          disabled={!translated}
-          onPress={toggleTranslated}>
-          English
-        </Button>
-      </View>
+      <Card>
+        <SymptomList isTranslated={true} data={data} />
+      </Card>
 
       <Button
         style={styles.exportButton}
