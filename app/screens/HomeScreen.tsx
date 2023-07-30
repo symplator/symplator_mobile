@@ -48,7 +48,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     backgroundColor: '#F5F5F5',
     color: '#333333',
-    // borderColor: 'white',
     flexDirection: 'column',
     justifyContent: 'space-between',
     flex: 1,
@@ -56,24 +55,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Roboto, Open Sans',
     position: 'relative',
     padding: 10,
-    // borderWidth: 3,
-    // borderColor: 'red',
-    // borderStyle: 'solid',
   },
-  // header: {
-  //   textAlign: 'center',
-  //   fontSize: 20,
-  //   marginTop: 90,
-  // },
-  // genderBtnView: {
-  //   marginTop: 100,
-  //   flex: 1,
-  //   flexDirection: 'row',
-  //   justifyContent: 'space-evenly',
-  // },
-  // searchBtn: {
-  //   borderRadius: 4,
-  // },
   saveBtn: {
     borderRadius: 4,
     bottom: 20,
