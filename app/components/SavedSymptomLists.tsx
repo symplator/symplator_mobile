@@ -9,7 +9,7 @@ import {
   Text,
 } from 'react-native-paper';
 import {useTranslation} from 'react-i18next';
-import {TouchableOpacity, StyleSheet, View} from 'react-native';
+import {TouchableOpacity, StyleSheet, View, FlatList} from 'react-native';
 import {LocalRealmContext} from '../context/Realm/RealmContext';
 import {SelectedSymptomListSchema} from '../models/SelectedSymptomList';
 import {LOCALES} from '../constants/general';
@@ -42,25 +42,29 @@ export const SavedSymptomLists: React.FC<Props> = ({symptomLists}) => {
     <>
       <PaperProvider>
         <Portal>
-          {symptomLists?.map(item => (
-            <View style={styles.listItem} key={item._id as unknown as number}>
-              <View style={styles.listItemTxt}>
-                <Text style={styles.listItemTitle} variant="bodyMedium">
-                  {item.tag}
-                </Text>
-                <Text style={styles.listItemDate} variant="bodyMedium">
-                  {item.date.toLocaleDateString(LOCALES[i18n.language])}
-                </Text>
+          <FlatList
+            style={styles.list}
+            data={symptomLists}
+            renderItem={({item}) => (
+              <View style={styles.listItem} key={item._id as unknown as number}>
+                <View style={styles.listItemTxt}>
+                  <Text style={styles.listItemTitle} variant="bodyMedium">
+                    {item.tag}
+                  </Text>
+                  <Text style={styles.listItemDate} variant="bodyMedium">
+                    {item.date.toLocaleDateString(LOCALES[i18n.language])}
+                  </Text>
+                </View>
+                <TouchableOpacity
+                  onPress={() => {
+                    setSelectedItem(item);
+                    showDialog();
+                  }}>
+                  <List.Icon color={MD3Colors.primary60} icon="delete" />
+                </TouchableOpacity>
               </View>
-              <TouchableOpacity
-                onPress={() => {
-                  setSelectedItem(item);
-                  showDialog();
-                }}>
-                <List.Icon color={MD3Colors.primary60} icon="delete" />
-              </TouchableOpacity>
-            </View>
-          ))}
+            )}
+          />
           <Dialog
             style={styles.dialog}
             visible={visible}
@@ -89,6 +93,9 @@ export const SavedSymptomLists: React.FC<Props> = ({symptomLists}) => {
 };
 
 const styles = StyleSheet.create({
+  list: {
+    maxHeight: '97%',
+  },
   listItem: {
     display: 'flex',
     flexDirection: 'row',

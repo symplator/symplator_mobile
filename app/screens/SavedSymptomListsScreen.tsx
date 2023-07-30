@@ -8,7 +8,7 @@ import {LocalRealmContext} from '../context/Realm/RealmContext';
 import {SelectedSymptomListSchema} from '../models/SelectedSymptomList';
 import {getUserIdFromAsyncStorage} from '../utils/getUserIdFromAsyncStorage';
 
-const {useRealm} = LocalRealmContext;
+const {useQuery} = LocalRealmContext;
 
 type Props = {
   navigation: StackNavigationProp<RootStackParams, 'SavedSymptomListsScreen'>;
@@ -16,7 +16,6 @@ type Props = {
 
 export const SavedSymptomListsScreen: React.FC<Props> = ({navigation}) => {
   const {t} = useTranslation();
-  const realm = useRealm();
 
   const [userId, setUserId] = useState<string | undefined>();
   const [isLoading, setIsLoading] = useState(true);
@@ -32,7 +31,7 @@ export const SavedSymptomListsScreen: React.FC<Props> = ({navigation}) => {
     getUserId();
   }, []);
 
-  const result = realm.objects(SelectedSymptomListSchema); //useQuery(SelectedSymptomListSchema);
+  const result = useQuery(SelectedSymptomListSchema);
   symptomListsResult = useMemo(
     () => result.filtered('userId == $0', userId).sorted('_id', true),
     [result, userId],
