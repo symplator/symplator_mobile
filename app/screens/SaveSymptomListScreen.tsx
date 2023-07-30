@@ -15,7 +15,7 @@ type Props = {
 
 export const SaveSymptomListScreen: React.FC<Props> = ({navigation}) => {
   const {t, i18n} = useTranslation();
-  const [tag, setTag] = useState(' ');
+  const [tag, setTag] = useState('');
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState(false);
 
@@ -49,7 +49,8 @@ export const SaveSymptomListScreen: React.FC<Props> = ({navigation}) => {
           label="Etiket"
           value={tag}
           mode="outlined"
-          placeholder='Orn: "Orn Agrilarim"'
+          autoFocus={true}
+          placeholder={t('mySymptoms')}
           onChangeText={text => setTag(text)}
         />
         <TextInput
