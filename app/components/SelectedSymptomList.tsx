@@ -57,11 +57,6 @@ export const SelectedSymptomList: React.FC<SelectedSymptomListProps> = ({
   };
 
   return (
-    {showTitle && (
-      <List.Subheader style={{fontSize: 16, fontWeight: 'bold'}}>
-        {t('mySymptoms')}
-      </List.Subheader>
-    )}
     <FlatList
       style={{height: '70%'}}
       data={data.symptoms}
@@ -70,3 +65,9 @@ export const SelectedSymptomList: React.FC<SelectedSymptomListProps> = ({
     />
   );
 };
+
+// {showTitle && (
+//   <List.Subheader style={{fontSize: 16, fontWeight: 'bold'}}>
+//     {t('mySymptoms')}
+//   </List.Subheader>
+// )}
