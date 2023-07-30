@@ -108,7 +108,7 @@ export const SelectedSymptomListProvider: React.FC<
 
         await removeItemFromAsyncStorage(SELECTED_SYMPTOM_LIST_KEY);
         dispatch({type: 'RESET_DATA'});
-        realm.close();
+        // realm.close();
       }
     } catch (error) {
       console.error('Error saving selected symptom list to database:', error);

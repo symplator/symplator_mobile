@@ -1,6 +1,7 @@
 import React, {useContext} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {Button} from 'react-native-paper';
+import {Button} from 'react-native-paper';
 import {SelectedSymptomListContext} from './../context/SelectedSymptomList/SelectedSymptomListContext';
 import {SelectedSymptomList} from '../components/SelectedSymptomList';
 import {useTranslation} from 'react-i18next';
@@ -11,33 +12,44 @@ type Props = {
   navigation: StackNavigationProp<RootStackParams, 'HomeScreen'>;
 };
 
-// todo test component to be adjusted
 export const HomeScreen: React.FC<Props> = ({navigation}) => {
   const {t} = useTranslation();
 
   const selectedSymptomListContext = useContext(SelectedSymptomListContext);
   const {data} = selectedSymptomListContext as SelectedSymptomListContext;
 
-  const saveAndRedirect = () => {
-    navigation.navigate('TranslationScreen');
+  const redirect = (screen: keyof RootStackParams) => {
+    navigation.navigate(screen);
   };
 
   return (
     <View style={styles.main}>
       <View>
         <SymptomSearch />
-        {/* <View style={styles.genderBtnView} /> */}
         <SelectedSymptomList />
       </View>
-      <Button
-        style={styles.saveBtn}
-        dark={true}
-        compact={false}
-        mode="contained"
-        disabled={!data?.symptoms?.length}
-        onPress={saveAndRedirect}>
-        {t('translate')}
-      </Button>
+      {data?.symptoms?.length ? (
+        <View>
+          <Button
+            style={styles.translateBtn}
+            dark={true}
+            compact={false}
+            mode="contained"
+            disabled={!data?.symptoms?.length}
+            onPress={() => redirect('SaveSymptomListScreen')}>
+            {t('translate')}
+          </Button>
+          <Button
+            style={styles.saveBtn}
+            dark={true}
+            compact={false}
+            mode="contained"
+            disabled={!data?.symptoms?.length}
+            onPress={() => redirect('SaveSymptomListScreen')}>
+            {t('save')}
+          </Button>
+        </View>
+      ) : undefined}
     </View>
   );
 };
@@ -56,10 +68,29 @@ const styles = StyleSheet.create({
     position: 'relative',
     padding: 10,
   },
+  // header: {
+  //   textAlign: 'center',
+  //   fontSize: 20,
+  //   marginTop: 90,
+  // },
+  // genderBtnView: {
+  //   marginTop: 100,
+  //   flex: 1,
+  //   flexDirection: 'row',
+  //   justifyContent: 'space-evenly',
+  // },
+  // searchBtn: {
+  //   borderRadius: 4,
+  // },
   saveBtn: {
     borderRadius: 4,
     bottom: 20,
     left: 10,
-    width: '100%',
+  },
+  saveBtn: {
+    borderRadius: 4,
+    position: 'absolute',
+    bottom: 20,
+    right: 10,
   },
 });

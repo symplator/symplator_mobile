@@ -17,17 +17,29 @@ export const RootStackNavigator: React.FC = () => {
   return (
     <Drawer.Navigator
       drawerContent={DrawerContentComponent}
-      screenOptions={({navigation}) => ({
-        headerLeft: () => (
-          <MaterialCommunityIcons
-            name="menu"
-            size={30}
-            color="purple"
-            onPress={() => {
-              navigation.toggleDrawer();
-            }}
-          />
-        ),
+      screenOptions={({navigation, route}) => ({
+        headerLeft: () =>
+          route.name === 'HomeScreen' ? (
+            <MaterialCommunityIcons
+              name="menu"
+              size={30}
+              marginLeft={10}
+              color="purple"
+              onPress={() => {
+                navigation.toggleDrawer();
+              }}
+            />
+          ) : (
+            <MaterialCommunityIcons
+              name="arrow-left"
+              size={30}
+              marginLeft={10}
+              color="purple"
+              onPress={() => {
+                navigation.goBack();
+              }}
+            />
+          ),
       })}
       initialRouteName="HomeScreen">
       {DRAWER_MENU_ITEMS.map(item => (
@@ -38,6 +50,7 @@ export const RootStackNavigator: React.FC = () => {
           options={{
             title: t(`screens.${item.title}`),
             headerTitleAlign: 'center',
+            unmountOnBlur: true,
           }}
         />
       ))}
