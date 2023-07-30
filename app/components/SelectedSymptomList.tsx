@@ -3,8 +3,7 @@ import {List, MD3Colors} from 'react-native-paper';
 import {SelectedSymptomListContext} from '../context/SelectedSymptomList/SelectedSymptomListContext';
 import {UserSettingsContext} from '../context/UserSettings/UserSettingsContext';
 import {useTranslation} from 'react-i18next';
-import {ListRenderItem, View} from 'react-native';
-import {FlatList} from 'react-native-gesture-handler';
+import {FlatList, ListRenderItem, View} from 'react-native';
 
 export const SelectedSymptomList: React.FC<SelectedSymptomListProps> = ({
   isTranslated,
@@ -57,17 +56,18 @@ export const SelectedSymptomList: React.FC<SelectedSymptomListProps> = ({
   };
 
   return (
-    <FlatList
-      style={{height: '70%'}}
-      data={data.symptoms}
-      renderItem={renderItem}
-      keyExtractor={item => item._id.toString()}
-    />
+    <View>
+      {showTitle && (
+        <List.Subheader style={{fontSize: 16, fontWeight: 'bold'}}>
+          {t('mySymptoms')}
+        </List.Subheader>
+      )}
+      <FlatList
+        style={{height: '70%'}}
+        data={data.symptoms}
+        renderItem={renderItem}
+        keyExtractor={item => item._id.toString()}
+      />
+    </View>
   );
 };
-
-// {showTitle && (
-//   <List.Subheader style={{fontSize: 16, fontWeight: 'bold'}}>
-//     {t('mySymptoms')}
-//   </List.Subheader>
-// )}

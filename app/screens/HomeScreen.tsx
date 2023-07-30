@@ -1,7 +1,6 @@
 import React, {useContext} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {Button} from 'react-native-paper';
-import {Button} from 'react-native-paper';
 import {SelectedSymptomListContext} from './../context/SelectedSymptomList/SelectedSymptomListContext';
 import {SelectedSymptomList} from '../components/SelectedSymptomList';
 import {useTranslation} from 'react-i18next';
@@ -36,7 +35,7 @@ export const HomeScreen: React.FC<Props> = ({navigation}) => {
             compact={false}
             mode="contained"
             disabled={!data?.symptoms?.length}
-            onPress={() => redirect('SaveSymptomListScreen')}>
+            onPress={() => redirect('TranslationScreen')}>
             {t('translate')}
           </Button>
           <Button
@@ -68,29 +67,16 @@ const styles = StyleSheet.create({
     position: 'relative',
     padding: 10,
   },
-  // header: {
-  //   textAlign: 'center',
-  //   fontSize: 20,
-  //   marginTop: 90,
-  // },
-  // genderBtnView: {
-  //   marginTop: 100,
-  //   flex: 1,
-  //   flexDirection: 'row',
-  //   justifyContent: 'space-evenly',
-  // },
-  // searchBtn: {
-  //   borderRadius: 4,
-  // },
-  saveBtn: {
+  translateBtn: {
     borderRadius: 4,
+    position: 'absolute',
     bottom: 20,
-    left: 10,
+    right: 10,
   },
   saveBtn: {
     borderRadius: 4,
     position: 'absolute',
     bottom: 20,
-    right: 10,
+    left: 10,
   },
 });
