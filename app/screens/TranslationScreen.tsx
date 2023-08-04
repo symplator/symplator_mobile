@@ -3,68 +3,14 @@ import {View, StyleSheet} from 'react-native';
 import {SelectedSymptomListContext} from '../context/SelectedSymptomList/SelectedSymptomListContext';
 import React, {useContext} from 'react';
 import {Button, Card, List} from 'react-native-paper';
-import {UserSettingsContext} from '../context/UserSettings/UserSettingsContext';
 import {useTranslation} from 'react-i18next';
+import {TranslatedSymptomList} from '../components/TranslatedSymptomList';
 
 type Props = {
   navigation: StackNavigationProp<RootStackParams, 'TranslationScreen'>;
 };
 
-type symptomProps = {
-  isTranslated: boolean;
-  data: any;
-};
-const SymptomList: React.FC<symptomProps> = ({isTranslated, data}) => {
-  const userSettingsContext = useContext(UserSettingsContext);
-  const {currentLanguage, targetLanguage} = userSettingsContext.userSettings;
 
-  data?.symptoms?.map(symptom => {
-    console.log(
-      'Symptom name : ',
-      symptom?.translations?.find(t => t.language === targetLanguage)?.name,
-    );
-    console.log(
-      'Symptom detail : ',
-      symptom?.translations?.find(t => t.language === targetLanguage)?.detail,
-    );
-  });
-  console.log;
-  return (
-    <View>
-      {data?.symptoms?.map(symptom => (
-        <List.Accordion
-          style={{borderRadius: 10}}
-          key={symptom._id}
-          title={
-            symptom?.translations?.find(t =>
-              isTranslated
-                ? t.language === targetLanguage
-                : t.language === currentLanguage,
-            )?.name
-          }
-          titleStyle={{marginBottom: 10, fontSize: 17}}
-          titleNumberOfLines={2}
-          description={
-            isTranslated
-              ? symptom?.translations?.find(t => t.language === currentLanguage)
-                  ?.name
-              : ''
-          }
-          descriptionStyle={{color:'grey'}}>
-          <List.Item
-            title={
-              symptom?.translations?.find(t =>
-                isTranslated
-                  ? t.language === targetLanguage
-                  : t.language === currentLanguage,
-              )?.detail
-            }
-          />
-        </List.Accordion>
-      ))}
-    </View>
-  );
-};
 export const TranslationScreen: React.FC<Props> = ({navigation}) => {
   const selectedSymptomListContext = useContext(SelectedSymptomListContext);
   const {data} = selectedSymptomListContext as SelectedSymptomListContext;
@@ -74,7 +20,7 @@ export const TranslationScreen: React.FC<Props> = ({navigation}) => {
   return (
     <View style={styles.main}>
       <Card>
-        <SymptomList isTranslated={true} data={data} />
+        <TranslatedSymptomList isTranslated={true} data={data} />
       </Card>
 
       <Button
