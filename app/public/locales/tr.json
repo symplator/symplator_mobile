@@ -20,11 +20,13 @@
     "search": "Semptom ara",
     "save": "Kaydet",
     "translate": "Çevir",
+    "export": "Dişari aktar",
     "screens": {
       "home": "Ana Sayfa",
       "mySymptomLists": "Semptom Listeleri",
       "settings": "Ayarlar",
       "mySymptoms": "Semptomlarım",
+      "translate" : "Çeviri",
       "saveSymptomList": "Semptom Listesini Kaydet"
     },
     "mySymptoms": "Semptomlarım",

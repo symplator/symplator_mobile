@@ -35,7 +35,7 @@ export const HomeScreen: React.FC<Props> = ({navigation}) => {
             compact={false}
             mode="contained"
             disabled={!data?.symptoms?.length}
-            onPress={() => redirect('SaveSymptomListScreen')}>
+            onPress={() => redirect('TranslationScreen')}>
             {t('translate')}
           </Button>
           <Button
@@ -57,6 +57,8 @@ const styles = StyleSheet.create({
   main: {
     height: '100%',
     display: 'flex',
+    backgroundColor: '#F5F5F5',
+    color: '#333333',
     flexDirection: 'column',
     justifyContent: 'space-between',
     flex: 1,
@@ -69,12 +71,12 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     position: 'absolute',
     bottom: 20,
-    left: 10,
+    right: 10,
   },
   saveBtn: {
     borderRadius: 4,
     position: 'absolute',
     bottom: 20,
-    right: 10,
+    left: 10,
   },
 });

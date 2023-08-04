@@ -2,10 +2,11 @@ import {UserSettingsContext} from '../context/UserSettings/UserSettingsContext';
 import {SyncedRealmContext} from '../context/Realm/RealmContext';
 import {SymptomSchema} from '../models/Symptom';
 import React, {useContext, useState} from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, FlatList, ListRenderItem} from 'react-native';
 import {List, Searchbar} from 'react-native-paper';
 import {t} from 'i18next';
 import {SelectedSymptomListContext} from '../context/SelectedSymptomList/SelectedSymptomListContext';
+import { grey200 } from 'react-native-paper/lib/typescript/src/styles/themes/v2/colors';
 
 const {useQuery} = SyncedRealmContext;
 export const SymptomSearch = () => {
@@ -20,6 +21,16 @@ export const SymptomSearch = () => {
 
   const {data} = selectedSymptomListContext as SelectedSymptomListContext;
 
+  const renderItem: ListRenderItem<any> = ({item}) => {
+    return (
+      <List.Item
+        title={
+          item?.translations?.find(t => t.language === currentLanguage)?.name
+        }
+        onPress={() => addSymptomToSelectedList(item)}
+      />
+    );
+  };
   const onSearchTextChange = (text: string): void => {
     setSearchQuery(text);
     if (text.length >= 3) {
@@ -89,16 +100,13 @@ export const SymptomSearch = () => {
         value={searchQuery}
       />
       <>
-        {results?.map(symptom => (
-          <List.Item
-            key={symptom._id}
-            title={
-              symptom?.translations?.find(t => t.language === currentLanguage)
-                ?.name
-            }
-            onPress={() => addSymptomToSelectedList(symptom)}
-          />
-        ))}
+        <FlatList
+          style={styles.symptomList}
+          horizontal={false}
+          data={results}
+          renderItem={renderItem}
+          keyExtractor={item => item._id.toString()}
+        />
       </>
     </View>
   );
@@ -108,5 +116,11 @@ const styles = StyleSheet.create({
   list: {
     marginTop: 10,
     marginBottom: 20,
+  },
+  symptomList: {
+    borderWidth: 2,
+    borderRadius: 20,
+    borderColor: '#e1e8ee',
+    marginHorizontal: 10,
   },
 });

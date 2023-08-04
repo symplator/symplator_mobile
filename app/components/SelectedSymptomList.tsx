@@ -3,6 +3,7 @@ import {List, MD3Colors} from 'react-native-paper';
 import {SelectedSymptomListContext} from '../context/SelectedSymptomList/SelectedSymptomListContext';
 import {UserSettingsContext} from '../context/UserSettings/UserSettingsContext';
 import {useTranslation} from 'react-i18next';
+import {FlatList, ListRenderItem, View} from 'react-native';
 
 export const SelectedSymptomList: React.FC<SelectedSymptomListProps> = ({
   isTranslated,
@@ -29,36 +30,44 @@ export const SelectedSymptomList: React.FC<SelectedSymptomListProps> = ({
     [],
   );
 
+  const renderItem: ListRenderItem<any> = ({item}) => {
+    return (
+      <List.Item
+        key={item._id}
+        title={
+          item?.translations?.find(t =>
+            isTranslated
+              ? t.language === targetLanguage
+              : t.language === currentLanguage,
+          )?.name
+        }
+        titleNumberOfLines={10}
+        titleEllipsizeMode="tail"
+        description={
+          isTranslated &&
+          item?.translations?.find(t => t.language === currentLanguage)?.name
+        }
+        descriptionNumberOfLines={10}
+        descriptionEllipsizeMode="tail"
+        right={Icon}
+        onLongPress={() => removeSymptomFromSelectedList(item)}
+      />
+    );
+  };
+
   return (
-    <>
+    <View>
       {showTitle && (
         <List.Subheader style={{fontSize: 16, fontWeight: 'bold'}}>
           {t('mySymptoms')}
         </List.Subheader>
       )}
-      {data?.symptoms?.map(symptom => (
-        <List.Item
-          key={symptom._id}
-          title={
-            symptom?.translations?.find(t =>
-              isTranslated
-                ? t.language === targetLanguage
-                : t.language === currentLanguage,
-            )?.name
-          }
-          titleNumberOfLines={10}
-          titleEllipsizeMode="tail"
-          description={
-            isTranslated &&
-            symptom?.translations?.find(t => t.language === currentLanguage)
-              ?.name
-          }
-          descriptionNumberOfLines={10}
-          descriptionEllipsizeMode="tail"
-          right={Icon}
-          onLongPress={() => removeSymptomFromSelectedList(symptom)}
-        />
-      ))}
-    </>
+      <FlatList
+        style={{height: '70%'}}
+        data={data?.symptoms}
+        renderItem={renderItem}
+        keyExtractor={item => item._id.toString()}
+      />
+    </View>
   );
 };
