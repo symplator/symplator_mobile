@@ -64,7 +64,7 @@ export const SelectedSymptomList: React.FC<SelectedSymptomListProps> = ({
       )}
       <FlatList
         style={{height: '70%'}}
-        data={data.symptoms}
+        data={data?.symptoms}
         renderItem={renderItem}
         keyExtractor={item => item._id.toString()}
       />
