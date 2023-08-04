@@ -33,6 +33,7 @@ const SymptomList: React.FC<symptomProps> = ({isTranslated, data}) => {
     <View>
       {data?.symptoms?.map(symptom => (
         <List.Accordion
+          style={{borderRadius: 10}}
           key={symptom._id}
           title={
             symptom?.translations?.find(t =>
@@ -41,13 +42,15 @@ const SymptomList: React.FC<symptomProps> = ({isTranslated, data}) => {
                 : t.language === currentLanguage,
             )?.name
           }
+          titleStyle={{marginBottom: 10, fontSize: 17}}
           titleNumberOfLines={2}
           description={
             isTranslated
               ? symptom?.translations?.find(t => t.language === currentLanguage)
                   ?.name
               : ''
-          }>
+          }
+          descriptionStyle={{color:'grey'}}>
           <List.Item
             title={
               symptom?.translations?.find(t =>
