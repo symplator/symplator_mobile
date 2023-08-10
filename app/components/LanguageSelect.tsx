@@ -41,7 +41,6 @@ export const LanguageSelect: React.FC<LanguageSelectProps> = ({
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     marginBottom: 20,
   },
   pickerContainer: {

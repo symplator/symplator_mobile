@@ -72,13 +72,13 @@ export const LanguageScreen: React.FC<Props> = ({navigation}) => {
 const styles = StyleSheet.create({
   main: {
     height: '100%',
+    width: '100%',
     display: 'flex',
+    flexDirection: 'column',
+    flex: 1,
     backgroundColor: '#F5F5F5',
     color: '#333333',
     borderColor: 'white',
-    flexDirection: 'column',
-    flex: 1,
-    width: '100%',
     fontFamily: 'Roboto, Open Sans',
   },
   header: {
@@ -88,9 +88,10 @@ const styles = StyleSheet.create({
   },
   langView: {
     marginTop: 40,
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    maxHeight: '50%',
+    width: '90%',
+    marginLeft: '5%',
+    display: 'flex',
+    justifyContent: 'space-between',
+    height: '35%',
   },
 });
