@@ -29,7 +29,12 @@ export const TranslatedSymptomList: React.FC<symptomProps> = ({
     <View>
       {data?.symptoms?.map(symptom => (
         <List.Accordion
-          style={{borderRadius: 10}}
+          style={{
+            borderRadius: 10,
+            borderWidth: 1,
+            borderColor: 'grey',
+            marginBottom:2
+          }}
           key={symptom._id}
           title={
             symptom?.translations?.find(t =>

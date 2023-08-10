@@ -32,6 +32,7 @@
     "mySymptoms": "Semptomlarım",
     "noSavedSymptomList": "Kaydedilmis semptom listesi bulunamadi. Lütfen semptom listesi olusturunuz.",
     "searchSymptoms": "Semptom ara",
+    "translatedSymptoms": "Semptom cevirisi",
     "deleteSymptomListDialogTitle": "Semptom listesini sil",
     "deleteSymptomListDialogContent": "Semptom listesini silmek istediğinizden emin misiniz?",
     "delete": "Sil",

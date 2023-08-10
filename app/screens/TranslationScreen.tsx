@@ -1,34 +1,66 @@
 import {StackNavigationProp} from '@react-navigation/stack';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Share} from 'react-native';
 import {SelectedSymptomListContext} from '../context/SelectedSymptomList/SelectedSymptomListContext';
 import React, {useContext} from 'react';
-import {Button, Card, List} from 'react-native-paper';
+import {Button} from 'react-native-paper';
 import {useTranslation} from 'react-i18next';
 import {TranslatedSymptomList} from '../components/TranslatedSymptomList';
+import {UserSettingsContext} from '../context/UserSettings/UserSettingsContext';
 
 type Props = {
   navigation: StackNavigationProp<RootStackParams, 'TranslationScreen'>;
 };
-
 
 export const TranslationScreen: React.FC<Props> = ({navigation}) => {
   const selectedSymptomListContext = useContext(SelectedSymptomListContext);
   const {data} = selectedSymptomListContext as SelectedSymptomListContext;
 
   const {t} = useTranslation();
+  const userSettingsContext = useContext(UserSettingsContext);
+  const {targetLanguage} = userSettingsContext.userSettings;
+
+  const textToShare = data?.symptoms
+    ?.map(
+      symptom =>
+        symptom?.translations?.find(
+          translation => translation.language === targetLanguage,
+        )?.name,
+    )
+    .join('\n');
+
+  const handleShare = async () => {
+    try {
+      const options = {
+        title: t('translatedSymptoms'),
+        message: t('translatedSymptoms') + ':\n' + textToShare,
+      };
+
+      await Share.share(options);
+    } catch (error) {
+      console.log('Error sharing text:', error.message);
+    }
+  };
 
   return (
     <View style={styles.main}>
-      <Card>
-        <TranslatedSymptomList isTranslated={true} data={data} />
-      </Card>
+      <TranslatedSymptomList isTranslated={true} data={data} />
+
+      <Button
+        dark={true}
+        compact={false}
+        mode="contained"
+        disabled={!data?.symptoms?.length}
+        onPress={handleShare}>
+        {t('share')}
+      </Button>
 
       <Button
         style={styles.exportButton}
         dark={true}
         compact={false}
         mode="contained"
-        disabled={!data?.symptoms?.length}>
+        disabled={!data?.symptoms?.length}
+        onPress={handleShare}>
         {t('export')}
       </Button>
     </View>
