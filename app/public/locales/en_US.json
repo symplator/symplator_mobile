@@ -6,10 +6,15 @@
       "welcome2": "Welcome to our Medical Translation App!",
       "copyright": "© 2023 Team Symp-lator. All rights reserved.",
       "selectGender": "Select your gender",
+      "gender": "Gender",
+      "woman": "Woman",
+      "man": "Man",
       "selectBirthYear": "Select your birth year",
+      "birthYear": "Birth Year",
       "setupLanguages": "Setup languages",
       "currentLanguage": "Current Language",
-      "targetLanguage": "Translation Language"
+      "targetLanguage": "Translation Language",
+      "successSaveSettings": "Your settings have been saved successfully."
     },
     "languages": {
       "tr": "Turkish",
@@ -36,6 +41,7 @@
     "deleteSymptomListDialogTitle": "Delete Symptom List",
     "deleteSymptomListDialogContent": "Are you sure you want to delete your saved symptom list?",
     "delete": "Delete",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "success": "Success"
   }
 }
