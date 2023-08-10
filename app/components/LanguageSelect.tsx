@@ -1,5 +1,6 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
+import {Text} from 'react-native-paper';
 import {Picker} from '@react-native-picker/picker';
 import {useTranslation} from 'react-i18next';
 import {LANGUAGES} from '../constants/general';
@@ -8,13 +9,14 @@ export const LanguageSelect: React.FC<LanguageSelectProps> = ({
   languageType,
   selectedLanguage,
   excludedLanguage,
+  alignItems = 'center',
   setLanguage,
 }) => {
   const {t} = useTranslation();
 
   return (
-    <View style={styles.langView}>
-      <Text>{t(`initialSettings.${languageType}`)}</Text>
+    <View style={{...styles.container, alignItems}}>
+      <Text variant="labelLarge">{t(`initialSettings.${languageType}`)}</Text>
       <View style={styles.pickerContainer}>
         <Picker
           style={styles.picker}
@@ -38,18 +40,18 @@ export const LanguageSelect: React.FC<LanguageSelectProps> = ({
 };
 
 const styles = StyleSheet.create({
-  langView: {
+  container: {
     flex: 1,
-    alignItems: 'center',
-    width: '75%',
+    marginBottom: 20,
   },
   pickerContainer: {
     marginTop: 10,
-    width: '50%',
+    width: '100%',
     borderStyle: 'solid',
     borderRadius: 4,
     borderColor: '#D0D5DD',
     borderWidth: 2,
+    backgroundColor: 'white',
   },
   picker: {
     width: '100%',

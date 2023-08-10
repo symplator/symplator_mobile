@@ -3,11 +3,11 @@ import {UserSettingsContext} from '../context/UserSettings/UserSettingsContext';
 import {View} from 'react-native';
 import {List} from 'react-native-paper';
 
-type symptomProps = {
+type SymptomProps = {
   isTranslated: boolean;
   data: any;
 };
-export const TranslatedSymptomList: React.FC<symptomProps> = ({
+export const TranslatedSymptomList: React.FC<SymptomProps> = ({
   isTranslated,
   data,
 }) => {
