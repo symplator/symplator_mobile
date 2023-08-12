@@ -21,6 +21,7 @@
     "save": "Save",
     "translate": "Translate",
     "export": "Export",
+    "share":"Share",
     "screens": {
       "home": "Home",
       "mySymptomLists": "My Symptom Lists",
