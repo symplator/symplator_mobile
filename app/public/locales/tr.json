@@ -30,6 +30,9 @@
       "translate" : "Çeviri",
       "saveSymptomList": "Semptom Listesini Kaydet"
     },
+    "pdf": {
+      "mainTitle": "Symplator Semptom Cevirisi"
+    },
     "mySymptoms": "Semptomlarım",
     "noSavedSymptomList": "Kaydedilmis semptom listesi bulunamadi. Lütfen semptom listesi olusturunuz.",
     "searchSymptoms": "Semptom ara",

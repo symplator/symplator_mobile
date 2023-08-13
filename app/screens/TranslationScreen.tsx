@@ -7,7 +7,6 @@ import {useTranslation} from 'react-i18next';
 import {TranslatedSymptomList} from '../components/TranslatedSymptomList';
 import {UserSettingsContext} from '../context/UserSettings/UserSettingsContext';
 import {createPdf} from '../utils/createPdf';
-import Pdf from 'react-native-pdf';
 import {SymptomsPdfModal} from '../components/SymptomsPdfModal';
 type Props = {
   navigation: StackNavigationProp<RootStackParams, 'TranslationScreen'>;
@@ -22,6 +21,8 @@ export const TranslationScreen: React.FC<Props> = ({navigation}) => {
   const {targetLanguage, currentLanguage} = userSettingsContext.userSettings;
   const [pdfVisible, setPdfVisible] = React.useState(false);
   const [pdfPath, setPdfPath] = React.useState('');
+
+  const hidePdfModal = () => setPdfVisible(false);
 
   const textToShareTarget =
     t('mySymptoms', {lng: targetLanguage}) +
@@ -60,7 +61,7 @@ export const TranslationScreen: React.FC<Props> = ({navigation}) => {
   };
 
   const handleExport = async () => {
-    const filePath = createPdf();
+    const filePath = createPdf(data?.symptoms, targetLanguage, currentLanguage);
     setPdfPath(await filePath);
     setPdfVisible(true);
   };
@@ -68,7 +69,11 @@ export const TranslationScreen: React.FC<Props> = ({navigation}) => {
   return (
     <PaperProvider>
       <View style={styles.main}>
-        <SymptomsPdfModal pdfVisible={pdfVisible} filePath={pdfPath} />
+        <SymptomsPdfModal
+          pdfVisible={pdfVisible}
+          onClose={hidePdfModal}
+          filePath={pdfPath}
+        />
         <TranslatedSymptomList isTranslated={true} data={data} />
         <Button
           style={styles.shareButton}

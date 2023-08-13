@@ -1,29 +1,30 @@
 import * as React from 'react';
-import {Modal, Portal, Text, Button, PaperProvider} from 'react-native-paper';
+import {Modal, Portal, Button} from 'react-native-paper';
 import Pdf from 'react-native-pdf';
 import {StyleSheet} from 'react-native';
+import {useEffect} from 'react';
 
 type pdfProps = {
   pdfVisible: boolean;
   filePath: string;
+  onClose: any;
 };
 
 export const SymptomsPdfModal: React.FC<pdfProps> = ({
   pdfVisible,
   filePath,
+  onClose,
 }) => {
-  const [visible, setVisible] = React.useState(pdfVisible);
 
-  const hideModal = () => setVisible(false);
-
-  
   const source = {uri: filePath};
-  console.log(`source : ${source.uri}`);
+
+  console.log(`pdf model rendered with : ${pdfVisible} ${filePath}`);
+  console.log(`pdfVisible : ${pdfVisible}`);
   return (
     <Portal>
       <Modal
         visible={pdfVisible}
-        onDismiss={hideModal}
+        onDismiss={onClose}
         contentContainerStyle={styles.container}>
         <Pdf
           source={source}
@@ -38,9 +39,9 @@ export const SymptomsPdfModal: React.FC<pdfProps> = ({
           }}
           style={styles.pdf}
         />
-        <Button mode="outlined" onPress={handleDownload} style={styles.downloadButton}>
-        Download PDF
-      </Button>
+        <Button mode="outlined" onPress={onClose} style={styles.closeButton}>
+          Close
+        </Button>
       </Modal>
     </Portal>
   );
@@ -51,12 +52,14 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: 'white',
+    margin:20
   },
   pdf: {
     flex: 1,
-    width: '100%', // Set the width to 100% to fill the container
+    width: '100%',
   },
-  downloadButton: {
-    marginTop: 10,
+  closeButton: {
+    marginVertical: 10,
   },
 });

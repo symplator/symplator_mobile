@@ -29,6 +29,9 @@
       "mySymptoms": "Meine Symptome",
       "translate": "Übersetzung",
     },
+    "pdf": {
+      "mainTitle": "Symplator Symptome Übersetzung"
+    },
     "mySymptoms": "Meine Symptome",
     "noSavedSymptomList": "You don't have any saved symptom list yet. Please start searching and saving your symptoms.",
     "searchSymptoms": "Search Symptoms",
