@@ -2,11 +2,13 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {View, StyleSheet, Share} from 'react-native';
 import {SelectedSymptomListContext} from '../context/SelectedSymptomList/SelectedSymptomListContext';
 import React, {useContext} from 'react';
-import {Button, IconButton, MD3Colors} from 'react-native-paper';
+import {Button, Text, Modal, Portal, PaperProvider} from 'react-native-paper';
 import {useTranslation} from 'react-i18next';
 import {TranslatedSymptomList} from '../components/TranslatedSymptomList';
 import {UserSettingsContext} from '../context/UserSettings/UserSettingsContext';
 import {createPdf} from '../utils/createPdf';
+import Pdf from 'react-native-pdf';
+import {SymptomsPdfModal} from '../components/SymptomsPdfModal';
 type Props = {
   navigation: StackNavigationProp<RootStackParams, 'TranslationScreen'>;
 };
@@ -18,6 +20,8 @@ export const TranslationScreen: React.FC<Props> = ({navigation}) => {
   const {t} = useTranslation();
   const userSettingsContext = useContext(UserSettingsContext);
   const {targetLanguage, currentLanguage} = userSettingsContext.userSettings;
+  const [pdfVisible, setPdfVisible] = React.useState(false);
+  const [pdfPath, setPdfPath] = React.useState('');
 
   const textToShareTarget =
     t('mySymptoms', {lng: targetLanguage}) +
@@ -56,35 +60,39 @@ export const TranslationScreen: React.FC<Props> = ({navigation}) => {
   };
 
   const handleExport = async () => {
-    createPdf();
+    const filePath = createPdf();
+    setPdfPath(await filePath);
+    setPdfVisible(true);
   };
 
   return (
-    <View style={styles.main}>
-      <TranslatedSymptomList isTranslated={true} data={data} />
+    <PaperProvider>
+      <View style={styles.main}>
+        <SymptomsPdfModal pdfVisible={pdfVisible} filePath={pdfPath} />
+        <TranslatedSymptomList isTranslated={true} data={data} />
+        <Button
+          style={styles.shareButton}
+          dark={true}
+          compact={false}
+          mode="contained"
+          disabled={!data?.symptoms?.length}
+          onPress={handleShare}
+          icon="share-variant-outline">
+          {t('share')}
+        </Button>
 
-      <Button
-        style={styles.shareButton}
-        dark={true}
-        compact={false}
-        mode="contained"
-        disabled={!data?.symptoms?.length}
-        onPress={handleShare}
-        icon="share-variant-outline">
-        {t('share')}
-      </Button>
-
-      <Button
-        style={styles.exportButton}
-        dark={true}
-        compact={false}
-        mode="contained"
-        disabled={!data?.symptoms?.length}
-        onPress={handleExport}
-        icon="export">
-        {t('export')}
-      </Button>
-    </View>
+        <Button
+          style={styles.exportButton}
+          dark={true}
+          compact={false}
+          mode="contained"
+          disabled={!data?.symptoms?.length}
+          onPress={handleExport}
+          icon="export">
+          {t('export')}
+        </Button>
+      </View>
+    </PaperProvider>
   );
 };
 
