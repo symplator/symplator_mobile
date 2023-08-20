@@ -2,11 +2,12 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {View, StyleSheet, Share} from 'react-native';
 import {SelectedSymptomListContext} from '../context/SelectedSymptomList/SelectedSymptomListContext';
 import React, {useContext} from 'react';
-import {Button} from 'react-native-paper';
+import {Button, Text, Modal, Portal, PaperProvider} from 'react-native-paper';
 import {useTranslation} from 'react-i18next';
 import {TranslatedSymptomList} from '../components/TranslatedSymptomList';
 import {UserSettingsContext} from '../context/UserSettings/UserSettingsContext';
-
+import {createPdf} from '../utils/createPdf';
+import {SymptomsPdfModal} from '../components/SymptomsPdfModal';
 type Props = {
   navigation: StackNavigationProp<RootStackParams, 'TranslationScreen'>;
 };
@@ -17,22 +18,40 @@ export const TranslationScreen: React.FC<Props> = ({navigation}) => {
 
   const {t} = useTranslation();
   const userSettingsContext = useContext(UserSettingsContext);
-  const {targetLanguage} = userSettingsContext.userSettings;
+  const {targetLanguage, currentLanguage} = userSettingsContext.userSettings;
+  const [pdfVisible, setPdfVisible] = React.useState(false);
+  const [pdfPath, setPdfPath] = React.useState('');
 
-  const textToShare = data?.symptoms
-    ?.map(
-      symptom =>
-        symptom?.translations?.find(
-          translation => translation.language === targetLanguage,
-        )?.name,
-    )
-    .join('\n');
+  const hidePdfModal = () => setPdfVisible(false);
 
+  const textToShareTarget =
+    t('mySymptoms', {lng: targetLanguage}) +
+    ':\n' +
+    data?.symptoms
+      ?.map(
+        symptom =>
+          symptom?.translations?.find(
+            translation => translation.language === targetLanguage,
+          )?.name,
+      )
+      .join('\n');
+
+  const textToShareCurrent =
+    t('mySymptoms', {lng: currentLanguage}) +
+    ':\n' +
+    data?.symptoms
+      ?.map(
+        symptom =>
+          symptom?.translations?.find(
+            translation => translation.language === currentLanguage,
+          )?.name,
+      )
+      .join('\n');
   const handleShare = async () => {
     try {
       const options = {
-        title: t('translatedSymptoms'),
-        message: t('translatedSymptoms') + ':\n' + textToShare,
+        title: t('mySymptoms'),
+        message: `${textToShareTarget} \n ${textToShareCurrent}`,
       };
 
       await Share.share(options);
@@ -41,37 +60,59 @@ export const TranslationScreen: React.FC<Props> = ({navigation}) => {
     }
   };
 
+  const handleExport = async () => {
+    const filePath = createPdf(data?.symptoms, targetLanguage, currentLanguage);
+    setPdfPath(await filePath);
+    setPdfVisible(true);
+  };
+
   return (
-    <View style={styles.main}>
-      <TranslatedSymptomList isTranslated={true} data={data} />
+    <PaperProvider>
+      <View style={styles.main}>
+        <SymptomsPdfModal
+          pdfVisible={pdfVisible}
+          onClose={hidePdfModal}
+          filePath={pdfPath}
+        />
+        <TranslatedSymptomList isTranslated={true} data={data} />
+        <Button
+          style={styles.shareButton}
+          dark={true}
+          compact={false}
+          mode="contained"
+          disabled={!data?.symptoms?.length}
+          onPress={handleShare}
+          icon="share-variant-outline">
+          {t('share')}
+        </Button>
 
-      <Button
-        dark={true}
-        compact={false}
-        mode="contained"
-        disabled={!data?.symptoms?.length}
-        onPress={handleShare}>
-        {t('share')}
-      </Button>
-
-      <Button
-        style={styles.exportButton}
-        dark={true}
-        compact={false}
-        mode="contained"
-        disabled={!data?.symptoms?.length}
-        onPress={handleShare}>
-        {t('export')}
-      </Button>
-    </View>
+        <Button
+          style={styles.exportButton}
+          dark={true}
+          compact={false}
+          mode="contained"
+          disabled={!data?.symptoms?.length}
+          onPress={handleExport}
+          icon="export">
+          {t('export')}
+        </Button>
+      </View>
+    </PaperProvider>
   );
 };
 
 const styles = StyleSheet.create({
   exportButton: {
     borderRadius: 4,
-    width: '100%',
-    marginBottom: 20,
+    position: 'absolute',
+    bottom: 20,
+    left: 10,
+  },
+  shareButton: {
+    borderRadius: 4,
+    position: 'absolute',
+    bottom: 20,
+    right: 10,
   },
   main: {
     height: '100%',
