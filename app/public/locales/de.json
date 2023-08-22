@@ -24,8 +24,8 @@
     "select": "Auswählen",
     "search": "Suche symptom",
     "save": "Save",
-    "translate": "Translate",
     "export": "Export",
+    "share": "Share",
     "screens": {
       "home": "Home",
       "mySymptomLists": "My Symptom Lists",
@@ -36,6 +36,11 @@
     "translatedSymptoms": "Translated Symptoms",
     "noSavedSymptomList": "Keine gespeicherte Symptomliste",
     "searchSymptoms": "Suche Symptome",
-    "success": "Erfolg"
+    "success": "Erfolg",
+    "mySymptoms": "Meine Symptome",
+    "translate": "Übersetzung",
+    "pdf": {
+      "mainTitle": "Symplator Symptome Übersetzung"
+    }
   }
 }

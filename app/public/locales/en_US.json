@@ -26,6 +26,7 @@
     "save": "Save",
     "translate": "Translate",
     "export": "Export",
+    "share":"Share",
     "screens": {
       "home": "Home",
       "mySymptomLists": "My Symptom Lists",
@@ -33,6 +34,9 @@
       "mySymptoms": "My Symptoms",
       "saveSymptomList": "Save Symptom List",
       "translate": "Translate"
+    },
+    "pdf": {
+      "mainTitle": "Symplator Symptom Translation"
     },
     "mySymptoms": "My Symptoms",
     "noSavedSymptomList": "You don't have any saved symptom list yet. Please start searching and saving your symptoms.",

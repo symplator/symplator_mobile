@@ -26,6 +26,7 @@
     "save": "Kaydet",
     "translate": "Çevir",
     "export": "Dişari aktar",
+    "share":"Paylas",
     "screens": {
       "home": "Ana Sayfa",
       "mySymptomLists": "Semptom Listeleri",
@@ -33,6 +34,9 @@
       "mySymptoms": "Semptomlarım",
       "translate": "Çeviri",
       "saveSymptomList": "Semptom Listesini Kaydet"
+    },
+    "pdf": {
+      "mainTitle": "Symplator Semptom Cevirisi"
     },
     "mySymptoms": "Semptomlarım",
     "noSavedSymptomList": "Kaydedilmis semptom listesi bulunamadi. Lütfen semptom listesi olusturunuz.",
