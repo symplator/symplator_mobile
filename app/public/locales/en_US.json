@@ -28,7 +28,8 @@
       "settings": "Settings",
       "mySymptoms": "My Symptoms",
       "saveSymptomList": "Save Symptom List",
-      "translate": "Translate"
+      "translate": "Translate",
+      "symptomDetail": "Symptom Detail",
     },
     "pdf": {
       "mainTitle": "Symplator Symptom Translation"

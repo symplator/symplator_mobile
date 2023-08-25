@@ -28,6 +28,7 @@
       "settings": "Settings",
       "mySymptoms": "Meine Symptome",
       "translate": "Übersetzung",
+      "symptomDetail": "Symptomdetail",
     },
     "pdf": {
       "mainTitle": "Symplator Symptome Übersetzung"

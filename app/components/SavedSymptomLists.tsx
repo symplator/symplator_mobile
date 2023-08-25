@@ -13,20 +13,27 @@ import {TouchableOpacity, StyleSheet, View, FlatList} from 'react-native';
 import {LocalRealmContext} from '../context/Realm/RealmContext';
 import {SelectedSymptomListSchema} from '../models/SelectedSymptomList';
 import {LOCALES} from '../constants/general';
+import {StackNavigationProp} from '@react-navigation/stack';
 
 type Props = {
   symptomLists: Realm.Results<SelectedSymptomListSchema>;
+  navigation: StackNavigationProp<RootStackParams, 'SavedSymptomListsScreen'>;
 };
 
 const {useRealm} = LocalRealmContext;
 
-export const SavedSymptomLists: React.FC<Props> = ({symptomLists}) => {
+export const SavedSymptomLists: React.FC<Props> = ({
+  symptomLists,
+  navigation,
+}) => {
   const {t, i18n} = useTranslation();
   const realm = useRealm();
   const [visible, setVisible] = React.useState(false);
   const [selectedItem, setSelectedItem] =
     React.useState<SelectedSymptomListSchema | null>(null);
 
+  console.log('symptom lists');
+  console.log(symptomLists[0].symptoms);
   const showDialog = () => setVisible(true);
   const hideDialog = () => setVisible(false);
 
@@ -36,6 +43,14 @@ export const SavedSymptomLists: React.FC<Props> = ({symptomLists}) => {
     });
 
     hideDialog();
+  };
+
+  const redirect = (item: SelectedSymptomListSchema) => {
+    console.log('selectedItem')
+    console.log(item)
+    navigation.navigate('SymptomDetailScreen', {
+      data: {symptoms: item.symptoms, tag: item.tag, date: item.date.getTime()},
+    });
   };
 
   return (
@@ -48,7 +63,13 @@ export const SavedSymptomLists: React.FC<Props> = ({symptomLists}) => {
             renderItem={({item}) => (
               <View style={styles.listItem} key={item._id as unknown as number}>
                 <View style={styles.listItemTxt}>
-                  <Text style={styles.listItemTitle} variant="bodyMedium">
+                  <Text
+                    style={styles.listItemTitle}
+                    variant="bodyMedium"
+                    onPress={() => {
+                      setSelectedItem(item);
+                      redirect(item);
+                    }}>
                     {item.tag}
                   </Text>
                   <Text style={styles.listItemDate} variant="bodyMedium">

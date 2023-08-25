@@ -28,7 +28,8 @@
       "settings": "Ayarlar",
       "mySymptoms": "Semptomlarım",
       "translate" : "Çeviri",
-      "saveSymptomList": "Semptom Listesini Kaydet"
+      "saveSymptomList": "Semptom Listesini Kaydet",
+      "symptomDetail": "Semptom Detay",
     },
     "pdf": {
       "mainTitle": "Symplator Semptom Cevirisi"
