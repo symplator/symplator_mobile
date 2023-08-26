@@ -96,13 +96,16 @@ export const SelectedSymptomListProvider: React.FC<
         };
 
         realm.write(() => {
-          const primaryKeys = selectedSymptomList?.symptoms?.map(s => s._id);
-          if (primaryKeys) {
-            const symptoms: any = localSymptoms.filter(ls =>
-              primaryKeys.includes(ls._id),
-            );
-            selectedSymptomList = {...selectedSymptomList, symptoms};
-          }
+          // const primaryKeys = selectedSymptomList?.symptoms?.map(s => s._id);
+          // if (primaryKeys) {
+          //   console.log('localSymptoms', localSymptoms);
+
+          //   const symptoms: any = localSymptoms.filter(ls =>
+          //     primaryKeys.includes(ls._id),
+          //   );
+
+          //   selectedSymptomList = {...selectedSymptomList, symptoms};
+          // }
           realm.create('SelectedSymptomList', selectedSymptomList);
         });
 

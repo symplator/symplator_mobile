@@ -1,4 +1,4 @@
-type Gender = 'female' | 'male';
+type Gender = 'woman' | 'man';
 
 interface UserSettings {
   userId?: string;
@@ -16,5 +16,5 @@ type UserSettingsAction = {
 interface UserSettingsContext {
   userSettings: UserSettings;
   isLoading?: boolean;
-  updateData: (newData: UserSettings) => void;
+  updateData: (newData: UserSettings) => Promise<void>;
 }

@@ -19,7 +19,7 @@ export const SavedSymptomListsScreen: React.FC<Props> = ({navigation}) => {
 
   const [userId, setUserId] = useState<string | undefined>();
   const [isLoading, setIsLoading] = useState(true);
-  const [symptomLists, setSymptoms] = useState<Realm.Results<
+  const [symptomLists, setSymptomLists] = useState<Realm.Results<
     SelectedSymptomListSchema & Realm.Object<unknown, never>
   > | null>(null);
   let symptomListsResult;
@@ -39,7 +39,7 @@ export const SavedSymptomListsScreen: React.FC<Props> = ({navigation}) => {
 
   useEffect(() => {
     if (!symptomLists && symptomListsResult.length) {
-      setSymptoms(symptomListsResult);
+      setSymptomLists(symptomListsResult);
     }
     if (userId && symptomListsResult) {
       setIsLoading(false);

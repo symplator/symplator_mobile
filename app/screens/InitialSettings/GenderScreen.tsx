@@ -33,20 +33,20 @@ export const GenderScreen: React.FC<Props> = ({navigation}) => {
           <IconButton
             style={[
               styles.genderBtn,
-              gender === Gender.Female && styles.selectedGenderBtn,
+              gender === Gender.Woman && styles.selectedGenderBtn,
             ]}
             icon="human-female"
             size={100}
-            onPress={() => setGender(Gender.Female)}
+            onPress={() => setGender(Gender.Woman)}
           />
           <IconButton
             style={[
               styles.genderBtn,
-              gender === Gender.Male && styles.selectedGenderBtn,
+              gender === Gender.Man && styles.selectedGenderBtn,
             ]}
             icon="human-male"
             size={100}
-            onPress={() => setGender(Gender.Male)}
+            onPress={() => setGender(Gender.Man)}
           />
         </View>
       </View>

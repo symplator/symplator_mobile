@@ -1,17 +1,18 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RouteProp} from '@react-navigation/native';
+import SettingsForm from '../components/SettingsForm';
 
 type Props = {
   navigation: StackNavigationProp<RootStackParams, 'SettingsScreen'>;
   route: RouteProp<RootStackParams, 'SettingsScreen'>;
 };
 
-export const SettingsScreen: React.FC<Props> = () => {
+export const SettingsScreen: React.FC<Props> = ({navigation}) => {
   return (
     <View style={styles.main}>
-      <Text>Settings</Text>
+      <SettingsForm redirect={() => navigation.navigate('HomeScreen')} />
     </View>
   );
 };
