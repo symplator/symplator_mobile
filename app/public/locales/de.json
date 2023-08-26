@@ -42,6 +42,8 @@
     "symptomDetail": "Symptomdetail",
     "pdf": {
       "mainTitle": "Symplator Symptome Übersetzung"
-    }
+    },
+    "showTranslated": "Übersetzt zeigen",
+    "showOriginal": "Original zeigen"
   }
 }

@@ -47,6 +47,8 @@
     "deleteSymptomListDialogContent": "Semptom listesini silmek istediğinizden emin misiniz?",
     "delete": "Sil",
     "cancel": "İptal",
-    "success": "Başarılı"
+    "success": "Başarılı",
+    "showTranslated": "Ceviriyi göster",
+    "showOriginal": "Orjinali göster"
   }
 }

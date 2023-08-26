@@ -8,6 +8,7 @@ import {ExportButton} from '../components/ExportButton';
 import {createPdf} from '../utils/createPdf';
 import {UserSettingsContext} from '../context/UserSettings/UserSettingsContext';
 import {SymptomsPdfModal} from '../components/SymptomsPdfModal';
+import {t} from 'i18next';
 type Props = {
   navigation: StackNavigationProp<RootStackParams, 'SymptomDetailScreen'>;
   route: RouteProp<RootStackParams, 'SymptomDetailScreen'>;
@@ -54,7 +55,7 @@ export const SymptomDetailScreen: React.FC<Props> = ({route}) => {
         <Button
           onPress={() => setShowTranslated(!showTranslated)}
           style={styles.showTranslatedButton}>
-          {showTranslated ? 'Show Original' : 'Show Translated'}
+          {showTranslated ? t('showOriginal') : t('showTranslated')}
         </Button>
         <ExportButton handleExport={handleExport} data={savedSymptom} />
       </View>

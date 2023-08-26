@@ -47,6 +47,8 @@
     "deleteSymptomListDialogContent": "Are you sure you want to delete your saved symptom list?",
     "delete": "Delete",
     "cancel": "Cancel",
-    "success": "Success"
+    "success": "Success",
+    "showTranslated": "Show translated",
+    "showOriginal": "Show original"
   }
 }
