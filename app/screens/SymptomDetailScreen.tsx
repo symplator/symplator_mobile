@@ -1,6 +1,6 @@
 import {RouteProp} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Share} from 'react-native';
 import React, {useContext} from 'react';
 import {TranslatedSymptomList} from '../components/TranslatedSymptomList';
 import {Button, PaperProvider, Text} from 'react-native-paper';
@@ -9,6 +9,7 @@ import {createPdf} from '../utils/createPdf';
 import {UserSettingsContext} from '../context/UserSettings/UserSettingsContext';
 import {SymptomsPdfModal} from '../components/SymptomsPdfModal';
 import {t} from 'i18next';
+import {ShareButton} from '../components/ShareButton';
 type Props = {
   navigation: StackNavigationProp<RootStackParams, 'SymptomDetailScreen'>;
   route: RouteProp<RootStackParams, 'SymptomDetailScreen'>;
@@ -58,6 +59,7 @@ export const SymptomDetailScreen: React.FC<Props> = ({route}) => {
           {showTranslated ? t('showOriginal') : t('showTranslated')}
         </Button>
         <ExportButton handleExport={handleExport} data={savedSymptom} />
+        <ShareButton data={savedSymptom} />
       </View>
     </PaperProvider>
   );
