@@ -33,7 +33,8 @@
       "settings": "Ayarlar",
       "mySymptoms": "Semptomlarım",
       "translate": "Çeviri",
-      "saveSymptomList": "Semptom Listesini Kaydet"
+      "saveSymptomList": "Semptom Listesini Kaydet",
+      "symptomDetail": "Semptom Detay",
     },
     "pdf": {
       "mainTitle": "Symplator Semptom Cevirisi"
@@ -46,6 +47,8 @@
     "deleteSymptomListDialogContent": "Semptom listesini silmek istediğinizden emin misiniz?",
     "delete": "Sil",
     "cancel": "İptal",
-    "success": "Başarılı"
+    "success": "Başarılı",
+    "showTranslated": "Ceviriyi göster",
+    "showOriginal": "Orjinali göster"
   }
 }

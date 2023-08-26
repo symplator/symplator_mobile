@@ -4,6 +4,7 @@ import {SettingsScreen} from '../screens/SettingsScreen';
 import {SavedSymptomListsScreen} from '../screens/SavedSymptomListsScreen';
 import {TranslationScreen} from '../screens/TranslationScreen';
 import {SaveSymptomListScreen} from '../screens/SaveSymptomListScreen';
+import {SymptomDetailScreen} from '../screens/SymptomDetailScreen';
 
 export const DRAWER_MENU_ITEMS: DrawerMenuItem[] = [
   {
@@ -37,6 +38,12 @@ export const DRAWER_MENU_ITEMS: DrawerMenuItem[] = [
     title: 'mySymptoms',
     name: 'SymptomListScreen',
     screen: SymptomListScreen,
+    isShownInDrawer: false,
+  },
+  {
+    title: 'symptomDetail',
+    name: 'SymptomDetailScreen',
+    screen: SymptomDetailScreen,
     isShownInDrawer: false,
   },
   {

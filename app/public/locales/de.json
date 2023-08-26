@@ -30,7 +30,7 @@
       "home": "Home",
       "mySymptomLists": "My Symptom Lists",
       "settings": "Settings",
-      "mySymptoms": "My Symptoms",
+      "mySymptoms": "Meine Symptome",
       "translate": "Übersetzung"
     },
     "translatedSymptoms": "Translated Symptoms",
@@ -39,8 +39,11 @@
     "success": "Erfolg",
     "mySymptoms": "Meine Symptome",
     "translate": "Übersetzung",
+    "symptomDetail": "Symptomdetail",
     "pdf": {
       "mainTitle": "Symplator Symptome Übersetzung"
-    }
+    },
+    "showTranslated": "Übersetzt zeigen",
+    "showOriginal": "Original zeigen"
   }
 }

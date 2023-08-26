@@ -53,7 +53,10 @@ export const SavedSymptomListsScreen: React.FC<Props> = ({navigation}) => {
           <ActivityIndicator />
         </View>
       ) : symptomLists?.length ? (
-        <SavedSymptomLists symptomLists={symptomLists} />
+        <SavedSymptomLists
+          symptomLists={symptomLists}
+          navigation={navigation}
+        />
       ) : (
         <View style={styles.container}>
           <Text style={styles.txt}>{t('noSavedSymptomList')}</Text>

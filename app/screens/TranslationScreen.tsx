@@ -1,64 +1,28 @@
 import {StackNavigationProp} from '@react-navigation/stack';
-import {View, StyleSheet, Share} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import {SelectedSymptomListContext} from '../context/SelectedSymptomList/SelectedSymptomListContext';
 import React, {useContext} from 'react';
-import {Button, Text, Modal, Portal, PaperProvider} from 'react-native-paper';
-import {useTranslation} from 'react-i18next';
+import {PaperProvider} from 'react-native-paper';
 import {TranslatedSymptomList} from '../components/TranslatedSymptomList';
 import {UserSettingsContext} from '../context/UserSettings/UserSettingsContext';
 import {createPdf} from '../utils/createPdf';
 import {SymptomsPdfModal} from '../components/SymptomsPdfModal';
+import {ExportButton} from '../components/ExportButton';
+import {ShareButton} from '../components/ShareButton';
 type Props = {
   navigation: StackNavigationProp<RootStackParams, 'TranslationScreen'>;
 };
 
-export const TranslationScreen: React.FC<Props> = ({navigation}) => {
+export const TranslationScreen: React.FC<Props> = () => {
   const selectedSymptomListContext = useContext(SelectedSymptomListContext);
   const {data} = selectedSymptomListContext as SelectedSymptomListContext;
-
-  const {t} = useTranslation();
+ 
   const userSettingsContext = useContext(UserSettingsContext);
   const {targetLanguage, currentLanguage} = userSettingsContext.userSettings;
   const [pdfVisible, setPdfVisible] = React.useState(false);
   const [pdfPath, setPdfPath] = React.useState('');
 
   const hidePdfModal = () => setPdfVisible(false);
-
-  const textToShareTarget =
-    t('mySymptoms', {lng: targetLanguage}) +
-    ':\n' +
-    data?.symptoms
-      ?.map(
-        symptom =>
-          symptom?.translations?.find(
-            translation => translation.language === targetLanguage,
-          )?.name,
-      )
-      .join('\n');
-
-  const textToShareCurrent =
-    t('mySymptoms', {lng: currentLanguage}) +
-    ':\n' +
-    data?.symptoms
-      ?.map(
-        symptom =>
-          symptom?.translations?.find(
-            translation => translation.language === currentLanguage,
-          )?.name,
-      )
-      .join('\n');
-  const handleShare = async () => {
-    try {
-      const options = {
-        title: t('mySymptoms'),
-        message: `${textToShareTarget} \n ${textToShareCurrent}`,
-      };
-
-      await Share.share(options);
-    } catch (error) {
-      console.log('Error sharing text:', error.message);
-    }
-  };
 
   const handleExport = async () => {
     const filePath = createPdf(data?.symptoms, targetLanguage, currentLanguage);
@@ -75,45 +39,14 @@ export const TranslationScreen: React.FC<Props> = ({navigation}) => {
           filePath={pdfPath}
         />
         <TranslatedSymptomList isTranslated={true} data={data} />
-        <Button
-          style={styles.shareButton}
-          dark={true}
-          compact={false}
-          mode="contained"
-          disabled={!data?.symptoms?.length}
-          onPress={handleShare}
-          icon="share-variant-outline">
-          {t('share')}
-        </Button>
-
-        <Button
-          style={styles.exportButton}
-          dark={true}
-          compact={false}
-          mode="contained"
-          disabled={!data?.symptoms?.length}
-          onPress={handleExport}
-          icon="export">
-          {t('export')}
-        </Button>
+        <ShareButton data={data} />
+        <ExportButton handleExport={handleExport} data={data} />
       </View>
     </PaperProvider>
   );
 };
 
 const styles = StyleSheet.create({
-  exportButton: {
-    borderRadius: 4,
-    position: 'absolute',
-    bottom: 20,
-    left: 10,
-  },
-  shareButton: {
-    borderRadius: 4,
-    position: 'absolute',
-    bottom: 20,
-    right: 10,
-  },
   main: {
     height: '100%',
     display: 'flex',
@@ -126,13 +59,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Roboto, Open Sans',
     position: 'relative',
     padding: 10,
-  },
-
-  container: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 20,
   },
   separator: {
     height: '100%',
