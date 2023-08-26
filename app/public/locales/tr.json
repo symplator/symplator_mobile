@@ -6,10 +6,15 @@
       "welcome2": "Tıbbi Çeviri Uygulamamıza Hoş Geldiniz!",
       "copyright": "© 2023 Team Symp-lator. Tüm hakları saklıdır.",
       "selectGender": "Cinsiyetinizi seçin",
+      "gender": "Cinsiyet",
+      "woman": "Kadın",
+      "man": "Erkek",
       "selectBirthYear": "Doğum yılınızı seçin",
+      "birthYear": "Doğum yılı",
       "setupLanguages": "Dil tercihlerini ayarlayın",
       "currentLanguage": "Kullanıcı Dili",
-      "targetLanguage": "Çeviri Dili"
+      "targetLanguage": "Çeviri Dili",
+      "successSaveSettings": "Ayarlar başarıyla kaydedildi."
     },
     "languages": {
       "tr": "Türkçe",
@@ -27,7 +32,7 @@
       "mySymptomLists": "Semptom Listeleri",
       "settings": "Ayarlar",
       "mySymptoms": "Semptomlarım",
-      "translate" : "Çeviri",
+      "translate": "Çeviri",
       "saveSymptomList": "Semptom Listesini Kaydet"
     },
     "pdf": {
@@ -40,6 +45,7 @@
     "deleteSymptomListDialogTitle": "Semptom listesini sil",
     "deleteSymptomListDialogContent": "Semptom listesini silmek istediğinizden emin misiniz?",
     "delete": "Sil",
-    "cancel": "İptal"
+    "cancel": "İptal",
+    "success": "Başarılı"
   }
 }

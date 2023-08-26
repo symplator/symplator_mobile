@@ -6,8 +6,8 @@ export const DEFAULT_LANGUAGE = 'en_US';
 export const LANGUAGES = ['en_US', 'de', 'tr'];
 
 export enum Gender {
-  Female = 'female',
-  Male = 'male',
+  Woman = 'woman',
+  Man = 'man',
 }
 
 export enum LOCALES {
