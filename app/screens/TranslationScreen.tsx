@@ -2,17 +2,18 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {View, StyleSheet, Share} from 'react-native';
 import {SelectedSymptomListContext} from '../context/SelectedSymptomList/SelectedSymptomListContext';
 import React, {useContext} from 'react';
-import {Button, Text, Modal, Portal, PaperProvider} from 'react-native-paper';
+import {Button, PaperProvider} from 'react-native-paper';
 import {useTranslation} from 'react-i18next';
 import {TranslatedSymptomList} from '../components/TranslatedSymptomList';
 import {UserSettingsContext} from '../context/UserSettings/UserSettingsContext';
 import {createPdf} from '../utils/createPdf';
 import {SymptomsPdfModal} from '../components/SymptomsPdfModal';
+import {ExportButton} from '../components/ExportButton';
 type Props = {
   navigation: StackNavigationProp<RootStackParams, 'TranslationScreen'>;
 };
 
-export const TranslationScreen: React.FC<Props> = ({navigation}) => {
+export const TranslationScreen: React.FC<Props> = () => {
   const selectedSymptomListContext = useContext(SelectedSymptomListContext);
   const {data} = selectedSymptomListContext as SelectedSymptomListContext;
 
@@ -85,29 +86,13 @@ export const TranslationScreen: React.FC<Props> = ({navigation}) => {
           icon="share-variant-outline">
           {t('share')}
         </Button>
-
-        <Button
-          style={styles.exportButton}
-          dark={true}
-          compact={false}
-          mode="contained"
-          disabled={!data?.symptoms?.length}
-          onPress={handleExport}
-          icon="export">
-          {t('export')}
-        </Button>
+        <ExportButton handleExport={handleExport} data={data} />
       </View>
     </PaperProvider>
   );
 };
 
 const styles = StyleSheet.create({
-  exportButton: {
-    borderRadius: 4,
-    position: 'absolute',
-    bottom: 20,
-    left: 10,
-  },
   shareButton: {
     borderRadius: 4,
     position: 'absolute',
@@ -126,13 +111,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Roboto, Open Sans',
     position: 'relative',
     padding: 10,
-  },
-
-  container: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 20,
   },
   separator: {
     height: '100%',

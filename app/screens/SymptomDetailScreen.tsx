@@ -1,9 +1,13 @@
 import {RouteProp} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {View, StyleSheet} from 'react-native';
-import React from 'react';
+import React, {useContext} from 'react';
 import {TranslatedSymptomList} from '../components/TranslatedSymptomList';
-import {Button, Card, Text} from 'react-native-paper';
+import {Button, PaperProvider, Text} from 'react-native-paper';
+import {ExportButton} from '../components/ExportButton';
+import {createPdf} from '../utils/createPdf';
+import {UserSettingsContext} from '../context/UserSettings/UserSettingsContext';
+import {SymptomsPdfModal} from '../components/SymptomsPdfModal';
 type Props = {
   navigation: StackNavigationProp<RootStackParams, 'SymptomDetailScreen'>;
   route: RouteProp<RootStackParams, 'SymptomDetailScreen'>;
@@ -12,27 +16,71 @@ type Props = {
 export const SymptomDetailScreen: React.FC<Props> = ({route}) => {
   const savedSymptom = route.params?.data;
   const [showTranslated, setShowTranslated] = React.useState<boolean>(false);
+  const [pdfVisible, setPdfVisible] = React.useState(false);
+  const [pdfPath, setPdfPath] = React.useState('');
+  const userSettingsContext = useContext(UserSettingsContext);
+  const {targetLanguage, currentLanguage} = userSettingsContext.userSettings;
+
+  const handleExport = async () => {
+    const filePath = createPdf(
+      savedSymptom?.symptoms,
+      targetLanguage,
+      currentLanguage,
+    );
+    setPdfPath(await filePath);
+    setPdfVisible(true);
+  };
+
+  const hidePdfModal = () => setPdfVisible(false);
+
   return (
-    <View>
-      <Text variant="titleLarge" style={styles.tagText}>
-        {savedSymptom.tag} 
-      </Text>
-      <Text variant="titleLarge" style={styles.tagText}>
-        {new Date(savedSymptom.date).toLocaleDateString()}
-      </Text>
-      <TranslatedSymptomList
-        isTranslated={showTranslated}
-        data={savedSymptom}
-      />
-      <Button onPress={() => setShowTranslated(!showTranslated)}>
-        {showTranslated ? 'Show Original' : 'Show Translated'}
-      </Button>
-    </View>
+    <PaperProvider>
+      <View style={styles.main}>
+        <SymptomsPdfModal
+          pdfVisible={pdfVisible}
+          onClose={hidePdfModal}
+          filePath={pdfPath}
+        />
+        <Text variant="titleMedium" style={styles.tagText}>
+          {savedSymptom.tag}
+        </Text>
+        <Text variant="titleMedium" style={styles.tagText}>
+          {new Date(savedSymptom.date).toLocaleDateString()}
+        </Text>
+        <TranslatedSymptomList
+          isTranslated={showTranslated}
+          data={savedSymptom}
+        />
+        <Button
+          onPress={() => setShowTranslated(!showTranslated)}
+          style={styles.showTranslatedButton}>
+          {showTranslated ? 'Show Original' : 'Show Translated'}
+        </Button>
+        <ExportButton handleExport={handleExport} data={savedSymptom} />
+      </View>
+    </PaperProvider>
   );
 };
 
 const styles = StyleSheet.create({
-  tagText: {
-    marginVertical: 10,
+  main: {
+    height: '100%',
+    display: 'flex',
+    backgroundColor: '#F5F5F5',
+    color: '#333333',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    flex: 1,
+    width: '100%',
+    fontFamily: 'Roboto, Open Sans',
+    position: 'relative',
+    padding: 10,
   },
+  tagText: {
+    padding: 10,
+  },
+
+  showTranslatedButton: {
+    marginTop: 15,
+  }
 });
