@@ -2,14 +2,14 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {View, StyleSheet} from 'react-native';
 import {SelectedSymptomListContext} from '../context/SelectedSymptomList/SelectedSymptomListContext';
 import React, {useContext} from 'react';
-import {PaperProvider} from 'react-native-paper';
+import {FAB, PaperProvider} from 'react-native-paper';
 import {TranslatedSymptomList} from '../components/TranslatedSymptomList';
 import {UserSettingsContext} from '../context/UserSettings/UserSettingsContext';
 import {createPdf} from '../utils/createPdf';
 import {SymptomsPdfModal} from '../components/SymptomsPdfModal';
 import {ExportButton} from '../components/ExportButton';
 import {ShareButton} from '../components/ShareButton';
-import Tts from 'react-native-tts';
+import {TextToSpeechButton} from '../components/TextToSpeechButton';
 type Props = {
   navigation: StackNavigationProp<RootStackParams, 'TranslationScreen'>;
 };
@@ -17,7 +17,7 @@ type Props = {
 export const TranslationScreen: React.FC<Props> = () => {
   const selectedSymptomListContext = useContext(SelectedSymptomListContext);
   const {data} = selectedSymptomListContext as SelectedSymptomListContext;
- 
+
   const userSettingsContext = useContext(UserSettingsContext);
   const {targetLanguage, currentLanguage} = userSettingsContext.userSettings;
   const [pdfVisible, setPdfVisible] = React.useState(false);
@@ -26,9 +26,6 @@ export const TranslationScreen: React.FC<Props> = () => {
   const hidePdfModal = () => setPdfVisible(false);
 
   const handleExport = async () => {
-    Tts.getInitStatus().then(() => {
-      Tts.speak('Hello, world!');
-    });
     const filePath = createPdf(data?.symptoms, targetLanguage, currentLanguage);
     setPdfPath(await filePath);
     setPdfVisible(true);
@@ -37,6 +34,7 @@ export const TranslationScreen: React.FC<Props> = () => {
   return (
     <PaperProvider>
       <View style={styles.main}>
+        <TextToSpeechButton data={data} />
         <SymptomsPdfModal
           pdfVisible={pdfVisible}
           onClose={hidePdfModal}
@@ -70,4 +68,5 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     marginHorizontal: 10,
   },
+
 });

@@ -9,7 +9,7 @@ import {LogBox} from 'react-native';
 
 export const App: React.FC = () => {
 
-  LogBox.ignoreLogs(['NativeEventEmitter']); // Ignore log notification by message
+  LogBox.ignoreLogs(['NativeEventEmitter']); 
 
   const app = useApp();
   const [user, setUser] = useState<User<
