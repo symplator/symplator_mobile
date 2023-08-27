@@ -10,6 +10,7 @@ import {UserSettingsContext} from '../context/UserSettings/UserSettingsContext';
 import {SymptomsPdfModal} from '../components/SymptomsPdfModal';
 import {t} from 'i18next';
 import {ShareButton} from '../components/ShareButton';
+import {TextToSpeechButton} from '../components/TextToSpeechButton';
 type Props = {
   navigation: StackNavigationProp<RootStackParams, 'SymptomDetailScreen'>;
   route: RouteProp<RootStackParams, 'SymptomDetailScreen'>;
@@ -38,6 +39,7 @@ export const SymptomDetailScreen: React.FC<Props> = ({route}) => {
   return (
     <PaperProvider>
       <View style={styles.main}>
+        <TextToSpeechButton data={savedSymptom} />
         <SymptomsPdfModal
           pdfVisible={pdfVisible}
           onClose={hidePdfModal}
