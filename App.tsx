@@ -5,8 +5,12 @@ import {DefaultFunctionsFactory, DefaultUserProfileData, User} from 'realm';
 import {API_KEY} from '@env';
 import {SyncedRealmContext} from './app/context/Realm/RealmContext';
 import {UserSettingsProvider} from './app/components/Providers/UserSettingsProvider';
+import {LogBox} from 'react-native';
 
 export const App: React.FC = () => {
+
+  LogBox.ignoreLogs(['NativeEventEmitter']); // Ignore log notification by message
+
   const app = useApp();
   const [user, setUser] = useState<User<
     DefaultFunctionsFactory,

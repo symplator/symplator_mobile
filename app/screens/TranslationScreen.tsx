@@ -9,6 +9,7 @@ import {createPdf} from '../utils/createPdf';
 import {SymptomsPdfModal} from '../components/SymptomsPdfModal';
 import {ExportButton} from '../components/ExportButton';
 import {ShareButton} from '../components/ShareButton';
+import Tts from 'react-native-tts';
 type Props = {
   navigation: StackNavigationProp<RootStackParams, 'TranslationScreen'>;
 };
@@ -25,6 +26,9 @@ export const TranslationScreen: React.FC<Props> = () => {
   const hidePdfModal = () => setPdfVisible(false);
 
   const handleExport = async () => {
+    Tts.getInitStatus().then(() => {
+      Tts.speak('Hello, world!');
+    });
     const filePath = createPdf(data?.symptoms, targetLanguage, currentLanguage);
     setPdfPath(await filePath);
     setPdfVisible(true);
