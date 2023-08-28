@@ -1,12 +1,15 @@
 import React from 'react';
-import {View, StyleSheet, TouchableOpacity, Text} from 'react-native';
+import {View, StyleSheet, TouchableOpacity} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useTranslation} from 'react-i18next';
 import {DRAWER_MENU_ITEMS} from '../../constants/DrawerItems';
+import {Text, useTheme} from 'react-native-paper';
 
 const DrawerContent: React.FC<DrawerContentProps> = ({navigation}) => {
   const {t} = useTranslation();
-  const navigateToScreen = (screen: string) => {
+  const theme = useTheme();
+
+  const navigateToScreen = (screen: keyof RootStackParams) => {
     navigation.navigate(screen);
   };
 
@@ -22,7 +25,7 @@ const DrawerContent: React.FC<DrawerContentProps> = ({navigation}) => {
               <MaterialCommunityIcons
                 name={item.icon}
                 size={20}
-                color="purple"
+                color={theme.colors.primary}
               />
               <Text style={styles.drawerItemText}>
                 {t(`screens.${item.title}`)}

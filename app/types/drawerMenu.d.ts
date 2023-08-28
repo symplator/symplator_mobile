@@ -7,5 +7,8 @@ interface DrawerMenuItem {
 }
 
 interface DrawerContentProps {
-  navigation: any; // Use the correct type for navigation from your navigation library
+  navigation: import('@react-navigation/stack').StackNavigationProp<
+    RootStackParams,
+    'HomeScreen'
+  >;
 }

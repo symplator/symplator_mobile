@@ -1,6 +1,6 @@
 import React, {useContext, useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {IconButton} from 'react-native-paper';
+import {StyleSheet, View} from 'react-native';
+import {IconButton, Text} from 'react-native-paper';
 import {useTranslation} from 'react-i18next';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RouteProp} from '@react-navigation/native';

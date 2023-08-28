@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {useTranslation} from 'react-i18next';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RouteProp} from '@react-navigation/native';
 import {DEFAULT_LANGUAGE, LANGUAGES} from '../../constants/general';
 import {LanguageButtons} from '../../components/LanguageButtons';
 import {InitialSettingsNavigation} from '../../components/InitialSettingsNavigation';
+import {Text} from 'react-native-paper';
 
 type Props = {
   navigation: StackNavigationProp<InitialSettingsStackParams, 'WelcomeScreen'>;

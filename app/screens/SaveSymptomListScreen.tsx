@@ -1,6 +1,6 @@
 import React, {useContext, useState, useCallback} from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
-import {Button, TextInput} from 'react-native-paper';
+import {Button, TextInput, useTheme} from 'react-native-paper';
 import {useTranslation} from 'react-i18next';
 import {StackNavigationProp} from '@react-navigation/stack';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -15,6 +15,7 @@ type Props = {
 
 export const SaveSymptomListScreen: React.FC<Props> = ({navigation}) => {
   const {t, i18n} = useTranslation();
+  const theme = useTheme();
   const [tag, setTag] = useState('');
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState(false);
@@ -63,7 +64,11 @@ export const SaveSymptomListScreen: React.FC<Props> = ({navigation}) => {
         <TouchableOpacity
           style={styles.datePickerIcon}
           onPress={() => setOpen(true)}>
-          <MaterialCommunityIcons size={30} color="purple" name="calendar" />
+          <MaterialCommunityIcons
+            size={30}
+            color={theme.colors.primary}
+            name="calendar"
+          />
         </TouchableOpacity>
         <DatePickerModal
           locale={i18n.language}

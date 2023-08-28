@@ -13,7 +13,11 @@ import {UserSettingsContext} from '../context/UserSettings/UserSettingsContext';
 import {LanguageSelect} from '../components/LanguageSelect';
 import {Gender} from '../constants/general';
 
-const Form: React.FC<{redirect: () => void}> = ({redirect}) => {
+interface SettingsFormProps {
+  redirect: () => void;
+}
+
+const Form: React.FC<SettingsFormProps> = ({redirect}) => {
   const userSettingsContext = useContext(UserSettingsContext);
   const {userSettings, updateData} = userSettingsContext;
   const {gender, birthYear, currentLanguage, targetLanguage} = userSettings;
