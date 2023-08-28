@@ -33,10 +33,7 @@ export const SelectedSymptomListProvider: React.FC<
           SELECTED_SYMPTOM_LIST_KEY,
         );
 
-        if (
-          selectedSymptomList !== null &&
-          !Object.keys(selectedSymptomList).length
-        ) {
+        if (selectedSymptomList) {
           dispatch({
             type: 'UPDATE_DATA',
             payload: JSON.parse(selectedSymptomList),
@@ -106,7 +103,7 @@ export const SelectedSymptomListProvider: React.FC<
 
           //   selectedSymptomList = {...selectedSymptomList, symptoms};
           // }
-          realm.create('SelectedSymptomList', selectedSymptomList);
+          realm.create('SelectedSymptomList', selectedSymptomList, 'modified');
         });
 
         await removeItemFromAsyncStorage(SELECTED_SYMPTOM_LIST_KEY);

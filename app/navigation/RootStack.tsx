@@ -4,11 +4,13 @@ import {createDrawerNavigator} from '@react-navigation/drawer';
 import {useTranslation} from 'react-i18next';
 import DrawerContent from '../components/DrawerMenu/DrawerMenuContent';
 import {DRAWER_MENU_ITEMS} from '../constants/DrawerItems';
+import {useTheme} from 'react-native-paper';
 
 const Drawer = createDrawerNavigator<RootStackParams>();
 
 export const RootStackNavigator: React.FC = () => {
   const {t} = useTranslation();
+  const theme = useTheme();
   const DrawerContentComponent = useCallback(
     (props: DrawerContentProps) => <DrawerContent {...props} />,
     [],
@@ -24,7 +26,7 @@ export const RootStackNavigator: React.FC = () => {
               name="menu"
               size={30}
               marginLeft={10}
-              color="purple"
+              color={theme.colors.primary}
               onPress={() => {
                 navigation.toggleDrawer();
               }}
@@ -34,10 +36,8 @@ export const RootStackNavigator: React.FC = () => {
               name="arrow-left"
               size={30}
               marginLeft={10}
-              color="purple"
-              onPress={() => {
-                navigation.goBack();
-              }}
+              color={theme.colors.primary}
+              onPress={navigation.goBack}
             />
           ),
       })}

@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {useTranslation} from 'react-i18next';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RouteProp} from '@react-navigation/native';
@@ -7,6 +7,7 @@ import {getYears} from '../../utils/getYears';
 import {WheelPicker} from 'react-native-wheel-picker-android';
 import {InitialSettingsNavigation} from '../../components/InitialSettingsNavigation';
 import {UserSettingsContext} from '../../context/UserSettings/UserSettingsContext';
+import {Text} from 'react-native-paper';
 
 type Props = {
   navigation: StackNavigationProp<

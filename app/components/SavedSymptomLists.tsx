@@ -32,8 +32,6 @@ export const SavedSymptomLists: React.FC<Props> = ({
   const [selectedItem, setSelectedItem] =
     React.useState<SelectedSymptomListSchema | null>(null);
 
-  console.log('symptom lists');
-  console.log(symptomLists[0].symptoms);
   const showDialog = () => setVisible(true);
   const hideDialog = () => setVisible(false);
 
@@ -46,8 +44,6 @@ export const SavedSymptomLists: React.FC<Props> = ({
   };
 
   const redirect = (item: SelectedSymptomListSchema) => {
-    console.log('selectedItem')
-    console.log(item)
     navigation.navigate('SymptomDetailScreen', {
       data: {symptoms: item.symptoms, tag: item.tag, date: item.date.getTime()},
     });
