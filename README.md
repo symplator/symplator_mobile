@@ -43,3 +43,22 @@ This is a React Native app integrated with Realm Sync.
 
 3. Follow the instructions on the device or simulator to launch the app.
  
+## Create Debug APK 
+
+1) Create bundle
+
+npx react-native bundle 
+   --platform android 
+   --dev false 
+   --entry-file index.js 
+   --bundle-output android/app/src/main/assets/index.android.bundle 
+   --assets-dest android/app/src/main/res
+
+2) Build the Debug APK
+
+   cd android
+   ./gradlew assembleDebug
+
+3) APK location 
+   
+   android/app/build/outputs/apk/debug/app-debug.apk
