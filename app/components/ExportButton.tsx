@@ -1,19 +1,18 @@
 import {Button} from 'react-native-paper';
 import React from 'react';
 import {StyleSheet} from 'react-native';
-import {createPdf} from 'utils/createPdf';
 import {t} from 'i18next';
 
 type Props = {
   data: SelectedSymptomList;
-  handleExport: () => {};
+  handleExport: () => void;
 };
 
 export const ExportButton: React.FC<Props> = ({data, handleExport}) => {
   return (
     <>
       <Button
-        style={styles.exportButton}
+        style={styles.btn}
         dark={true}
         compact={false}
         mode="contained"
@@ -27,10 +26,7 @@ export const ExportButton: React.FC<Props> = ({data, handleExport}) => {
 };
 
 const styles = StyleSheet.create({
-  exportButton: {
+  btn: {
     borderRadius: 4,
-    position: 'absolute',
-    bottom: 20,
-    left: 10,
   },
 });

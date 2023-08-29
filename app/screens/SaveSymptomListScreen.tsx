@@ -10,7 +10,7 @@ import {SelectedSymptomList} from '../components/SelectedSymptomList';
 import {LOCALES} from '../constants/general';
 
 type Props = {
-  navigation: StackNavigationProp<RootStackParams, 'SymptomListScreen'>;
+  navigation: StackNavigationProp<RootStackParams, 'SaveSymptomListScreen'>;
 };
 
 export const SaveSymptomListScreen: React.FC<Props> = ({navigation}) => {
@@ -47,7 +47,7 @@ export const SaveSymptomListScreen: React.FC<Props> = ({navigation}) => {
       <View>
         <TextInput
           style={styles.txt}
-          label="Etiket"
+          label={t('listTitle')}
           value={tag}
           mode="outlined"
           autoFocus={true}
@@ -56,7 +56,7 @@ export const SaveSymptomListScreen: React.FC<Props> = ({navigation}) => {
         />
         <TextInput
           style={styles.dateTxt}
-          label="Tarih"
+          label={t('date')}
           value={date.toLocaleDateString(LOCALES[i18n.language])}
           mode="outlined"
           onChangeText={text => setTag(text)}
@@ -78,7 +78,11 @@ export const SaveSymptomListScreen: React.FC<Props> = ({navigation}) => {
           date={date}
           onConfirm={onConfirm}
         />
-        <SelectedSymptomList showTitle={true} />
+        <SelectedSymptomList
+          showTitle={true}
+          hideButtons={true}
+          customHeight={'70%'}
+        />
       </View>
       <Button
         style={styles.saveBtn}
@@ -126,6 +130,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 20,
     left: 10,
-    width: '100%',
+    width: '95%',
+    marginHorizontal: 10,
   },
 });

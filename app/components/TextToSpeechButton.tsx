@@ -7,13 +7,13 @@ import Tts from 'react-native-tts';
 
 type Props = {
   data: SelectedSymptomList;
+  size?: 'small' | 'medium' | 'large';
 };
 
-export const TextToSpeechButton: React.FC<Props> = ({data}) => {
-  
+export const TextToSpeechButton: React.FC<Props> = ({data, size}) => {
   const userSettingsContext = useContext(UserSettingsContext);
   const {targetLanguage} = userSettingsContext.userSettings;
-  
+
   Tts.setDefaultLanguage(targetLanguage);
   Tts.setDefaultRate(0.5);
 
@@ -33,11 +33,16 @@ export const TextToSpeechButton: React.FC<Props> = ({data}) => {
     Tts.getInitStatus().then(() => {
       Tts.speak(textToSpeechTarget);
     });
-  }
+  };
 
   return (
     <>
-      <FAB icon="bullhorn" style={styles.fab} onPress={handleTextToSpeech} />
+      <FAB
+        size={size || 'medium'}
+        icon="bullhorn"
+        style={styles.fab}
+        onPress={handleTextToSpeech}
+      />
     </>
   );
 };
@@ -45,9 +50,9 @@ export const TextToSpeechButton: React.FC<Props> = ({data}) => {
 const styles = StyleSheet.create({
   fab: {
     position: 'absolute',
-    margin: 16,
-    right: 0,
-    bottom: 60,
-    zIndex: 10,
+    right: 10,
+    top: 10,
+    zIndex: 990,
+    borderRadius: 50,
   },
 });
