@@ -15,7 +15,6 @@ export const SymptomsPdfModal: React.FC<pdfProps> = ({
   filePath,
   onClose,
 }) => {
-
   const source = {uri: filePath};
 
   console.log(`pdf model rendered with : ${pdfVisible} ${filePath}`);
@@ -39,7 +38,7 @@ export const SymptomsPdfModal: React.FC<pdfProps> = ({
           }}
           style={styles.pdf}
         />
-        <Button mode="outlined" onPress={onClose} style={styles.closeButton}>
+        <Button mode="contained" onPress={onClose} style={styles.closeButton}>
           Close
         </Button>
       </Modal>
@@ -53,7 +52,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white',
-    margin:20
+    margin: 10,
   },
   pdf: {
     flex: 1,
@@ -61,5 +60,6 @@ const styles = StyleSheet.create({
   },
   closeButton: {
     marginVertical: 10,
+    borderRadius: 4,
   },
 });

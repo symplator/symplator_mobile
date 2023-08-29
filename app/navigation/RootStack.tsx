@@ -11,14 +11,15 @@ const Drawer = createDrawerNavigator<RootStackParams>();
 export const RootStackNavigator: React.FC = () => {
   const {t} = useTranslation();
   const theme = useTheme();
-  const DrawerContentComponent = useCallback(
-    (props: DrawerContentProps) => <DrawerContent {...props} />,
-    [],
-  );
+  // const DrawerContentComponent = useCallback(
+  //   (props: DrawerContentComponentProps) =>
+  //     (<DrawerContent {...props} />) as ReactNode,
+  //   [],
+  // );
 
   return (
     <Drawer.Navigator
-      drawerContent={DrawerContentComponent}
+      drawerContent={DrawerContent}
       screenOptions={({navigation, route}) => ({
         headerLeft: () =>
           route.name === 'HomeScreen' ? (

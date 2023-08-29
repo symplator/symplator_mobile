@@ -1,15 +1,13 @@
 import {RouteProp} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {View, StyleSheet, Share} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import React, {useContext} from 'react';
 import {TranslatedSymptomList} from '../components/TranslatedSymptomList';
-import {Button, PaperProvider, Text} from 'react-native-paper';
-import {ExportButton} from '../components/ExportButton';
+import {PaperProvider, Text} from 'react-native-paper';
 import {createPdf} from '../utils/createPdf';
 import {UserSettingsContext} from '../context/UserSettings/UserSettingsContext';
 import {SymptomsPdfModal} from '../components/SymptomsPdfModal';
 import {t} from 'i18next';
-import {ShareButton} from '../components/ShareButton';
 import {TextToSpeechButton} from '../components/TextToSpeechButton';
 type Props = {
   navigation: StackNavigationProp<RootStackParams, 'SymptomDetailScreen'>;
@@ -18,7 +16,6 @@ type Props = {
 
 export const SymptomDetailScreen: React.FC<Props> = ({route}) => {
   const savedSymptom = route.params?.data;
-  const [showTranslated, setShowTranslated] = React.useState<boolean>(false);
   const [pdfVisible, setPdfVisible] = React.useState(false);
   const [pdfPath, setPdfPath] = React.useState('');
   const userSettingsContext = useContext(UserSettingsContext);
@@ -39,29 +36,25 @@ export const SymptomDetailScreen: React.FC<Props> = ({route}) => {
   return (
     <PaperProvider>
       <View style={styles.main}>
-        <TextToSpeechButton data={savedSymptom} />
+        <TextToSpeechButton size="small" data={savedSymptom} />
         <SymptomsPdfModal
           pdfVisible={pdfVisible}
           onClose={hidePdfModal}
           filePath={pdfPath}
         />
         <Text variant="titleMedium" style={styles.tagText}>
-          {savedSymptom.tag}
+          {t('listTitle')}: {savedSymptom.tag}
         </Text>
         <Text variant="titleMedium" style={styles.tagText}>
-          {new Date(savedSymptom.date).toLocaleDateString()}
+          {t('date')}: {new Date(savedSymptom.date).toLocaleDateString()}
         </Text>
         <TranslatedSymptomList
-          isTranslated={showTranslated}
+          isTranslated={false}
+          showTranslateBtn={true}
           data={savedSymptom}
+          customHeight="70%"
+          handleExport={handleExport}
         />
-        <Button
-          onPress={() => setShowTranslated(!showTranslated)}
-          style={styles.showTranslatedButton}>
-          {showTranslated ? t('showOriginal') : t('showTranslated')}
-        </Button>
-        <ExportButton handleExport={handleExport} data={savedSymptom} />
-        <ShareButton data={savedSymptom} />
       </View>
     </PaperProvider>
   );
@@ -75,17 +68,12 @@ const styles = StyleSheet.create({
     color: '#333333',
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    flex: 1,
     width: '100%',
     fontFamily: 'Roboto, Open Sans',
     position: 'relative',
     padding: 10,
   },
   tagText: {
-    padding: 10,
+    paddingLeft: 10,
   },
-
-  showTranslatedButton: {
-    marginTop: 15,
-  }
 });

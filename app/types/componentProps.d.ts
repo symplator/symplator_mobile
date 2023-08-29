@@ -1,11 +1,11 @@
 interface LanguageButtonsProps {
   mode?:
-  | 'text'
-  | 'outlined'
-  | 'contained'
-  | 'elevated'
-  | 'contained-tonal'
-  | undefined;
+    | 'text'
+    | 'outlined'
+    | 'contained'
+    | 'elevated'
+    | 'contained-tonal'
+    | undefined;
   languages: string[];
   handleClick: (text: string) => void;
 }
@@ -29,6 +29,9 @@ interface SelectedSymptomListProps {
   isTranslated?: boolean;
   icon?: import('react').ReactNode;
   showTitle?: boolean;
+  hideButtons?: boolean;
+  redirect?: (screen: keyof RootStackParams) => void;
+  customHeight?: string;
 }
 
 type SettingsFormData = {

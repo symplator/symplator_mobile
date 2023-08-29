@@ -4,8 +4,9 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import {useTranslation} from 'react-i18next';
 import {DRAWER_MENU_ITEMS} from '../../constants/DrawerItems';
 import {Text, useTheme} from 'react-native-paper';
+import {DrawerContentComponentProps} from '@react-navigation/drawer';
 
-const DrawerContent: React.FC<DrawerContentProps> = ({navigation}) => {
+const DrawerContent: React.FC<DrawerContentComponentProps> = ({navigation}) => {
   const {t} = useTranslation();
   const theme = useTheme();
 

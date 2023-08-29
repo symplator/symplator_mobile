@@ -9,11 +9,9 @@ type Props = {
 };
 
 export const ShareButton: React.FC<Props> = ({data}) => {
-
-  
   const userSettingsContext = useContext(UserSettingsContext);
   const {targetLanguage, currentLanguage} = userSettingsContext.userSettings;
-  
+
   const textToShareTarget =
     t('mySymptoms', {lng: targetLanguage}) +
     ':\n' +
@@ -54,7 +52,7 @@ export const ShareButton: React.FC<Props> = ({data}) => {
   return (
     <>
       <Button
-        style={styles.shareButton}
+        style={styles.btn}
         dark={true}
         compact={false}
         mode="contained"
@@ -68,10 +66,8 @@ export const ShareButton: React.FC<Props> = ({data}) => {
 };
 
 const styles = StyleSheet.create({
-  shareButton: {
+  btn: {
+    width: '40%',
     borderRadius: 4,
-    position: 'absolute',
-    bottom: 20,
-    right: 10,
   },
 });

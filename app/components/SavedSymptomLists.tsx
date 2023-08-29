@@ -58,20 +58,19 @@ export const SavedSymptomLists: React.FC<Props> = ({
             data={symptomLists}
             renderItem={({item}) => (
               <View style={styles.listItem} key={item._id as unknown as number}>
-                <View style={styles.listItemTxt}>
-                  <Text
-                    style={styles.listItemTitle}
-                    variant="bodyMedium"
-                    onPress={() => {
-                      setSelectedItem(item);
-                      redirect(item);
-                    }}>
+                <TouchableOpacity
+                  style={styles.listItemTxt}
+                  onPress={() => {
+                    setSelectedItem(item);
+                    redirect(item);
+                  }}>
+                  <Text style={styles.listItemTitle} variant="bodyMedium">
                     {item.tag}
                   </Text>
                   <Text style={styles.listItemDate} variant="bodyMedium">
                     {item.date.toLocaleDateString(LOCALES[i18n.language])}
                   </Text>
-                </View>
+                </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => {
                     setSelectedItem(item);
@@ -112,16 +111,27 @@ export const SavedSymptomLists: React.FC<Props> = ({
 const styles = StyleSheet.create({
   list: {
     maxHeight: '97%',
+    paddingHorizontal: 10,
+    marginTop: 15,
   },
   listItem: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 15,
-    paddingBottom: 0,
+    padding: 10,
+    paddingHorizontal: 15,
+    backgroundColor: 'white',
+    marginBottom: 5,
+    shadowColor: '#171717',
+    shadowOffset: {width: -2, height: 4},
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    elevation: 3,
   },
-  listItemTxt: {},
+  listItemTxt: {
+    width: '90%',
+  },
   listItemTitle: {
     fontWeight: 'bold',
   },

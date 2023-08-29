@@ -2,13 +2,11 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {View, StyleSheet} from 'react-native';
 import {SelectedSymptomListContext} from '../context/SelectedSymptomList/SelectedSymptomListContext';
 import React, {useContext} from 'react';
-import {FAB, PaperProvider} from 'react-native-paper';
+import {PaperProvider} from 'react-native-paper';
 import {TranslatedSymptomList} from '../components/TranslatedSymptomList';
 import {UserSettingsContext} from '../context/UserSettings/UserSettingsContext';
 import {createPdf} from '../utils/createPdf';
 import {SymptomsPdfModal} from '../components/SymptomsPdfModal';
-import {ExportButton} from '../components/ExportButton';
-import {ShareButton} from '../components/ShareButton';
 import {TextToSpeechButton} from '../components/TextToSpeechButton';
 type Props = {
   navigation: StackNavigationProp<RootStackParams, 'TranslationScreen'>;
@@ -40,9 +38,13 @@ export const TranslationScreen: React.FC<Props> = () => {
           onClose={hidePdfModal}
           filePath={pdfPath}
         />
-        <TranslatedSymptomList isTranslated={true} data={data} />
-        <ShareButton data={data} />
-        <ExportButton handleExport={handleExport} data={data} />
+        <TranslatedSymptomList
+          isTranslated={true}
+          data={data}
+          handleExport={handleExport}
+          marginTop={20}
+          customHeight="82%"
+        />
       </View>
     </PaperProvider>
   );
@@ -50,23 +52,18 @@ export const TranslationScreen: React.FC<Props> = () => {
 
 const styles = StyleSheet.create({
   main: {
-    height: '100%',
+    minHeight: '100%',
     display: 'flex',
     backgroundColor: '#F5F5F5',
     color: '#333333',
     flexDirection: 'column',
-    justifyContent: 'space-between',
-    flex: 1,
-    width: '100%',
     fontFamily: 'Roboto, Open Sans',
     position: 'relative',
-    padding: 10,
   },
-  separator: {
-    height: '100%',
-    width: 1,
-    backgroundColor: 'black',
-    marginHorizontal: 10,
+  btnContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
   },
-
 });

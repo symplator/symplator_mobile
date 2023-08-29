@@ -1,13 +1,15 @@
-import React, {useCallback, useContext} from 'react';
-import {List, MD3Colors} from 'react-native-paper';
+import React, {useCallback, useContext, useEffect} from 'react';
+import {Button, List, MD3Colors, Text} from 'react-native-paper';
 import {SelectedSymptomListContext} from '../context/SelectedSymptomList/SelectedSymptomListContext';
 import {UserSettingsContext} from '../context/UserSettings/UserSettingsContext';
 import {useTranslation} from 'react-i18next';
-import {FlatList, ListRenderItem, View} from 'react-native';
+import {FlatList, ListRenderItem, StyleSheet, View} from 'react-native';
 
 export const SelectedSymptomList: React.FC<SelectedSymptomListProps> = ({
   isTranslated,
-  showTitle,
+  redirect,
+  hideButtons,
+  customHeight,
 }) => {
   const {t} = useTranslation();
   const selectedSymptomListContext = useContext(SelectedSymptomListContext);
@@ -16,6 +18,15 @@ export const SelectedSymptomList: React.FC<SelectedSymptomListProps> = ({
 
   const userSettingsContext = useContext(UserSettingsContext);
   const {currentLanguage, targetLanguage} = userSettingsContext.userSettings;
+  const [hasSymptoms, setHasSymptoms] = React.useState(false);
+
+  useEffect(() => {
+    if (data?.symptoms?.length) {
+      setHasSymptoms(true);
+    } else {
+      setHasSymptoms(false);
+    }
+  }, [data?.symptoms?.length]);
 
   const removeSymptomFromSelectedList = async (
     symptom: Symptom,
@@ -41,6 +52,7 @@ export const SelectedSymptomList: React.FC<SelectedSymptomListProps> = ({
               : t.language === currentLanguage,
           )?.name
         }
+        style={styles.listItem}
         titleNumberOfLines={10}
         titleEllipsizeMode="tail"
         description={
@@ -56,17 +68,84 @@ export const SelectedSymptomList: React.FC<SelectedSymptomListProps> = ({
   };
 
   return (
-    <View>
-      {showTitle && (
-        <List.Subheader style={{fontSize: 16, fontWeight: 'bold'}}>
+    <View style={[styles.main, customHeight && {height: customHeight}]}>
+      {hasSymptoms && (
+        <Text variant="titleMedium" style={styles.title}>
           {t('mySymptoms')}
-        </List.Subheader>
+        </Text>
       )}
-      <FlatList
-        data={data?.symptoms}
-        renderItem={renderItem}
-        keyExtractor={item => item._id.toString()}
-      />
+      {hasSymptoms ? (
+        <>
+          <FlatList
+            data={data?.symptoms}
+            renderItem={renderItem}
+            keyExtractor={item => item._id.toString()}
+          />
+          {!hideButtons && (
+            <View style={styles.btnContainer}>
+              <Button
+                style={styles.btn}
+                icon="content-save"
+                dark={true}
+                compact={false}
+                mode="contained"
+                disabled={!data?.symptoms?.length}
+                onPress={() => redirect('SaveSymptomListScreen')}>
+                {t('save')}
+              </Button>
+              <Button
+                style={styles.btn}
+                icon="translate"
+                dark={true}
+                compact={false}
+                mode="contained"
+                disabled={!data?.symptoms?.length}
+                onPress={() => redirect('TranslationScreen')}>
+                {t('translate')}
+              </Button>
+            </View>
+          )}
+        </>
+      ) : undefined}
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  main: {
+    height: '90%',
+    display: 'flex',
+    backgroundColor: '#F5F5F5',
+    color: '#333333',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    width: '100%',
+    fontFamily: 'Roboto, Open Sans',
+    position: 'relative',
+    paddingHorizontal: 10,
+  },
+  title: {
+    marginLeft: 16,
+    marginBottom: 10,
+    marginTop: 10,
+  },
+  listItem: {
+    backgroundColor: 'white',
+    marginBottom: 5,
+    shadowColor: '#171717',
+    shadowOffset: {width: -2, height: 4},
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    elevation: 3,
+  },
+  btnContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 20,
+  },
+  btn: {
+    width: '40%',
+    borderRadius: 4,
+  },
+});
