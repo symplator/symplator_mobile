@@ -5,6 +5,8 @@ import {SavedSymptomListsScreen} from '../screens/SavedSymptomListsScreen';
 import {TranslationScreen} from '../screens/TranslationScreen';
 import {SaveSymptomListScreen} from '../screens/SaveSymptomListScreen';
 import {SymptomDetailScreen} from '../screens/SymptomDetailScreen';
+import {SymptomTextSearchScreen} from '../screens/SymptomTextSearchScreen';
+import {SymptomImageSearchScreen} from '../screens/SymptomImageSearchScreen';
 
 export const DRAWER_MENU_ITEMS: DrawerMenuItem[] = [
   {
@@ -51,6 +53,18 @@ export const DRAWER_MENU_ITEMS: DrawerMenuItem[] = [
     name: 'TranslationScreen',
     icon: 'format-list-bulleted',
     screen: TranslationScreen,
+    isShownInDrawer: false,
+  },
+  {
+    title: 'searchSymptom',
+    name: 'SymptomTextSearchScreen',
+    screen: SymptomTextSearchScreen,
+    isShownInDrawer: false,
+  },
+  {
+    title: 'searchSymptom',
+    name: 'SymptomImageSearchScreen',
+    screen: SymptomImageSearchScreen,
     isShownInDrawer: false,
   },
 ];

@@ -1,9 +1,8 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {StyleSheet, View} from 'react-native';
-import {Button} from 'react-native-paper';
+import {Text} from 'react-native-paper';
 import {SelectedSymptomListContext} from './../context/SelectedSymptomList/SelectedSymptomListContext';
 import {SelectedSymptomList} from '../components/SelectedSymptomList';
-import {useTranslation} from 'react-i18next';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {SymptomSearch} from '../components/SymptomSearch';
 
@@ -12,43 +11,33 @@ type Props = {
 };
 
 export const HomeScreen: React.FC<Props> = ({navigation}) => {
-  const {t} = useTranslation();
-
+  const [hasSymptoms, setHasSymptoms] = React.useState(false);
   const selectedSymptomListContext = useContext(SelectedSymptomListContext);
-  const {data} = selectedSymptomListContext as SelectedSymptomListContext;
+  const {data, isLoading} =
+    selectedSymptomListContext as SelectedSymptomListContext;
 
   const redirect = (screen: keyof RootStackParams) => {
     navigation.navigate(screen);
   };
 
+  useEffect(() => {
+    if (!isLoading && data?.symptoms?.length) {
+      setHasSymptoms(true);
+    } else {
+      setHasSymptoms(false);
+    }
+  }, [data, isLoading]);
+
   return (
     <View style={styles.main}>
       <View>
-        <SymptomSearch />
-        <SelectedSymptomList />
+        <SymptomSearch hideTitle={hasSymptoms} redirect={redirect} />
+        {hasSymptoms ? (
+          <SelectedSymptomList showTitle={true} redirect={redirect} />
+        ) : (
+          <Text>{''}</Text>
+        )}
       </View>
-      {data?.symptoms?.length ? (
-        <View>
-          <Button
-            style={styles.translateBtn}
-            dark={true}
-            compact={false}
-            mode="contained"
-            disabled={!data?.symptoms?.length}
-            onPress={() => redirect('TranslationScreen')}>
-            {t('translate')}
-          </Button>
-          <Button
-            style={styles.saveBtn}
-            dark={true}
-            compact={false}
-            mode="contained"
-            disabled={!data?.symptoms?.length}
-            onPress={() => redirect('SaveSymptomListScreen')}>
-            {t('save')}
-          </Button>
-        </View>
-      ) : undefined}
     </View>
   );
 };

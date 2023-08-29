@@ -68,3 +68,6 @@ yarn-error.log
 
 .env
 .nvmrc
+
+/app/assets/basic-anatomy/*
+/app/components/HumanBodyPartsImage.tsx

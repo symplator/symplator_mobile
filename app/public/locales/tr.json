@@ -23,10 +23,16 @@
     },
     "select": "Seçiniz",
     "search": "Semptom ara",
+    "startSearch": "Semptom aramaya başla",
+    "bodyImage": "Vücut görseli",
+    "text": "Arama kutusu",
+    "searchPlaceholder": "Örn. baş ağrısı",
+    "listTitle": "Etiket",
+    "date": "Tarih",
     "save": "Kaydet",
     "translate": "Çevir",
     "export": "Dişari aktar",
-    "share":"Paylas",
+    "share": "Paylas",
     "screens": {
       "home": "Ana Sayfa",
       "mySymptomLists": "Semptom Listeleri",
@@ -35,6 +41,9 @@
       "translate": "Çeviri",
       "saveSymptomList": "Semptom Listesini Kaydet",
       "symptomDetail": "Semptom Detay",
+      "searchByText": "Yazarak ara",
+      "searchByImage": "Görselden Ara",
+      "searchSymptom": "Semptom Ara"
     },
     "pdf": {
       "mainTitle": "Symplator Semptom Cevirisi"
@@ -49,6 +58,28 @@
     "cancel": "İptal",
     "success": "Başarılı",
     "showTranslated": "Ceviriyi göster",
-    "showOriginal": "Orjinali göster"
+    "showOriginal": "Orjinali göster",
+    "pressBodyPart":"Semptom seçmek istediğiniz vücut bölgesine dokunun",
+    "bodyPartSymptoms": "{{name}} Semptomları",
+    "bodyParts": {
+      "head": "Kafa",
+      "eye": "Göz",
+      "nose": "Burun",
+      "face": "Yüz",
+      "mouth": "Ağız",
+      "ear": "Kulak",
+      "neck": "Boyun",
+      "chest": "Göğüs",
+      "abdomen": "Karın",
+      "pelvis": "Pelvis",
+      "arm": "Kol",
+      "hand": "El",
+      "leg": "Bacak",
+      "foot": "Ayak",
+      "back": "Sırt",
+      "waist": "Bel",
+      "buttocks": "Kalça",
+      "other": "Diğer"
+    }
   }
 }

@@ -41,8 +41,12 @@ export const WelcomeScreen: React.FC<Props> = ({navigation}) => {
   return (
     <View style={styles.main}>
       <View>
-        <Text style={styles.appName}>{t('appName')}</Text>
-        <Text style={styles.welcomeText}>{t('initialSettings.welcome1')}</Text>
+        <Text variant="displayMedium" style={styles.appName}>
+          {t('appName')}
+        </Text>
+        <Text variant="bodyMedium" style={styles.welcomeText}>
+          {t('initialSettings.welcome1')}
+        </Text>
         <LanguageButtons languages={LANGUAGES} handleClick={setUserLanguage} />
       </View>
       <InitialSettingsNavigation
@@ -69,15 +73,15 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   appName: {
-    fontSize: 40,
-    fontWeight: 'bold',
+    // fontSize: 40,
+    // fontWeight: 'bold',
     marginTop: '30%',
     marginBottom: '10%',
     textAlign: 'center',
   },
   welcomeText: {
-    fontFamily: 'Roboto, Open Sans',
-    fontSize: 15,
+    // fontFamily: 'Roboto, Open Sans',
+    // fontSize: 15,
     textAlign: 'center',
     width: '100%',
     marginBottom: '3%',

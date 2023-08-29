@@ -48,7 +48,7 @@ export const SymptomListScreen: React.FC<Props> = ({navigation}) => {
           onPress={handleSearch}>
           {t('search')}
         </Button> */}
-        <SelectedSymptomList isTranslated={true} />
+        {/* <SelectedSymptomList isTranslated={true} /> */}
       </View>
       <Button
         style={styles.saveBtn}

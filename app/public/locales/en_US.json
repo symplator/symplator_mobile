@@ -22,19 +22,28 @@
       "de": "German"
     },
     "select": "Select",
-    "search": "Search symptom",
+    "search": "Search Symptom",
+    "startSearch": "Start searching your symptoms",
+    "bodyImage": "Body Image",
+    "text": "Text",
+    "searchPlaceholder": "E.g. headache",
     "save": "Save",
     "translate": "Translate",
     "export": "Export",
-    "share":"Share",
+    "share": "Share",
     "screens": {
       "home": "Home",
       "mySymptomLists": "My Symptom Lists",
       "settings": "Settings",
       "mySymptoms": "My Symptoms",
+      "listTag": "Title",
+      "date": "Date",
       "saveSymptomList": "Save Symptom List",
       "translate": "Translate",
       "symptomDetail": "Symptom Detail",
+      "searchByText": "Search by Text",
+      "searchByImage": "Search by Image",
+      "searchSymptom": "Search Symptom"
     },
     "pdf": {
       "mainTitle": "Symplator Symptom Translation"
@@ -49,6 +58,28 @@
     "cancel": "Cancel",
     "success": "Success",
     "showTranslated": "Show translated",
-    "showOriginal": "Show original"
+    "showOriginal": "Show original",
+    "pressBodyPart":"Press on the body part to see the symptoms",
+    "bodyPartSymptoms": "{{name}} Symptoms",
+    "bodyParts": {
+      "head": "Head",
+      "eye": "Eye",
+      "nose": "Nose",
+      "face": "Face",
+      "mouth": "Mouth",
+      "ear": "Ear",
+      "neck": "Neck",
+      "chest": "Chest",
+      "abdomen": "Abdomen",
+      "pelvis": "Pelvis",
+      "arm": "Arm",
+      "hand": "Hand",
+      "leg": "Leg",
+      "foot": "Foot",
+      "back": "Back",
+      "waist": "Waist",
+      "buttocks": "Buttocks",
+      "other": "Other"
+    }
   }
 }

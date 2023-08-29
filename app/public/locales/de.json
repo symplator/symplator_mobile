@@ -23,6 +23,12 @@
     },
     "select": "Auswählen",
     "search": "Suche symptom",
+    "startSearch": "Start searching your symptoms",
+    "bodyImage": "Body Image",
+    "text": "Text",
+    "searchPlaceholder": "E.g. headache",
+    "listTitle": "Title",
+    "date": "Date",
     "save": "Save",
     "export": "Export",
     "share": "Share",
@@ -31,7 +37,10 @@
       "mySymptomLists": "My Symptom Lists",
       "settings": "Settings",
       "mySymptoms": "Meine Symptome",
-      "translate": "Übersetzung"
+      "translate": "Übersetzung",
+      "searchByText": "Search by Text",
+      "searchByImage": "Search by Image",
+      "searchSymptom": "Search Symptom"
     },
     "translatedSymptoms": "Translated Symptoms",
     "noSavedSymptomList": "Keine gespeicherte Symptomliste",
@@ -44,6 +53,28 @@
       "mainTitle": "Symplator Symptome Übersetzung"
     },
     "showTranslated": "Übersetzt zeigen",
-    "showOriginal": "Original zeigen"
+    "showOriginal": "Original zeigen",
+    "pressBodyPart":"Press on the body part to see the symptoms",
+    "bodyPartSymptoms": "{{name}} Symptome",
+    "bodyParts": {
+      "head": "Head",
+      "eye": "Eye",
+      "nose": "Nose",
+      "face": "Face",
+      "mouth": "Mouth",
+      "ear": "Ear",
+      "neck": "Neck",
+      "chest": "Chest",
+      "abdomen": "Abdomen",
+      "pelvis": "Pelvis",
+      "arm": "Arm",
+      "hand": "Hand",
+      "leg": "Leg",
+      "foot": "Foot",
+      "back": "Back",
+      "waist": "Waist",
+      "buttocks": "Buttocks",
+      "other": "Other"
+    }
   }
 }
