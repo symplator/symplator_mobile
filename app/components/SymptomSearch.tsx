@@ -1,131 +1,101 @@
-import {UserSettingsContext} from '../context/UserSettings/UserSettingsContext';
-import {SyncedRealmContext} from '../context/Realm/RealmContext';
-import {SymptomSchema} from '../models/Symptom';
-import React, {useContext, useState} from 'react';
-import {View, StyleSheet, FlatList, ListRenderItem} from 'react-native';
-import {List, Searchbar} from 'react-native-paper';
+import React from 'react';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Button, Text} from 'react-native-paper';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {useTheme} from 'react-native-paper';
 import {t} from 'i18next';
-import {SelectedSymptomListContext} from '../context/SelectedSymptomList/SelectedSymptomListContext';
 
-const {useQuery} = SyncedRealmContext;
-export const SymptomSearch = () => {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [results, setResults] = useState<Symptom[]>([]);
-  const objects = useQuery(SymptomSchema);
+interface Props {
+  hideTitle?: boolean;
+  redirect: (screen: keyof RootStackParams) => void;
+}
 
-  const userSettingsContext = useContext(UserSettingsContext);
-  const {currentLanguage} = userSettingsContext.userSettings;
-  const selectedSymptomListContext = useContext(SelectedSymptomListContext);
-  const {updateData} = selectedSymptomListContext as SelectedSymptomListContext;
-
-  const {data} = selectedSymptomListContext as SelectedSymptomListContext;
-
-  const renderItem: ListRenderItem<any> = ({item}) => {
-    return (
-      <List.Item
-        title={
-          item?.translations?.find(t => t.language === currentLanguage)?.name
-        }
-        onPress={() => addSymptomToSelectedList(item)}
-      />
-    );
-  };
-  const onSearchTextChange = (text: string): void => {
-    setSearchQuery(text);
-    if (text.length >= 3) {
-      handleSearch(text);
-    } else {
-      clearSearchResults();
-    }
-  };
-
-  const handleSearch = async (searchText: string) => {
-    try {
-      // Split the search query into separate words
-      const searchWords = searchText.split(' ');
-
-      // Filter the objects based on each word in the search query for each column
-      const filteredResults = Array.from(
-        objects
-          .filtered(
-            searchWords
-              ?.map(
-                word =>
-                  `translations.language="${currentLanguage}" and
-                  (translations.name CONTAINS[c] "${word}" or translations.detail CONTAINS[c] "${word}" or
-                   translations.tags CONTAINS[c] "${word}")`,
-              )
-              .join(' AND '),
-          )
-          .slice(),
-      );
-
-      setResults(filteredResults);
-      console.log('Filtered results:' + filteredResults.length);
-      console.log('----------------------------------');
-    } catch (error) {
-      console.error('Error querying Realm:', error);
-    }
-  };
-
-  const addSymptomToSelectedList = async (symptom: Symptom): Promise<void> => {
-    const symptoms = data?.symptoms || [];
-
-    if (!symptomExists(symptom, symptoms)) {
-      await updateData({...data, symptoms: [...symptoms, symptom]});
-    }
-
-    clearSearchResults();
-    clearSearchQuery();
-  };
-
-  const symptomExists = (symptom: Symptom, symptoms: Symptom[]): boolean => {
-    return symptoms.some(element => element._id === symptom._id);
-  };
-
-  const clearSearchResults = () => {
-    setResults([]);
-  };
-
-  const clearSearchQuery = () => {
-    setSearchQuery('');
-  };
-
+export const SymptomSearch: React.FC<Props> = ({hideTitle, redirect}) => {
+  const theme = useTheme();
   return (
-    <View style={styles.list}>
-      <Searchbar
-        placeholder={t('search')}
-        onChangeText={text => onSearchTextChange(text)}
-        value={searchQuery}
-        style={styles.searchbar}
-        showDivider={false}
-      />
-      <>
-        <FlatList
-          style={styles.symptomList}
-          horizontal={false}
-          data={results}
-          renderItem={renderItem}
-          keyExtractor={item => item._id.toString()}
-        />
-      </>
-    </View>
+    <>
+      <View>
+        {!hideTitle && (
+          <Text variant="titleMedium" style={styles.title}>
+            {t('startSearch')}
+          </Text>
+        )}
+
+        {hideTitle ? (
+          <View style={styles.searchIconContainer}>
+            <TouchableOpacity
+              style={styles.searchIcon}
+              onPress={() => redirect('SymptomImageSearchScreen')}>
+              <MaterialCommunityIcons
+                name={'human-male'}
+                size={40}
+                color={theme.colors.primary}
+                style={styles.icon}
+              />
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.searchIcon}
+              onPress={() => redirect('SymptomTextSearchScreen')}>
+              <MaterialCommunityIcons
+                name={'text-box-search-outline'}
+                size={40}
+                color={theme.colors.primary}
+                style={styles.icon}
+              />
+            </TouchableOpacity>
+          </View>
+        ) : (
+          <View style={styles.searchBtnContainer}>
+            <Button
+              mode="contained"
+              icon={'human-male'}
+              accessibilityLabel="Search by body image"
+              accessibilityHint="Search by body image"
+              style={styles.btn}
+              onPress={() => redirect('SymptomImageSearchScreen')}>
+              {t('bodyImage')}
+            </Button>
+            <Button
+              mode="contained"
+              icon={'text-box-search-outline'}
+              accessibilityLabel="Search by text"
+              accessibilityHint="Search by text"
+              style={styles.btn}
+              onPress={() => redirect('SymptomTextSearchScreen')}>
+              {t('text')}
+            </Button>
+          </View>
+        )}
+      </View>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
-  searchbar: {
-    borderRadius: 4,
-    backgroundColor: '#fff',
+  title: {
+    textAlign: 'center',
+    margin: 30,
   },
-  list: {
+  searchIconContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+  },
+  searchIcon: {
+    borderRadius: 4,
+    maxWidth: 55,
+    paddingLeft: 4,
+  },
+  icon: {padding: 5},
+  searchBtnContainer: {
     marginTop: 10,
-    marginBottom: 20,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
   },
-  symptomList: {
-    borderWidth: 2,
+  btn: {
     borderRadius: 4,
-    borderColor: '#e1e8ee',
-    // marginHorizontal: 10,
+    minWidth: '35%',
   },
 });

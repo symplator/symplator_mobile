@@ -46,7 +46,9 @@ export const LanguageScreen: React.FC<Props> = ({navigation}) => {
 
   return (
     <View style={styles.main}>
-      <Text style={styles.header}>{t('initialSettings.setupLanguages')}</Text>
+      <Text variant="titleLarge" style={styles.header}>
+        {t('initialSettings.setupLanguages')}
+      </Text>
       <View style={styles.langView}>
         <LanguageSelect
           languageType="currentLanguage"
@@ -84,7 +86,7 @@ const styles = StyleSheet.create({
   },
   header: {
     textAlign: 'center',
-    fontSize: 20,
+    // fontSize: 20,
     marginTop: 90,
   },
   langView: {

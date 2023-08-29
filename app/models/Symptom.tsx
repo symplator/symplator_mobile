@@ -2,13 +2,13 @@ import {SymptomTranslationSchema} from './SymptomTranslation';
 import Realm from 'realm';
 
 export class SymptomSchema extends Realm.Object<SymptomSchema> {
-  _id!: string;
+  _id!: Realm.BSON.ObjectId;
   bodyParts!: number[];
   translations!: SymptomTranslationSchema[];
 
   constructor(
     realm: Realm,
-    _id: string,
+    _id: Realm.BSON.ObjectId,
     bodyParts: number[],
     translations: SymptomTranslationSchema[],
   ) {
@@ -19,7 +19,7 @@ export class SymptomSchema extends Realm.Object<SymptomSchema> {
     name: 'Symptom',
     primaryKey: '_id',
     properties: {
-      _id: 'string',
+      _id: 'objectId',
       body_parts: 'int[]', // todo clarify
       translations: 'SymptomTranslation[]',
     },

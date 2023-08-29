@@ -28,7 +28,9 @@ export const GenderScreen: React.FC<Props> = ({navigation}) => {
   return (
     <View style={styles.main}>
       <View>
-        <Text style={styles.header}>{t('initialSettings.selectGender')}</Text>
+        <Text variant="titleLarge" style={styles.header}>
+          {t('initialSettings.selectGender')}
+        </Text>
         <View style={styles.genderBtnView}>
           <IconButton
             style={[
@@ -75,7 +77,7 @@ const styles = StyleSheet.create({
   },
   header: {
     textAlign: 'center',
-    fontSize: 20,
+    // fontSize: 20,
     marginTop: 90,
   },
   genderBtnView: {

@@ -6,6 +6,8 @@ type RootStackParams = {
   SaveSymptomListScreen: undefined;
   TranslationScreen: undefined;
   SymptomDetailScreen: {data: any};
+  SymptomTextSearchScreen: undefined;
+  SymptomImageSearchScreen: undefined;
 };
 
 type InitialSettingsStackParams = {

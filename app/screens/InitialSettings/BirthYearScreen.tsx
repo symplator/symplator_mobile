@@ -39,7 +39,7 @@ export const BirthYearScreen: React.FC<Props> = ({navigation}) => {
   return (
     <View style={styles.main}>
       <View>
-        <Text style={styles.header}>
+        <Text variant="titleLarge" style={styles.header}>
           {t('initialSettings.selectBirthYear')}
         </Text>
         <View style={styles.yearPickerContainer}>
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
   },
   header: {
     textAlign: 'center',
-    fontSize: 20,
+    // fontSize: 20,
     marginTop: 90,
   },
   yearPickerContainer: {

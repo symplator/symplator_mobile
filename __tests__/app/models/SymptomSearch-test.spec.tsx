@@ -1,6 +1,6 @@
 import React from 'react';
 import {render, fireEvent, waitFor} from '@testing-library/react-native';
-import SymptomSearch from '../../../app/components/SymptomSearch';
+import {SymptomTextSearchScreen} from '../../../app/screens/SymptomTextSearchScreen';
 
 // Mock Realm module
 jest.mock('realm', () => ({
@@ -10,7 +10,7 @@ jest.mock('realm', () => ({
 
 describe('SymptomSearch', () => {
   it('renders the search component correctly', () => {
-    const {getByPlaceholderText} = render(<SymptomSearch />);
+    const {getByPlaceholderText} = render(<SymptomTextSearchScreen />);
     const inputElement = getByPlaceholderText('Enter your search query');
     expect(inputElement).toBeTruthy();
   });
@@ -31,7 +31,7 @@ describe('SymptomSearch', () => {
     jest.spyOn(require('realm'), 'objects').mockReturnValue(mockObjects);
     jest.spyOn(mockObjects, 'filtered').mockReturnValue(mockFilteredResults);
 
-    const {getByPlaceholderText, getByText} = render(<SymptomSearch />);
+    const {getByPlaceholderText, getByText} = render(<SymptomTextSearchScreen />);
     const inputElement = getByPlaceholderText('Enter your search query');
 
     // Enter search query and perform search

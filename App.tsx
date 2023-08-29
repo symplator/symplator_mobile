@@ -8,8 +8,7 @@ import {UserSettingsProvider} from './app/components/Providers/UserSettingsProvi
 import {LogBox} from 'react-native';
 
 export const App: React.FC = () => {
-
-  LogBox.ignoreLogs(['NativeEventEmitter']); 
+  LogBox.ignoreLogs(['NativeEventEmitter']);
 
   const app = useApp();
   const [user, setUser] = useState<User<
