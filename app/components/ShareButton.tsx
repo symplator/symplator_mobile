@@ -15,12 +15,21 @@ export const ShareButton: React.FC<Props> = ({data}) => {
   const textToShareTarget =
     t('mySymptoms', {lng: targetLanguage}) +
     ':\n' +
+    '----------------------------\n' +
     data?.symptoms
       ?.map(
-        symptom =>
+        (symptom, index) =>
+          index +
+          1 +
+          '. ' +
           symptom?.translations?.find(
             translation => translation.language === targetLanguage,
-          )?.name,
+          )?.name +
+          '\n(' +
+          symptom?.translations?.find(
+            translation => translation.language === targetLanguage,
+          )?.name +
+          ')',
       )
       .join('\n');
 

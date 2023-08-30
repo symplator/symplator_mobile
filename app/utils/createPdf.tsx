@@ -1,4 +1,6 @@
 import {t} from 'i18next';
+import { Alert } from 'react-native';
+import ReactNativeBlobUtil from 'react-native-blob-util';
 import RNHTMLtoPDF from 'react-native-html-to-pdf';
 
 // Function to create and save the PDF
@@ -36,46 +38,44 @@ export const createPdf = async (
           margin-bottom: 5px;
           font-size: 22px;
         }
+        .itemSmall {
+          margin-bottom: 5px;
+          font-size: 15px;
+          font-style: italic;
+        }
         .separator {
           height: 2px;
           background-color: #ccc;
           margin: 20px 0;
         }
       </style>
-    </head>
+    </head><
     <body>
-      <h1>${t('pdf.mainTitle')}</h1>
-      
-      <div class="header">${t('mySymptoms', {lng: targetLanguage})}</div>
+      <h1>${t('pdf.mainTitle', {lng: targetLanguage})}</h1>
+      <br>
       <div class="item-list">` +
       symptoms?.map(
-        symptom =>
-          ` <div class="item">${
+        (symptom, index) =>
+          ` <div class="item">${index + 1}. ${
             symptom?.translations?.find(
               translation => translation.language === targetLanguage,
             )?.name
-          }</div>`,
-      ) +
-      `</div>
-      <div class="separator"></div>
-      <div class="header">${t('mySymptoms', {lng: currentLanguage})}</div>
-      <div class="item-list">` +
-      symptoms?.map(
-        symptom =>
-          `<div class="item">${
+          }</div>
+          <div class="itemSmall"> ${
             symptom?.translations?.find(
               translation => translation.language === currentLanguage,
             )?.name
-          }</div>`,
+          }</div>
+          <div class="separator"></div>
+          `,
       ) +
       `</div>
     </body>
   </html>`,
     fileName: t('mySymptoms'),
-    directory: 'Documents',
+    directory: 'Downloads',
   };
 
   let file = await RNHTMLtoPDF.convert(options);
-
   return file.filePath;
 };
