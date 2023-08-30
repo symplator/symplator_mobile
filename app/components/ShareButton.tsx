@@ -27,21 +27,9 @@ export const ShareButton: React.FC<Props> = ({data}) => {
           )?.name +
           '\n(' +
           symptom?.translations?.find(
-            translation => translation.language === targetLanguage,
-          )?.name +
-          ')',
-      )
-      .join('\n');
-
-  const textToShareCurrent =
-    t('mySymptoms', {lng: currentLanguage}) +
-    ':\n' +
-    data?.symptoms
-      ?.map(
-        symptom =>
-          symptom?.translations?.find(
             translation => translation.language === currentLanguage,
-          )?.name,
+          )?.name +
+          ')\n',
       )
       .join('\n');
 
@@ -49,7 +37,7 @@ export const ShareButton: React.FC<Props> = ({data}) => {
     try {
       const options = {
         title: t('mySymptoms'),
-        message: `${textToShareTarget} \n ${textToShareCurrent}`,
+        message: `${textToShareTarget}`,
       };
 
       await Share.share(options);
