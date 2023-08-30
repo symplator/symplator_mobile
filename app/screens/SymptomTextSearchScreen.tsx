@@ -24,8 +24,6 @@ export const SymptomTextSearchScreen: React.FC<Props> = ({
   const [results, setResults] = useState<Symptom[]>([]);
   const objects = useQuery(SymptomSchema);
 
-  console.log('objects', JSON.stringify(objects, null, 2));
-
   const userSettingsContext = useContext(UserSettingsContext);
   const {currentLanguage} = userSettingsContext.userSettings;
   const selectedSymptomListContext = useContext(SelectedSymptomListContext);

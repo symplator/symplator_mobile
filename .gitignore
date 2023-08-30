@@ -71,3 +71,7 @@ yarn-error.log
 
 /app/assets/basic-anatomy/*
 /app/components/HumanBodyPartsImage.tsx
+
+#Bundle files
+/android/app/src/main/assets/index.android.bundle 
+/android/app/src/main/res/*
