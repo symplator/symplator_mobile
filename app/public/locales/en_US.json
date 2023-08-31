@@ -59,7 +59,7 @@
     "success": "Success",
     "showTranslated": "Show translated",
     "showOriginal": "Show original",
-    "pressBodyPart":"Press on the body part to see the symptoms",
+    "pressBodyPart": "Press on the body part to see the symptoms",
     "bodyPartSymptoms": "{{name}} Symptoms",
     "bodyParts": {
       "head": "Head",
