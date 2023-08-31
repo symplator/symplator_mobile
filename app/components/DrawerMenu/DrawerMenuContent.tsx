@@ -10,9 +10,9 @@ const DrawerContent: React.FC<DrawerContentComponentProps> = ({navigation}) => {
   const {t} = useTranslation();
   const theme = useTheme();
 
-  const navigateToScreen = (screen: keyof RootStackParams) => {
-    navigation.navigate(screen);
-  };
+  // const navigateToScreen = (screen: keyof RootStackParams) => {
+  //   navigation.navigate(screen);
+  // };
 
   return (
     <View style={styles.container}>
@@ -27,7 +27,7 @@ const DrawerContent: React.FC<DrawerContentComponentProps> = ({navigation}) => {
             <TouchableOpacity
               key={item.title}
               style={styles.drawerItem}
-              onPress={() => navigateToScreen(item.screen)}>
+              onPress={() => navigation.navigate(item.name)}>
               <MaterialCommunityIcons
                 name={item.icon}
                 size={20}
