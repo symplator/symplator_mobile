@@ -120,7 +120,9 @@ const Form: React.FC<SettingsFormProps> = ({redirect}) => {
             defaultValue={gender}
             render={({field}) => (
               <>
-                <Text variant="labelLarge">{t('initialSettings.gender')}</Text>
+                <Text variant="labelLarge">
+                  {t('initialSettings.bodyImage')}
+                </Text>
                 <View style={styles.containerGender}>
                   <View style={styles.genderItem}>
                     <Text>{t('initialSettings.woman')}</Text>

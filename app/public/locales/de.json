@@ -4,9 +4,9 @@
     "initialSettings": {
       "welcome1": "Sprachbarrieren im Gesundheitswesen überwinden",
       "welcome2": "Herzlich Willkommen bei unserer App für medizinische Übersetzungen!",
-      "copyright": "© 2023 Team Symp-lator. Alle Rechte vorbehalten.",
-      "selectGender": "Wählen Sie bitte Ihr Geschlecht",
-      "gender": "Geschlecht",
+      "copyright": "© 2023 Team Symplator. Alle Rechte vorbehalten.",
+      "selectBodyImage": "Wählen Sie bitte das Körperbild aus, das Sie verwenden möchten",
+      "bodyImage": "Körperbild",
       "woman": "Weiblich",
       "man": "Männlich",
       "selectBirthYear": "Wählen Sie bitte Ihr Geburtsjahr",

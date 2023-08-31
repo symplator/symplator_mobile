@@ -29,7 +29,7 @@ export const GenderScreen: React.FC<Props> = ({navigation}) => {
     <View style={styles.main}>
       <View>
         <Text variant="titleLarge" style={styles.header}>
-          {t('initialSettings.selectGender')}
+          {t('initialSettings.selectBodyImage')}
         </Text>
         <View style={styles.genderBtnView}>
           <IconButton
