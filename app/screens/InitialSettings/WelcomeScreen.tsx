@@ -44,7 +44,7 @@ export const WelcomeScreen: React.FC<Props> = ({navigation}) => {
         <Text variant="displayMedium" style={styles.appName}>
           {t('appName')}
         </Text>
-        <Text variant="bodyMedium" style={styles.welcomeText}>
+        <Text variant="bodyLarge" style={styles.welcomeText}>
           {t('initialSettings.welcome1')}
         </Text>
         <LanguageButtons languages={LANGUAGES} handleClick={setUserLanguage} />

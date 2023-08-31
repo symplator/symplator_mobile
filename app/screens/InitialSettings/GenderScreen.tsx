@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     // fontSize: 20,
     marginTop: 90,
-    marginHorizontal:20
+    marginHorizontal: 40,
   },
   genderBtnView: {
     marginTop: 100,
