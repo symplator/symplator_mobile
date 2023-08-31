@@ -13,7 +13,7 @@ interface Props {
   visible: boolean;
   hideModal: () => void;
   selectedBodyPart: string;
-  selectedBodyPartId: number;
+  selectedBodyPartIds: number[];
   redirect: (screen: keyof RootStackParams) => void;
 }
 const {useQuery} = SyncedRealmContext;
@@ -22,7 +22,7 @@ export const BodyPartSymptomsModal: React.FC<Props> = ({
   visible,
   hideModal,
   selectedBodyPart,
-  selectedBodyPartId,
+  selectedBodyPartIds,
   redirect,
 }) => {
   const theme = useTheme();
@@ -39,13 +39,30 @@ export const BodyPartSymptomsModal: React.FC<Props> = ({
   const {currentLanguage} = userSettingsContext.userSettings;
 
   useEffect(() => {
-    if (selectedBodyPartId && symptoms) {
+    if (selectedBodyPartIds && symptoms) {
+      // const results = Array.from(
+      //   symptoms.filtered('body_parts=$0', selectedBodyPartIds),
+      // );
+      console.log('selectedBodyPartIds ', selectedBodyPartIds);
+      console.log(
+        'query ',
+        selectedBodyPartIds
+          ?.map((id, index) => `body_parts=$${index}`)
+          .join(' OR '),
+      );
       const results = Array.from(
-        symptoms.filtered('body_parts=$0', selectedBodyPartId),
+        symptoms
+          .filtered(
+            selectedBodyPartIds
+              ?.map((id, index) => `body_parts=$${index}`)
+              .join(' OR '),
+            ...selectedBodyPartIds,
+          )
+          .slice(),
       );
       setFilteredSymptoms(results);
     }
-  }, [selectedBodyPartId, symptoms]);
+  }, [selectedBodyPartIds, symptoms]);
 
   useEffect(() => {
     if (data?.symptoms?.length && !isLoading) {
