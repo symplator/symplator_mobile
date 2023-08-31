@@ -4,7 +4,7 @@ import {StyleSheet} from 'react-native';
 import {t} from 'i18next';
 
 type Props = {
-  data: SelectedSymptomList;
+  data: SelectedSymptomList
   handleExport: () => void;
 };
 
@@ -27,6 +27,7 @@ export const ExportButton: React.FC<Props> = ({data, handleExport}) => {
 
 const styles = StyleSheet.create({
   btn: {
+    width: '40%',
     borderRadius: 4,
   },
 });
