@@ -6,6 +6,7 @@ import {t} from 'i18next';
 import {SymptomSchema} from '../models/Symptom';
 import {SelectedSymptomListContext} from '../context/SelectedSymptomList/SelectedSymptomListContext';
 import {SyncedRealmContext} from '../context/Realm/RealmContext';
+import {UserSettingsContext} from '../context/UserSettings/UserSettingsContext';
 
 interface Props {
   visible: boolean;
@@ -31,6 +32,9 @@ export const BodyPartSymptomsModal: React.FC<Props> = ({
   const [filteredSymptoms, setFilteredSymptoms] = useState(null);
   const [selectedSymptoms, setSelectedSymptoms] = useState([]);
   const [selectedSymptomCount, setSelectedSymptomCount] = useState(0);
+    
+  const userSettingsContext = useContext(UserSettingsContext);
+  const {currentLanguage} = userSettingsContext.userSettings;
 
   useEffect(() => {
     if (selectedBodyPartId && symptoms) {
@@ -103,7 +107,10 @@ export const BodyPartSymptomsModal: React.FC<Props> = ({
                 status={isSymptomSelected(item._id) ? 'checked' : 'unchecked'}
               />
               <Text style={styles.symptomName}>
-                {item.translations?.[0]?.name}
+                {
+                  item?.translations?.find(t => t.language === currentLanguage)
+                    ?.name
+                }
               </Text>
             </TouchableOpacity>
           </View>
