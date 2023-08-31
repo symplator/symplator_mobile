@@ -16,6 +16,11 @@ const DrawerContent: React.FC<DrawerContentComponentProps> = ({navigation}) => {
 
   return (
     <View style={styles.container}>
+      <TouchableOpacity
+        style={styles.closeIcon}
+        onPress={navigation.toggleDrawer}>
+        <MaterialCommunityIcons name={'close'} size={30} style={styles.icon} />
+      </TouchableOpacity>
       {DRAWER_MENU_ITEMS.map(
         item =>
           item.isShownInDrawer && (
@@ -41,16 +46,25 @@ const DrawerContent: React.FC<DrawerContentComponentProps> = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 40,
-    paddingHorizontal: 20,
+    marginTop: 40,
+    marginHorizontal: 20,
     backgroundColor: '#fff',
+    position: 'relative',
   },
+  closeIcon: {
+    zIndex: 10,
+    position: 'absolute',
+    left: 210,
+    top: -25,
+  },
+  icon: {padding: 5},
   drawerItem: {
-    marginBottom: 20,
+    marginBottom: 5,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
+    height: 40,
   },
   drawerItemText: {
     fontSize: 18,
