@@ -7,6 +7,7 @@ import {SymptomSchema} from '../models/Symptom';
 import {SelectedSymptomListContext} from '../context/SelectedSymptomList/SelectedSymptomListContext';
 import {SyncedRealmContext} from '../context/Realm/RealmContext';
 import {UserSettingsContext} from '../context/UserSettings/UserSettingsContext';
+import {useTheme} from 'react-native-paper';
 
 interface Props {
   visible: boolean;
@@ -24,6 +25,7 @@ export const BodyPartSymptomsModal: React.FC<Props> = ({
   selectedBodyPartId,
   redirect,
 }) => {
+  const theme = useTheme();
   const symptoms = useQuery(SymptomSchema);
   const selectedSymptomListContext = useContext(SelectedSymptomListContext);
   const {data, isLoading, updateData} =
@@ -32,7 +34,7 @@ export const BodyPartSymptomsModal: React.FC<Props> = ({
   const [filteredSymptoms, setFilteredSymptoms] = useState(null);
   const [selectedSymptoms, setSelectedSymptoms] = useState([]);
   const [selectedSymptomCount, setSelectedSymptomCount] = useState(0);
-    
+
   const userSettingsContext = useContext(UserSettingsContext);
   const {currentLanguage} = userSettingsContext.userSettings;
 
@@ -81,7 +83,7 @@ export const BodyPartSymptomsModal: React.FC<Props> = ({
             name: t(`bodyParts.${selectedBodyPart}`),
           })}
         </Text>
-        <View style={styles.counter}>
+        <View style={[styles.counter, {backgroundColor: theme.colors.primary}]}>
           <Text style={styles.counterTxt}>{selectedSymptomCount}</Text>
         </View>
       </View>
@@ -140,6 +142,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 10,
     top: 10,
+    zIndex: 10,
   },
   icon: {padding: 5},
   title: {
@@ -151,8 +154,7 @@ const styles = StyleSheet.create({
   counter: {
     width: 24,
     height: 24,
-    borderRadius: 12, //half radius will make it cirlce,
-    backgroundColor: 'purple',
+    borderRadius: 12,
     display: 'flex',
     alignItems: 'center',
     alignContent: 'center',
