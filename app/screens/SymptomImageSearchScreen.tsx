@@ -12,12 +12,12 @@ type Props = {
 
 export const SymptomImageSearchScreen: React.FC<Props> = ({navigation}) => {
   const [visible, setVisible] = useState(false);
-  const [selectedBodyPartId, setSelectedBodyPartId] = useState(null);
+  const [selectedBodyPartIds, setSelectedBodyPartIds] = useState(null);
   const [selectedBodyPart, setSelectedBodyPart] = useState(null);
 
   const showModal = ({id, name}) => {
     setVisible(true);
-    setSelectedBodyPartId(id);
+    setSelectedBodyPartIds(id);
     setSelectedBodyPart(name);
   };
   const hideModal = () => setVisible(false);
@@ -38,7 +38,7 @@ export const SymptomImageSearchScreen: React.FC<Props> = ({navigation}) => {
             visible={visible}
             hideModal={hideModal}
             selectedBodyPart={selectedBodyPart}
-            selectedBodyPartId={selectedBodyPartId}
+            selectedBodyPartIds={selectedBodyPartIds}
             redirect={redirect}
           />
         )}
