@@ -1,4 +1,4 @@
-# symplator_mobile
+# Symplator Mobile Application
 
 This is a React Native app integrated with Realm Sync.
 
