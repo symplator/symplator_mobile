@@ -25,7 +25,7 @@ This is a React Native app integrated with Realm Sync.
 2. Configure Realm Sync:
 
  - Rename env.dist as env in the project's root directory.
- - Change variballes there with your actual Realm application values.
+ - Change variables with your actual Realm application values.
 
 ## Usage
 
