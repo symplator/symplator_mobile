@@ -1,118 +1,58 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import React, {useEffect, useState} from 'react';
+import {useApp} from '@realm/react';
+import {AppSync} from './app/AppSync';
+import {DefaultFunctionsFactory, DefaultUserProfileData, User} from 'realm';
+import {API_KEY} from '@env';
+import {SyncedRealmContext} from './app/context/Realm/RealmContext';
+import {UserSettingsProvider} from './app/components/Providers/UserSettingsProvider';
+import {LogBox} from 'react-native';
 
-import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+export const App: React.FC = () => {
+  LogBox.ignoreLogs(['NativeEventEmitter']);
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+  const app = useApp();
+  const [user, setUser] = useState<User<
+    DefaultFunctionsFactory,
+    SimpleObject,
+    DefaultUserProfileData
+  > | null>(null);
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
+  useEffect(() => {
+    const loginWithApiKey = async () => {
+      try {
+        const credentials = Realm.Credentials.apiKey(API_KEY);
+        const currentUser = await app.logIn(credentials);
+        setUser(currentUser);
+      } catch (error) {
+        console.error('Error logging into Realm: ', error);
+      }
+    };
+    loginWithApiKey();
+  }, [app]);
 
-function Section({children, title}: SectionProps): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
-
-function App(): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+  const {RealmProvider: SyncedRealmProvider} = SyncedRealmContext;
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
+    <>
+      {user && (
+        <SyncedRealmProvider
+          sync={{
+            flexible: true,
+            onError: console.error,
+            user: user,
+            initialSubscriptions: {
+              update(subs, realm) {
+                subs.add(realm.objects('Symptom'));
+              },
+            },
           }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+          <UserSettingsProvider>
+            <AppSync />
+          </UserSettingsProvider>
+        </SyncedRealmProvider>
+      )}
+    </>
   );
-}
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
+};
 
 export default App;
