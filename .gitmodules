@@ -1,0 +1,3 @@
+[submodule "submodules/body-images"]
+	path = submodules/body-images
+	url = https://github.com/symplator/body-images.git
