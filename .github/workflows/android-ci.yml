@@ -11,10 +11,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Debug
+        run: |
+          git status
+          git submodule status
       - name: Checkout code
         uses: actions/checkout@v2
         with:
           submodules: 'recursive'
+          token: ${{ secrets.SUBMODULE_GITHUB_TOKEN }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
