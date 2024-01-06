@@ -1,0 +1,43 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+      - integrate-github-actions
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          submodules: 'recursive'
+          token: ${{ secrets.SUBMODULE_GITHUB_TOKEN }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Bundle
+        run: npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
+
+      - name: Build Android
+        run: |
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleRelease
+
+      # - name: Deploy to Google Play
+      #   uses: wzieba/gradle-play-publisher@v3
+      #   with:
+      #     serviceAccountJson: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
+      #     packageName: com.symplator_mobile # Replace with your app's package name
+      #     track: internal # Replace with the desired track (e.g., alpha, beta, production)
+
