@@ -11,10 +11,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Debug
-        run: |
-          git status
-          git submodule status
       - name: Checkout code
         uses: actions/checkout@v2
         with:
