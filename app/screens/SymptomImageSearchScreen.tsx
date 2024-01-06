@@ -3,7 +3,7 @@ import {StyleSheet} from 'react-native';
 import {PaperProvider, Portal, Text} from 'react-native-paper';
 import {t} from 'i18next';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {HumanBodyPartsImage} from '../components/HumanBodyPartsImage';
+import {HumanBodyPartsImage} from '../../submodules/body-images/components/HumanBodyPartsImage';
 import {BodyPartSymptomsModal} from '../components/BodyPartSymptomsModal';
 
 type Props = {
